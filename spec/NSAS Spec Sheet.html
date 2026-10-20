@@ -1,0 +1,830 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<title>NSAS Spec Sheet</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@700;900&family=Noto+Serif+JP:wght@700;900&display=swap">
+<style>
+/* Layout: a drafting sheet. Title block on top, then numbered spec sections; each pairs a to-scale view with its value table. */
+:root {
+  --paper: #eef0ec;
+  --sheet: #fbfbf8;
+  --ink: #1b232b;
+  --muted: #5a6570;
+  --rule: #cdd3d4;
+  --dim: #1c5ea6;
+  --hatch: #8d979f;
+  --keyfill: #d8e4f0;
+  --flag: #a65c00;
+  --flagbg: #fbf0dc;
+  --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #101418; --sheet: #161b20; --ink: #e2e6e9; --muted: #98a3ad; --rule: #2d353c;
+    --dim: #6eaaf0; --hatch: #5d6871; --keyfill: #20364d; --flag: #e8a640; --flagbg: #2a2116;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #101418; --sheet: #161b20; --ink: #e2e6e9; --muted: #98a3ad; --rule: #2d353c;
+  --dim: #6eaaf0; --hatch: #5d6871; --keyfill: #20364d; --flag: #e8a640; --flagbg: #2a2116;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.sheet { max-width: 1020px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--rule); }
+header.tb { display: grid; grid-template-columns: minmax(0, 2.2fr) repeat(3, minmax(0, 1fr)); border-bottom: 2px solid var(--ink); }
+.tb > div { padding: 12px 16px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); min-width: 0; }
+.tb > div:nth-child(4n) { border-right: 0; }
+.tb .name { grid-row: span 2; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+.tb h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 5vw, 44px); line-height: 1; margin: 0; letter-spacing: 0.01em; text-wrap: balance; }
+.tb .sub { color: var(--muted); font-size: 14px; }
+.k { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+.v { font-family: var(--mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+main { padding: 8px 0 0; }
+section { padding: 28px 28px 30px; border-bottom: 1px solid var(--rule); }
+section:last-child { border-bottom: 0; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 25px; letter-spacing: 0.02em; margin: 0 0 12px; display: flex; gap: 12px; align-items: baseline; text-wrap: balance; }
+h2 .n { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--dim); border: 1px solid var(--dim); padding: 1px 7px; position: relative; top: -3px; }
+h3 { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: 0.03em; margin: 22px 0 8px; text-transform: uppercase; color: var(--muted); }
+p { margin: 0 0 10px; max-width: 68ch; }
+ul.rules { margin: 0 0 12px; padding-left: 20px; max-width: 72ch; }
+ul.rules li { margin: 3px 0; }
+.pair { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; margin-top: 8px; }
+.pair.wide { grid-template-columns: minmax(0, 1fr); }
+figure { margin: 0; min-width: 0; }
+.dwgwrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--sheet); padding: 10px; }
+svg.dwg { display: block; width: 100%; height: auto; margin: 0 auto; }
+figcaption { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-top: 6px; letter-spacing: 0.02em; }
+figcaption b { color: var(--ink); font-weight: 500; }
+.tblwrap { overflow-x: auto; min-width: 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.num strong { color: var(--dim); font-weight: 500; }
+td .why { color: var(--muted); font-size: 13px; }
+.flag { border-left: 3px solid var(--flag); background: var(--flagbg); padding: 10px 14px; margin: 14px 0 0; font-size: 14px; max-width: 76ch; }
+.flag b { color: var(--flag); font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.optional { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--muted); border: 1px dashed var(--muted); padding: 1px 6px; text-transform: uppercase; position: relative; top: -3px; }
+ol.open { padding-left: 22px; margin: 0; max-width: 76ch; }
+ol.open li { margin: 6px 0; }
+.rev td:first-child { font-family: var(--mono); white-space: nowrap; }
+code { font-family: var(--mono); font-size: 0.92em; }
+/* drawing styles */
+.dwg .part { fill: none; stroke: var(--ink); stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.dwg .cut, .dwg .cut2 { stroke: none; }
+.dwg .hatchl { stroke: var(--hatch); stroke-width: 0.9px; vector-effect: non-scaling-stroke; }
+.dwg .brk { stroke: var(--ink); stroke-width: 0.8px; stroke-dasharray: 10 3 2 3; vector-effect: non-scaling-stroke; }
+.dwg .func { stroke: var(--dim); stroke-width: 1.2px; stroke-dasharray: 5 3; vector-effect: non-scaling-stroke; }
+.dwg .ctr { stroke: var(--muted); stroke-width: 0.8px; stroke-dasharray: 12 3 2 3; vector-effect: non-scaling-stroke; }
+.dwg .ctrs { stroke: var(--muted); stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.dwg .dim, .dwg .ext, .dwg .dimarc { stroke: var(--dim); stroke-width: 0.9px; fill: none; vector-effect: non-scaling-stroke; }
+.dwg .ext { stroke-width: 0.6px; }
+.dwg .lead { stroke: var(--muted); stroke-width: 0.8px; vector-effect: non-scaling-stroke; }
+.dwg .dot { fill: var(--muted); }
+.dwg .arrow { fill: var(--dim); stroke: none; }
+.dwg .arrowm { fill: var(--muted); stroke: none; }
+.dwg text { font-family: var(--mono); }
+.dwg .dimt { fill: var(--dim); }
+.dwg .note { fill: var(--ink); }
+.dwg .lbl { fill: var(--muted); letter-spacing: 0.08em; }
+.dwg .big { fill: var(--ink); font-weight: 500; }
+.dwg .sheetfill { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.dwg .holef { fill: var(--ink); stroke: none; }
+.dwg .groovef { fill: var(--hatch); stroke: var(--ink); stroke-width: 0.8px; vector-effect: non-scaling-stroke; }
+.dwg .key, .dwg .keysec { fill: var(--keyfill); stroke: var(--dim); stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.dwg .holeline { fill: none; stroke: var(--ink); stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+@media (max-width: 760px) {
+  header.tb { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .tb .name { grid-column: 1 / -1; grid-row: auto; }
+  .tb > div:nth-child(4n) { border-right: 1px solid var(--rule); }
+  .tb > div:nth-child(2n+1):not(.name) { border-right: 0; }
+  .pair { grid-template-columns: minmax(0, 1fr); }
+  section { padding: 22px 16px 24px; }
+}
+
+/* ── NSAS / MECHA ARMOR VISUAL SYSTEM ─────────────────────────────────
+   Presentation layer only: technical copy, dimensions and SVG geometry remain unchanged. */
+:root {
+  --paper: #d9dde0;
+  --sheet: #f1f2f0;
+  --ink: #20262b;
+  --muted: #626d75;
+  --rule: #b5bdc2;
+  --dim: #a82c26;
+  --hatch: #929ba1;
+  --keyfill: #d7dce0;
+  --flag: #b52d25;
+  --flagbg: #f6e7e3;
+  --armor-red: #d82f25;
+  --armor-gold: #c99a3d;
+  --gunmetal: #30383e;
+  --panel-edge: #8f999f;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #171c20; --sheet: #20262b; --ink: #e8ebed; --muted: #a0aab1; --rule: #3e484f;
+    --dim: #ef5147; --hatch: #69747b; --keyfill: #303b43; --flag: #e95a50; --flagbg: #382522;
+    --panel-edge: #566169;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #171c20; --sheet: #20262b; --ink: #e8ebed; --muted: #a0aab1; --rule: #3e484f;
+  --dim: #ef5147; --hatch: #69747b; --keyfill: #303b43; --flag: #e95a50; --flagbg: #382522;
+  --panel-edge: #566169;
+}
+body {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(rgba(90,103,112,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90,103,112,.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  padding-block: 32px 64px;
+}
+.sheet {
+  position: relative;
+  overflow: hidden;
+  max-width: 1080px;
+  border: 1px solid var(--panel-edge);
+  box-shadow: 0 14px 42px rgba(18,25,30,.14), 0 2px 0 rgba(255,255,255,.42) inset;
+}
+.sheet::before {
+  content: "NSAS  /  ENGINEERING SYSTEMS";
+  display: block;
+  padding: 7px 28px 6px;
+  color: #f4f5f5;
+  background: var(--gunmetal);
+  border-bottom: 3px solid var(--armor-red);
+  font: 500 10px/1.2 var(--mono);
+  letter-spacing: .19em;
+}
+.sheet::after {
+  content: "TECHNICAL DESIGN • FDM FABRICATION";
+  display: block;
+  padding: 10px 28px;
+  color: var(--muted);
+  background: var(--sheet);
+  border-top: 1px solid var(--rule);
+  font: 500 9px/1.3 var(--mono);
+  letter-spacing: .15em;
+}
+header.tb {
+  position: relative;
+  border-bottom: 3px solid var(--gunmetal);
+  background: linear-gradient(115deg, transparent 0 68%, rgba(130,140,147,.07) 68% 100%);
+}
+.tb > div { border-color: var(--rule); }
+.tb .name {
+  position: relative;
+  background: linear-gradient(135deg, rgba(135,145,152,.12), transparent 70%);
+  border-left: 5px solid var(--armor-red);
+  padding-left: 20px;
+}
+.tb .name::after {
+  content: "SYSTEM / 001";
+  margin-top: 8px;
+  color: var(--armor-gold);
+  font: 500 10px/1.2 var(--mono);
+  letter-spacing: .17em;
+}
+.tb h1 {
+  letter-spacing: -.015em;
+  text-transform: uppercase;
+}
+.k {
+  letter-spacing: .15em;
+  font-size: 10px;
+}
+.v { font-size: 12.5px; }
+main { padding-top: 0; }
+section {
+  position: relative;
+  padding-top: 30px;
+  background-image: linear-gradient(90deg, rgba(120,132,140,.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 54px; height: 4px;
+  background: var(--armor-red);
+}
+section:nth-of-type(3n + 2)::before { background: var(--armor-gold); }
+h2 {
+  gap: 14px;
+  text-transform: uppercase;
+  letter-spacing: .035em;
+}
+h2 .n {
+  display: inline-flex;
+  min-width: 36px;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 8px;
+  color: #fff;
+  background: var(--gunmetal);
+  border: 0;
+  border-left: 3px solid var(--armor-red);
+  clip-path: polygon(0 0, 100% 0, 100% 72%, 82% 100%, 0 100%);
+  top: 0;
+}
+h3 {
+  padding: 6px 10px;
+  border-left: 3px solid var(--armor-gold);
+  background: rgba(120,132,140,.09);
+  letter-spacing: .09em;
+}
+.dwgwrap {
+  position: relative;
+  border: 1px solid var(--panel-edge);
+  border-top: 3px solid var(--gunmetal);
+  background: var(--sheet);
+  box-shadow: 0 2px 0 rgba(255,255,255,.4) inset;
+}
+.dwgwrap::after {
+  content: "FIG / TECHNICAL VIEW";
+  position: absolute;
+  right: 8px; top: 7px;
+  color: var(--muted);
+  font: 9px/1 var(--mono);
+  letter-spacing: .12em;
+  opacity: .75;
+  pointer-events: none;
+}
+figcaption {
+  padding-left: 9px;
+  border-left: 2px solid var(--armor-gold);
+  letter-spacing: .015em;
+}
+table { border-top: 1px solid var(--rule); }
+th {
+  padding-top: 9px; padding-bottom: 9px;
+  color: var(--muted);
+  background: rgba(120,132,140,.09);
+  border-bottom: 2px solid var(--gunmetal);
+}
+td, th { padding-left: 8px; }
+tr:hover td { background: rgba(120,132,140,.055); }
+td.num strong { color: var(--dim); }
+.flag {
+  border-left: 4px solid var(--armor-red);
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+}
+.flag b { color: var(--armor-red); }
+.optional {
+  border-color: var(--armor-gold);
+  color: var(--armor-gold);
+}
+code {
+  padding: 1px 4px;
+  border: 1px solid var(--rule);
+  background: rgba(120,132,140,.08);
+}
+@media (max-width: 760px) {
+  .sheet::before { padding-left: 16px; }
+  .sheet::after { padding-left: 16px; }
+  .tb .name { border-left-width: 4px; }
+}
+@media print {
+  body { background: #fff; padding: 0; }
+  .sheet { max-width: none; box-shadow: none; }
+  .sheet::before, .sheet::after { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  section, figure, table { break-inside: avoid; }
+}
+
+/* ── LIGHT THEME LOCK ────────────────────────────────────────────────
+   Keep the armor-inspired identity, but force a bright, print-friendly canvas. */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: light;
+  --paper: #e7e9e7;
+  --sheet: #ffffff;
+  --ink: #20262b;
+  --muted: #626d75;
+  --rule: #c4cbd0;
+  --dim: #a82c26;
+  --hatch: #929ba1;
+  --keyfill: #e5ebef;
+  --flag: #b52d25;
+  --flagbg: #fff0ec;
+  --panel-edge: #aab3b9;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: light;
+    --paper: #e7e9e7;
+    --sheet: #ffffff;
+    --ink: #20262b;
+    --muted: #626d75;
+    --rule: #c4cbd0;
+    --dim: #a82c26;
+    --hatch: #929ba1;
+    --keyfill: #e5ebef;
+    --flag: #b52d25;
+    --flagbg: #fff0ec;
+    --panel-edge: #aab3b9;
+  }
+}
+
+
+/* Japanese mecha dossier numbering — inspired by anime/military title graphics, not copied from a franchise. */
+h2 { gap: 15px; align-items: center; }
+h2 .n {
+  position: relative; top: 0; flex: 0 0 58px; width: 58px; height: 58px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0; padding: 0; overflow: visible;
+  color: #f8f8f5; background: #20262b;
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: 31px; font-weight: 900; line-height: 1;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.18);
+  clip-path: polygon(0 0, 78% 0, 100% 22%, 100% 100%, 18% 100%, 0 82%);
+  box-shadow: none;
+}
+h2 .n::before {
+  content: "第"; position: absolute; left: 4px; top: 3px;
+  font-family: "Noto Sans JP", sans-serif; font-size: 9px; font-weight: 800;
+  color: #e7b75b; line-height: 1;
+}
+h2 .n::after {
+  content: "NSAS / SECTION"; position: absolute; bottom: 4px; right: 4px;
+  font: 5px/1 "IBM Plex Mono", monospace; letter-spacing: .04em; color: #c8cdd0;
+}
+section:nth-of-type(3n + 1) h2 .n { background: #d82f25; }
+section:nth-of-type(3n + 2) h2 .n { background: #252b30; }
+section:nth-of-type(3n) h2 .n { background: #c99a3d; color: #20262b; }
+section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
+@media (max-width: 620px) {
+  h2 .n { flex-basis: 49px; width: 49px; height: 49px; font-size: 27px; }
+  h2 { gap: 11px; }
+}
+@media print {
+  h2 .n { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+</style>
+
+<div class="sheet">
+<header class="tb">
+  <div class="name">
+    <span class="k">Specification</span>
+    <h1>Ned Slotted Angle System</h1>
+    <span class="sub">45° gravity-lock socket grid for FDM-printed panels and accessories</span>
+  </div>
+  <div><span class="k">Document</span><span class="v">NSAS-SPEC</span></div>
+  <div><span class="k">Revision</span><span class="v">v0.9 draft</span></div>
+  <div><span class="k">Date</span><span class="v">2026-10-20</span></div>
+  <div><span class="k">Units</span><span class="v">mm, degrees</span></div>
+  <div><span class="k">Views</span><span class="v">to scale, per view</span></div>
+  <div><span class="k">Process</span><span class="v">FDM</span></div>
+</header>
+
+<main>
+<section id="overview">
+  <h2><span class="n">壱</span>What it is</h2>
+  <p>A pegboard-style mounting surface. A grid of 5 mm square sockets is cut into a panel. Every socket slopes 45° downward into the material. Accessories such as trays and tool holders carry matching holes, and a square key joins the accessory to a socket. The key is one straight bar, so the accessory hole lies on the same 45° line as the socket but, seen from the accessory's back face, it <b>rises</b> as it goes in (section 7).</p>
+  <p>The socket slopes down as it goes in, so the accessory's weight pushes the key deeper. The key cannot be pulled straight out. To remove it, lift and tilt. No clips or screws are needed.</p>
+  <p>An optional thin groove between socket rows hollows out the panel and stiffens it for FDM printing.</p>
+</section>
+
+<section id="terms">
+  <h2><span class="n">弐</span>Orientation and terms</h2>
+  <div class="tblwrap"><table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td>Face</td><td>Panel surface the accessories hang on. Used vertically.</td></tr>
+    <tr><td>Back face</td><td>Flat accessory surface that rests against the panel face. Accessory holes start here.</td></tr>
+    <tr><td>Perpendicular (⊥)</td><td>Measured at right angles to the face, into the panel. All depths are perpendicular.</td></tr>
+    <tr><td>Vertical</td><td>Measured up and down along the face.</td></tr>
+    <tr><td>Along the slope (∥)</td><td>Measured along the 45° socket axis. Equals perpendicular × √2.</td></tr>
+    <tr><td>Cross-section</td><td>Square sizes (socket 5.00, key 4.60 / 5.00 / 5.30) are measured across the 45° axis, at right angles to it.</td></tr>
+    <tr><td>C–C</td><td>Centre to centre. All pitches and hole spacings are C–C.</td></tr>
+    <tr><td>Face height</td><td>A 45° feature that is <i>t</i> thick across its walls shows <i>t</i> × √2 tall on the face. A 5.00 socket shows 7.07.</td></tr>
+  </table></div>
+</section>
+
+<section id="socket">
+  <h2><span class="n">参</span>Socket</h2>
+  <div class="pair">
+    <figure>
+      <div class="dwgwrap"><svg class="dwg" viewBox="-15 -14.5 41 40.5" style="max-width:615px;min-width:381px" role="img" aria-label="Section through one socket" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch1" patternUnits="userSpaceOnUse" width="0.467" height="0.467" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.467"/></pattern></defs>
+<path class="cut" fill-rule="evenodd" fill="url(#hatch1)" d="M0,-8 L12,-8 L12,19 L0,19 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
+<path class="part" fill="none" fill-rule="evenodd" d="M0,-8 L12,-8 L12,19 L0,19 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
+<line class="brk" x1="-0.6" y1="19" x2="12.6" y2="19"/>
+<line class="brk" x1="-0.6" y1="-8" x2="12.6" y2="-8"/>
+<line class="func" x1="10" y1="6.464" x2="10" y2="13.536"/>
+<line class="ctr" x1="-3" y1="0" x2="9" y2="0"/>
+<line class="ctr" x1="-2.5" y1="-2.5" x2="13" y2="13"/>
+<path class="dimarc" d="M4.6,0 A4.6,4.6 0 0 1 3.253,3.253"/>
+<text class="dimt" x="5.728" y="1.973" font-size="0.833" text-anchor="middle" dominant-baseline="middle">45°</text>
+<line class="ext" x1="-0.2" y1="-3.536" x2="-4.467" y2="-3.536"/>
+<line class="ext" x1="-0.2" y1="3.536" x2="-4.467" y2="3.536"/>
+<line class="dim" x1="-4.2" y1="-3.536" x2="-4.2" y2="3.536"/>
+<polygon class="arrow" points="-4.2,-3.536 -4.36,-3.036 -4.04,-3.036"/>
+<polygon class="arrow" points="-4.2,3.536 -4.04,3.036 -4.36,3.036"/>
+<text class="dimt" x="-3.492" y="-0" font-size="0.833" text-anchor="middle" dominant-baseline="middle" transform="rotate(90.0 -3.492 -0)">7.07</text>
+<line class="dim" x1="6.4" y1="9.936" x2="9.936" y2="6.4"/>
+<polygon class="arrow" points="6.4,9.936 6.867,9.695 6.64,9.469"/>
+<polygon class="arrow" points="9.936,6.4 9.469,6.64 9.695,6.867"/>
+<text class="dimt" x="7.667" y="7.667" font-size="0.833" text-anchor="middle" dominant-baseline="middle" transform="rotate(-45.0 7.667 7.667)">5.00 ⊥</text>
+<line class="ext" x1="0" y1="19.2" x2="0" y2="20.867"/>
+<line class="ext" x1="10" y1="13.736" x2="10" y2="20.867"/>
+<line class="dim" x1="0" y1="20.6" x2="10" y2="20.6"/>
+<polygon class="arrow" points="0,20.6 0.5,20.76 0.5,20.44"/>
+<polygon class="arrow" points="10,20.6 9.5,20.44 9.5,20.76"/>
+<text class="dimt" x="5" y="21.308" font-size="0.833" text-anchor="middle" dominant-baseline="middle">10.00 functional</text>
+<line class="ext" x1="0" y1="19.2" x2="0" y2="23.667"/>
+<line class="ext" x1="11" y1="14.736" x2="11" y2="23.667"/>
+<line class="dim" x1="0" y1="23.4" x2="11" y2="23.4"/>
+<polygon class="arrow" points="0,23.4 0.5,23.56 0.5,23.24"/>
+<polygon class="arrow" points="11,23.4 10.5,23.24 10.5,23.56"/>
+<text class="dimt" x="5.5" y="24.108" font-size="0.833" text-anchor="middle" dominant-baseline="middle">11.00 modelled</text>
+<line class="ext" x1="11" y1="-8.2" x2="11" y2="-10.667"/>
+<line class="ext" x1="12" y1="-8.2" x2="12" y2="-10.667"/>
+<line class="dim" x1="10.05" y1="-10.4" x2="12.95" y2="-10.4"/>
+<polygon class="arrow" points="11,-10.4 10.5,-10.56 10.5,-10.24"/>
+<polygon class="arrow" points="12,-10.4 12.5,-10.24 12.5,-10.56"/>
+<text class="dimt" x="11.5" y="-11.108" font-size="0.833" text-anchor="middle" dominant-baseline="middle">1 skin</text>
+<line class="lead" x1="11" y1="13.636" x2="15" y2="9.5"/>
+<circle class="dot" cx="11" cy="13.636" r="0.147"/>
+<text class="note" x="15.2" y="9.5" font-size="0.833" text-anchor="start" dominant-baseline="middle">flat floor,</text>
+<text class="note" x="15.2" y="10.542" font-size="0.833" text-anchor="start" dominant-baseline="middle">parallel to face</text>
+<line class="lead" x1="10" y1="9.336" x2="15" y2="1.5"/>
+<circle class="dot" cx="10" cy="9.336" r="0.147"/>
+<text class="note" x="15.2" y="1.5" font-size="0.833" text-anchor="start" dominant-baseline="middle">key stops here,</text>
+<text class="note" x="15.2" y="2.542" font-size="0.833" text-anchor="start" dominant-baseline="middle">1 mm relief beyond</text>
+<text class="lbl" x="-0.4" y="-13" font-size="0.833" text-anchor="middle" dominant-baseline="middle">FACE</text>
+<text class="lbl" x="14.6" y="-13" font-size="0.833" text-anchor="middle" dominant-baseline="middle">BACK</text>
+<text class="lbl" x="-12.2" y="14" font-size="0.833" text-anchor="middle" dominant-baseline="middle">DOWN</text>
+<polygon class="arrowm" points="-12.2,18.6 -12.04,18.1 -12.36,18.1"/>
+<line class="ctrs" x1="-12.2" y1="15.2" x2="-12.2" y2="17.4"/></svg></div>
+      <figcaption><b>View A.</b> Section through one socket. Face on the left, hatched material, 1 mm skin at the back.</figcaption>
+    </figure>
+    <div class="tblwrap"><table>
+      <tr><th>Item</th><th>Value</th></tr>
+      <tr><td>Cross-section</td><td class="num"><strong>5.00 × 5.00</strong> square <span class="why">(across the axis)</span></td></tr>
+      <tr><td>Angle</td><td class="num"><strong>45°</strong> down into face</td></tr>
+      <tr><td>Face height</td><td class="num">7.07 <span class="why">(5 × √2)</span></td></tr>
+      <tr><td>Functional depth</td><td class="num"><strong>10.00</strong> ⊥ <span class="why">(14.14 along slope)</span></td></tr>
+      <tr><td>Modelled depth</td><td class="num"><strong>11.00</strong> ⊥ <span class="why">(15.56 along slope)</span></td></tr>
+      <tr><td>Floor</td><td>Flat, parallel to face</td></tr>
+      <tr><td>Mouth lead-in</td><td>0.5 × 45° chamfer on side edges, 22.5° bevel on lip <span class="why">(not drawn)</span></td></tr>
+      <tr><td>Min. panel thickness</td><td class="num">modelled depth + skin <span class="why">(11 + 1 = 12)</span></td></tr>
+    </table></div>
+  </div>
+  <ul class="rules">
+    <li><b>Modelled depth = functional depth + 1 mm.</b> The relief keeps the key off the floor.</li>
+    <li>Surface too thin: add a local raised panel, or use a shallower face with a customised key (section 6).</li>
+  </ul>
+</section>
+
+<section id="grid">
+  <h2><span class="n">肆</span>Grid layout</h2>
+  <p>The grid has no fixed size. Fit as many columns and rows as the area allows, then centre the grid so that opposite margins are equal. Rows are not staggered.</p>
+  <div class="pair wide">
+    <figure>
+      <div class="dwgwrap"><svg class="dwg" viewBox="-14 -65.142 81 80.142" style="max-width:745px;min-width:462px" role="img" aria-label="Face view of a 5 by 3 grid" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch2" patternUnits="userSpaceOnUse" width="0.761" height="0.761" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.761"/></pattern></defs>
+<polygon class="sheetfill" points="0,0 51,0 51,-50.142 0,-50.142"/>
+<polygon class="holef" points="3,-3 8,-3 8,-10.071 3,-10.071"/>
+<polygon class="holef" points="13,-3 18,-3 18,-10.071 13,-10.071"/>
+<polygon class="holef" points="23,-3 28,-3 28,-10.071 23,-10.071"/>
+<polygon class="holef" points="33,-3 38,-3 38,-10.071 33,-10.071"/>
+<polygon class="holef" points="43,-3 48,-3 48,-10.071 43,-10.071"/>
+<polygon class="groovef" points="3,-14.318 48,-14.318 48,-17.288 3,-17.288"/>
+<polygon class="holef" points="3,-21.536 8,-21.536 8,-28.607 3,-28.607"/>
+<polygon class="holef" points="13,-21.536 18,-21.536 18,-28.607 13,-28.607"/>
+<polygon class="holef" points="23,-21.536 28,-21.536 28,-28.607 23,-28.607"/>
+<polygon class="holef" points="33,-21.536 38,-21.536 38,-28.607 33,-28.607"/>
+<polygon class="holef" points="43,-21.536 48,-21.536 48,-28.607 43,-28.607"/>
+<polygon class="groovef" points="3,-32.854 48,-32.854 48,-35.824 3,-35.824"/>
+<polygon class="holef" points="3,-40.071 8,-40.071 8,-47.142 3,-47.142"/>
+<polygon class="holef" points="13,-40.071 18,-40.071 18,-47.142 13,-47.142"/>
+<polygon class="holef" points="23,-40.071 28,-40.071 28,-47.142 23,-47.142"/>
+<polygon class="holef" points="33,-40.071 38,-40.071 38,-47.142 33,-47.142"/>
+<polygon class="holef" points="43,-40.071 48,-40.071 48,-47.142 43,-47.142"/>
+<line class="ctr" x1="5.5" y1="-51.342" x2="5.5" y2="-39.071"/>
+<line class="ctr" x1="15.5" y1="-51.342" x2="15.5" y2="-39.071"/>
+<line class="ctr" x1="-1.2" y1="-6.536" x2="9.5" y2="-6.536"/>
+<line class="ctr" x1="-1.2" y1="-25.071" x2="9.5" y2="-25.071"/>
+<line class="ext" x1="5.5" y1="-50.468" x2="5.5" y2="-58.077"/>
+<line class="ext" x1="15.5" y1="-50.468" x2="15.5" y2="-58.077"/>
+<line class="dim" x1="5.5" y1="-57.642" x2="15.5" y2="-57.642"/>
+<polygon class="arrow" points="5.5,-57.642 6.315,-57.381 6.315,-57.903"/>
+<polygon class="arrow" points="15.5,-57.642 14.685,-57.903 14.685,-57.381"/>
+<text class="dimt" x="10.5" y="-58.797" font-size="1.359" text-anchor="middle" dominant-baseline="middle">10.00 pitch</text>
+<line class="ext" x1="8" y1="-47.468" x2="8" y2="-53.177"/>
+<line class="ext" x1="13" y1="-47.468" x2="13" y2="-53.177"/>
+<line class="dim" x1="6.451" y1="-52.742" x2="14.549" y2="-52.742"/>
+<polygon class="arrow" points="8,-52.742 7.185,-53.003 7.185,-52.481"/>
+<polygon class="arrow" points="13,-52.742 13.815,-52.481 13.815,-53.003"/>
+<text class="dimt" x="10.5" y="-53.897" font-size="1.359" text-anchor="middle" dominant-baseline="middle">5.00 wall</text>
+<line class="ext" x1="3" y1="0.326" x2="3" y2="5.435"/>
+<line class="ext" x1="48" y1="0.326" x2="48" y2="5.435"/>
+<line class="dim" x1="3" y1="5" x2="48" y2="5"/>
+<polygon class="arrow" points="3,5 3.815,5.261 3.815,4.739"/>
+<polygon class="arrow" points="48,5 47.185,4.739 47.185,5.261"/>
+<text class="dimt" x="25.5" y="3.845" font-size="1.359" text-anchor="middle" dominant-baseline="middle">45 span = (n − 1) × 10 + 5</text>
+<line class="ext" x1="0" y1="0.326" x2="0" y2="10.435"/>
+<line class="ext" x1="3" y1="0.326" x2="3" y2="10.435"/>
+<line class="dim" x1="-1.549" y1="10" x2="4.549" y2="10"/>
+<polygon class="arrow" points="0,10 -0.815,9.739 -0.815,10.261"/>
+<polygon class="arrow" points="3,10 3.815,10.261 3.815,9.739"/>
+<text class="dimt" x="1.5" y="8.845" font-size="1.359" text-anchor="middle" dominant-baseline="middle">m</text>
+<line class="ext" x1="48" y1="0.326" x2="48" y2="10.435"/>
+<line class="ext" x1="51" y1="0.326" x2="51" y2="10.435"/>
+<line class="dim" x1="46.451" y1="10" x2="52.549" y2="10"/>
+<polygon class="arrow" points="48,10 47.185,9.739 47.185,10.261"/>
+<polygon class="arrow" points="51,10 51.815,10.261 51.815,9.739"/>
+<text class="dimt" x="49.5" y="8.845" font-size="1.359" text-anchor="middle" dominant-baseline="middle">m</text>
+<line class="ext" x1="-0.326" y1="-6.536" x2="-6.435" y2="-6.536"/>
+<line class="ext" x1="-0.326" y1="-25.071" x2="-6.435" y2="-25.071"/>
+<line class="dim" x1="-6" y1="-6.536" x2="-6" y2="-25.071"/>
+<polygon class="arrow" points="-6,-6.536 -5.739,-7.351 -6.261,-7.351"/>
+<polygon class="arrow" points="-6,-25.071 -6.261,-24.256 -5.739,-24.256"/>
+<text class="dimt" x="-7.155" y="-15.803" font-size="1.359" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90.0 -7.155 -15.803)">18.536 pitch</text>
+<line class="lead" x1="42" y1="-15.803" x2="53.5" y2="-26.303"/>
+<circle class="dot" cx="42" cy="-15.803" r="0.239"/>
+<text class="note" x="53.826" y="-26.303" font-size="1.359" text-anchor="start" dominant-baseline="middle">groove,</text>
+<text class="note" x="53.826" y="-24.605" font-size="1.359" text-anchor="start" dominant-baseline="middle">length = span</text>
+<line class="lead" x1="48" y1="-10.071" x2="53.5" y2="-5"/>
+<circle class="dot" cx="48" cy="-10.071" r="0.239"/>
+<text class="note" x="53.826" y="-5" font-size="1.359" text-anchor="start" dominant-baseline="middle">socket</text>
+<text class="note" x="53.826" y="-3.302" font-size="1.359" text-anchor="start" dominant-baseline="middle">5.00 × 7.07</text></svg></div>
+      <figcaption><b>View B.</b> Face view, example 5 columns × 3 rows with grooves. Sockets solid, grooves grey. <i>m</i> = equal margins.</figcaption>
+    </figure>
+  </div>
+  <div class="pair">
+    <figure>
+      <div class="dwgwrap"><svg class="dwg" viewBox="-27 -50 57 72" style="max-width:536px;min-width:332px" role="img" aria-label="Section through three rows with grooves" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch3" patternUnits="userSpaceOnUse" width="0.745" height="0.745" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.745"/></pattern></defs>
+<path class="cut" fill-rule="evenodd" fill="url(#hatch3)" d="M0,-45.571 L12,-45.571 L12,18.5 L0,18.5 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z M0,-22.071 L11,-11.071 L11,-4 L0,-15 Z M0,-40.607 L11,-29.607 L11,-22.536 L0,-33.536 Z M0,-10.753 L8,-2.753 L8,0.217 L0,-7.783 Z M0,-29.288 L8,-21.288 L8,-18.318 L0,-26.318 Z "/>
+<path class="part" fill="none" fill-rule="evenodd" d="M0,-45.571 L12,-45.571 L12,18.5 L0,18.5 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z M0,-22.071 L11,-11.071 L11,-4 L0,-15 Z M0,-40.607 L11,-29.607 L11,-22.536 L0,-33.536 Z M0,-10.753 L8,-2.753 L8,0.217 L0,-7.783 Z M0,-29.288 L8,-21.288 L8,-18.318 L0,-26.318 Z "/>
+<line class="brk" x1="-0.6" y1="18.5" x2="12.6" y2="18.5"/>
+<line class="brk" x1="-0.6" y1="-45.571" x2="12.6" y2="-45.571"/>
+<line class="ctr" x1="-1.5" y1="0" x2="2.5" y2="0"/>
+<line class="ctr" x1="-1.5" y1="-18.536" x2="2.5" y2="-18.536"/>
+<line class="ctr" x1="-1.5" y1="-37.071" x2="2.5" y2="-37.071"/>
+<line class="ext" x1="-0.319" y1="-3.536" x2="-4.426" y2="-3.536"/>
+<line class="ext" x1="-0.319" y1="-15" x2="-4.426" y2="-15"/>
+<line class="dim" x1="-4" y1="-3.536" x2="-4" y2="-15"/>
+<polygon class="arrow" points="-4,-3.536 -3.745,-4.333 -4.255,-4.333"/>
+<polygon class="arrow" points="-4,-15 -4.255,-14.202 -3.745,-14.202"/>
+<text class="dimt" x="-5.13" y="-9.268" font-size="1.33" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90.0 -5.13 -9.268)">11.464 gap</text>
+<line class="ext" x1="-0.319" y1="-0" x2="-10.026" y2="-0"/>
+<line class="ext" x1="-0.319" y1="-18.536" x2="-10.026" y2="-18.536"/>
+<line class="dim" x1="-9.6" y1="-0" x2="-9.6" y2="-18.536"/>
+<polygon class="arrow" points="-9.6,-0 -9.345,-0.798 -9.855,-0.798"/>
+<polygon class="arrow" points="-9.6,-18.536 -9.855,-17.738 -9.345,-17.738"/>
+<text class="dimt" x="-10.73" y="-9.268" font-size="1.33" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90.0 -10.73 -9.268)">18.536 pitch</text>
+<line class="ext" x1="-0.319" y1="3.536" x2="-15.626" y2="3.536"/>
+<line class="ext" x1="-0.319" y1="-22.071" x2="-15.626" y2="-22.071"/>
+<line class="dim" x1="-15.2" y1="3.536" x2="-15.2" y2="-22.071"/>
+<polygon class="arrow" points="-15.2,3.536 -14.945,2.738 -15.455,2.738"/>
+<polygon class="arrow" points="-15.2,-22.071 -15.455,-21.273 -14.945,-21.273"/>
+<text class="dimt" x="-16.33" y="-9.268" font-size="1.33" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90.0 -16.33 -9.268)">25.607 outer</text>
+<line class="ext" x1="-0.319" y1="-3.536" x2="-21.226" y2="-3.536"/>
+<line class="ext" x1="-0.319" y1="-33.536" x2="-21.226" y2="-33.536"/>
+<line class="dim" x1="-20.8" y1="-3.536" x2="-20.8" y2="-33.536"/>
+<polygon class="arrow" points="-20.8,-3.536 -20.545,-4.333 -21.055,-4.333"/>
+<polygon class="arrow" points="-20.8,-33.536 -21.055,-32.738 -20.545,-32.738"/>
+<text class="dimt" x="-21.93" y="-18.536" font-size="1.33" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90.0 -21.93 -18.536)">30.000 rule</text>
+<line class="lead" x1="7.6" y1="-1.468" x2="14.5" y2="-2.768"/>
+<circle class="dot" cx="7.6" cy="-1.468" r="0.234"/>
+<text class="note" x="14.819" y="-2.768" font-size="1.33" text-anchor="start" dominant-baseline="middle">groove 2.10 ⊥,</text>
+<text class="note" x="14.819" y="-1.106" font-size="1.33" text-anchor="start" dominant-baseline="middle">8.00 deep, 45°</text>
+<line class="lead" x1="10.6" y1="-25.036" x2="14.5" y2="-39.071"/>
+<circle class="dot" cx="10.6" cy="-25.036" r="0.234"/>
+<text class="note" x="14.819" y="-39.071" font-size="1.33" text-anchor="start" dominant-baseline="middle">socket row k + 2</text>
+<line class="lead" x1="10.6" y1="12.036" x2="14.5" y2="9"/>
+<circle class="dot" cx="10.6" cy="12.036" r="0.234"/>
+<text class="note" x="14.819" y="9" font-size="1.33" text-anchor="start" dominant-baseline="middle">socket row k</text>
+<text class="lbl" x="-0.4" y="-47.071" font-size="1.33" text-anchor="middle" dominant-baseline="middle">FACE</text></svg></div>
+      <figcaption><b>View C.</b> Section through three rows. Vertical dimensions on the face.</figcaption>
+    </figure>
+    <div>
+      <h3 style="margin-top:0">Columns</h3>
+      <div class="tblwrap"><table>
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Column pitch</td><td class="num"><strong>10.00</strong></td></tr>
+        <tr><td>Wall between sockets</td><td class="num">5.00</td></tr>
+        <tr><td>Outer-wall span, <i>n</i> columns</td><td class="num">(n − 1) × 10 + 5</td></tr>
+      </table></div>
+      <h3>Rows: the 30 mm rule</h3>
+      <p>Top wall of row <i>k</i> to bottom wall of row <i>k</i> + 2, measured vertically, is <b>30.000</b>. With <i>h</i> = 7.071 face height:</p>
+      <div class="tblwrap"><table>
+        <tr><th>Item</th><th>Formula</th><th>Value</th></tr>
+        <tr><td>Row pitch</td><td class="num">(30 + h) / 2</td><td class="num"><strong>18.536</strong></td></tr>
+        <tr><td>Gap</td><td class="num">(30 − h) / 2</td><td class="num">11.464</td></tr>
+        <tr><td>Outer to outer, 2 rows</td><td class="num">(30 + 3h) / 2</td><td class="num">25.607</td></tr>
+        <tr><td>Row <i>k</i> → <i>k</i> + 2</td><td class="num">2p − h</td><td class="num">30.000</td></tr>
+        <tr><td>Solid between tunnels ⊥</td><td class="num">p × sin 45° − 5</td><td class="num">8.107</td></tr>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<section id="groove">
+  <h2><span class="n">伍</span>Groove <span class="optional">optional</span></h2>
+  <ul class="rules">
+    <li><b>Purpose:</b> hollows out material and increases strength for FDM printing.</li>
+    <li><b>Include:</b> ask if the groove is required.</li>
+    <li><b>Skip:</b> when the area is small and does not need it, for example a small accessory panel or a single row. Say that it was skipped.</li>
+  </ul>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Position</td><td>One in every gap between rows</td><td class="why">Views B and C</td></tr>
+    <tr><td>Vertical placement</td><td>Centred in the gap</td><td class="num">4.25 land above and below</td></tr>
+    <tr><td>Thickness</td><td class="num"><strong>2.10</strong> ⊥ walls</td><td class="num">2.97 on the face</td></tr>
+    <tr><td>Angle</td><td class="num">45° down</td><td>Parallel to the sockets</td></tr>
+    <tr><td>Depth</td><td class="num"><strong>8.00</strong> ⊥</td><td></td></tr>
+    <tr><td>Wall to each socket</td><td class="num"><strong>3.00</strong> ⊥ walls</td><td>(8.107 − 2.10) / 2; constant along the groove</td></tr>
+    <tr><td>Material behind floor</td><td class="num">4.00</td><td>On a 12 mm panel (12 − 8)</td></tr>
+    <tr><td>Length</td><td><b>Equal to the outer-wall span</b></td><td class="num">(n − 1) × 10 + 5</td></tr>
+    <tr><td>Ends</td><td>Square, aligned with the outermost socket walls</td><td></td></tr>
+  </table></div>
+</section>
+
+<section id="key">
+  <h2><span class="n">陸</span>Key</h2>
+  <p>The key joins the accessory to the panel sockets. It is one straight 45° square bar with a thin stop plate across it. The bar slips into the panel, so accessories can be moved and replaced quickly. It press-fits into the accessory, so it stays with the accessory when moved. The stop rests flat on the panel face and sets the insertion depth.</p>
+  <p>The two side faces are flat and flush along the whole key (4.60 apart), so it prints lying on one side. The accessory leg is an <b>expanding peg</b>: a slot along the axis splits it into two prongs, and the upper and lower faces widen from 5.00 at the root to an oversize 5.30 at the tip. In the 5.00 hole the prongs squeeze together and spring back against the walls. A lead-in at the tip starts the oversize prongs. Crush ribs on one side face take up the side clearance, so the key cannot rock.</p>
+  <div class="pair">
+    <figure>
+      <div class="dwgwrap"><svg class="dwg" viewBox="-33 -23.5 61 50" style="max-width:671px;min-width:416px" role="img" aria-label="Key seated in a panel socket and an accessory wall" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch4" patternUnits="userSpaceOnUse" width="0.636" height="0.636" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.636"/></pattern></defs>
+<path class="cut" fill-rule="evenodd" fill="url(#hatch4)" d="M0,-16 L12,-16 L12,21 L0,21 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
+<path class="part" fill="none" fill-rule="evenodd" d="M0,-16 L12,-16 L12,21 L0,21 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
+<line class="brk" x1="-0.6" y1="21" x2="12.6" y2="21"/>
+<line class="brk" x1="-0.6" y1="-16" x2="12.6" y2="-16"/>
+<path class="cut2" fill-rule="evenodd" fill="url(#hatch4)" d="M-9.5,-16 L-2,-16 L-2,21 L-9.5,21 Z M-9.5,-13.036 L-2,-5.536 L-2,1.536 L-9.5,-5.964 Z"/>
+<path class="part" fill="none" fill-rule="evenodd" d="M-9.5,-16 L-2,-16 L-2,21 L-9.5,21 Z M-9.5,-13.036 L-2,-5.536 L-2,1.536 L-9.5,-5.964 Z"/>
+<line class="brk" x1="-10.1" y1="21" x2="-1.4" y2="21"/>
+<line class="brk" x1="-10.1" y1="-16" x2="-1.4" y2="-16"/>
+<polygon class="key" points="0,-3.253 10,6.747 10,13.253 0,3.253"/>
+<polygon class="key" points="-1,-4.536 -5.576,-9.324 -6,-9.148 -6,-2.852 -5.576,-1.828 -1,2.536"/>
+<polygon class="key" style="fill:var(--sheet)" points="-1.5,-2.207 -6,-6.707 -6,-5.293 -1.5,-0.793"/>
+<polygon class="key" points="-1,-8.5 0,-7.5 0,7.5 -1,6.5"/>
+<polygon class="key" points="-1,-4.253 0,-3.253 0,3.253 -1,2.253"/>
+<line class="ctr" x1="-9" y1="-9" x2="13" y2="13"/>
+<text class="lbl" x="0.4" y="-17.4" font-size="1.136" text-anchor="start" dominant-baseline="middle">PANEL</text>
+<text class="lbl" x="-9.5" y="-17.4" font-size="1.136" text-anchor="start" dominant-baseline="middle">ACCESSORY</text>
+<line class="lead" x1="6" y1="6" x2="13.5" y2="-9.5"/>
+<circle class="dot" cx="6" cy="6" r="0.2"/>
+<text class="note" x="13.773" y="-9.5" font-size="1.136" text-anchor="start" dominant-baseline="middle">panel leg 4.6 × 4.6</text>
+<text class="note" x="13.773" y="-8.08" font-size="1.136" text-anchor="start" dominant-baseline="middle">slip fit, 0.2 / side</text>
+<line class="lead" x1="-4.6" y1="-4.6" x2="-12" y2="-12.5"/>
+<circle class="dot" cx="-4.6" cy="-4.6" r="0.2"/>
+<text class="note" x="-12.273" y="-12.5" font-size="1.136" text-anchor="end" dominant-baseline="middle">accessory leg</text>
+<text class="note" x="-12.273" y="-11.08" font-size="1.136" text-anchor="end" dominant-baseline="middle">split prongs, 5.0 → 5.3</text>
+<text class="note" x="-12.273" y="-9.659" font-size="1.136" text-anchor="end" dominant-baseline="middle">expanding press fit</text>
+<line class="lead" x1="-0.5" y1="6" x2="-12" y2="13.5"/>
+<circle class="dot" cx="-0.5" cy="6" r="0.2"/>
+<text class="note" x="-12.273" y="13.5" font-size="1.136" text-anchor="end" dominant-baseline="middle">stop 1 × 4.6 × 15</text>
+<text class="note" x="-12.273" y="14.92" font-size="1.136" text-anchor="end" dominant-baseline="middle">flat on panel face</text>
+<line class="ext" x1="0" y1="21.273" x2="0" y2="23.564"/>
+<line class="ext" x1="10" y1="13.523" x2="10" y2="23.564"/>
+<line class="dim" x1="0" y1="23.2" x2="10" y2="23.2"/>
+<polygon class="arrow" points="0,23.2 0.682,23.418 0.682,22.982"/>
+<polygon class="arrow" points="10,23.2 9.318,22.982 9.318,23.418"/>
+<text class="dimt" x="5" y="24.166" font-size="1.136" text-anchor="middle" dominant-baseline="middle">10.00</text>
+<line class="ext" x1="-6" y1="-9.663" x2="-6" y2="-19.764"/>
+<line class="ext" x1="-1" y1="-8.773" x2="-1" y2="-19.764"/>
+<line class="dim" x1="-7.295" y1="-19.4" x2="0.295" y2="-19.4"/>
+<polygon class="arrow" points="-6,-19.4 -6.682,-19.618 -6.682,-19.182"/>
+<polygon class="arrow" points="-1,-19.4 -0.318,-19.182 -0.318,-19.618"/>
+<text class="dimt" x="-3.5" y="-20.366" font-size="1.136" text-anchor="middle" dominant-baseline="middle">5.00</text>
+<line class="ctrs" x1="-29" y1="1" x2="-29" y2="6.8"/>
+<polygon class="arrowm" points="-29,8 -28.782,7.318 -29.218,7.318"/>
+<text class="lbl" x="-29" y="-0.6" font-size="1.136" text-anchor="middle" dominant-baseline="middle">LOAD</text></svg></div>
+      <figcaption><b>View D.</b> Key seated in a panel socket and an accessory wall. Key shaded; prongs drawn relaxed (before they squeeze to 5.00), slot between them.</figcaption>
+    </figure>
+    <div class="tblwrap"><table>
+      <tr><th>Item</th><th>Value</th><th>Fit</th></tr>
+      <tr><td>Panel leg</td><td class="num"><strong>4.60 × 4.60</strong></td><td>Slip, 0.20 / side</td></tr>
+      <tr><td>Panel leg engagement</td><td class="num">10.00 ⊥ from panel face</td><td>Stop on face; 1.00 relief to floor</td></tr>
+      <tr><td>Side faces, whole key</td><td class="num"><strong>4.60</strong> apart</td><td>Flat and flush; print on the side without ribs</td></tr>
+      <tr><td>Accessory leg, root</td><td class="num"><strong>5.00</strong> × 4.60</td><td>Line-to-line in 5.00 hole</td></tr>
+      <tr><td>Accessory leg, tip (relaxed)</td><td class="num"><strong>5.30</strong> × 4.60</td><td>0.15 / side interference, taken by the prongs</td></tr>
+      <tr><td>Accessory leg taper</td><td class="num">linear, 5.00 → 5.30</td><td>Upper and lower faces only, widens to the tip</td></tr>
+      <tr><td>Prong slot</td><td class="num"><strong>1.00</strong> wide, to 0.50 ⊥ from back face</td><td>Through both side faces; keep wider than tip − hole</td></tr>
+      <tr><td>Tip lead-in</td><td class="num">0.60</td><td>Setback on both prong tip corners</td></tr>
+      <tr><td>Crush ribs</td><td class="num">2 × 0.60 wide × 0.55 high</td><td>One side face only, one per prong; 0.15 crush; end 1.00 ∥ short of the tip</td></tr>
+      <tr><td>Accessory leg length</td><td class="num">5.00 ⊥</td><td>From stop to tip</td></tr>
+      <tr><td>Stop</td><td class="num"><strong>1.00</strong> ⊥ × 4.60 × 15.0</td><td>Vertical plate, flat on panel face; ends cut at 45°</td></tr>
+      <tr><td>Accessory hole</td><td class="num">5.00 square, 6.00 ⊥, rising</td><td>Fit set by the key only; see section 7</td></tr>
+    </table></div>
+  </div>
+  <figure style="margin-top:20px">
+    <div class="dwgwrap"><svg class="dwg" viewBox="-1 -8.5 38 18" style="max-width:684px;min-width:424px" role="img" aria-label="Key cross-sections against a 5.0 mm hole" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch5" patternUnits="userSpaceOnUse" width="0.389" height="0.389" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.389"/></pattern></defs>
+<polygon class="holeline" points="3,2.5 8,2.5 8,-2.5 3,-2.5"/>
+<polygon class="keysec" points="3.2,2.3 7.8,2.3 7.8,-2.3 3.2,-2.3"/>
+<text class="lbl" x="5.5" y="-6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">PANEL LEG</text>
+<text class="big" x="5.5" y="0" font-size="0.868" text-anchor="middle" dominant-baseline="middle">4.6</text>
+<text class="note" x="5.5" y="4.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">hole 5.0</text>
+<text class="note" x="5.5" y="6.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">0.20 / side, slip</text>
+<polygon class="holeline" points="16,2.5 21,2.5 21,-2.5 16,-2.5"/>
+<polygon class="keysec" points="16.2,-2.65 20.8,-2.65 20.8,-0.5 16.2,-0.5"/>
+<polygon class="keysec" points="16.2,0.5 20.8,0.5 20.8,2.65 16.2,2.65"/>
+<polygon class="keysec" points="20.8,-1.9 21.35,-1.9 21.35,-1.3 20.8,-1.3"/>
+<polygon class="keysec" points="20.8,1.3 21.35,1.3 21.35,1.9 20.8,1.9"/>
+<text class="lbl" x="18.5" y="-6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">ACCESSORY TIP</text>
+<text class="big" x="18.5" y="-1.6" font-size="0.868" text-anchor="middle" dominant-baseline="middle">5.3</text>
+<text class="note" x="18.5" y="4.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">hole 5.0, prongs relaxed</text>
+<text class="note" x="18.5" y="6.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">squeeze 0.15 / side; ribs crush 0.15</text>
+<polygon class="holeline" points="29,2.5 34,2.5 34,-2.5 29,-2.5"/>
+<polygon class="keysec" points="29.2,2.5 33.8,2.5 33.8,-2.5 29.2,-2.5"/>
+<text class="lbl" x="31.5" y="-6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">ACCESSORY ROOT</text>
+<text class="big" x="31.5" y="0" font-size="0.868" text-anchor="middle" dominant-baseline="middle">5.0</text>
+<text class="note" x="31.5" y="4.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">hole 5.0</text>
+<text class="note" x="31.5" y="6.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">0 / side, line-to-line</text></svg></div>
+    <figcaption><b>View E.</b> Key sections (shaded) inside a 5.00 hole (dashed). Tapered faces top and bottom, flat sides left and right. Tip: two prongs with the slot between, ribs on the right side face only.</figcaption>
+  </figure>
+  <ul class="rules" style="margin-top:14px">
+    <li><b>Shallow faces:</b> shorten the panel leg to that face's functional depth. Keep the 1 mm relief.</li>
+    <li><b>Print orientation:</b> lie the key on the side face without ribs. The ribs are then on top, the slot walls are vertical, and each prong flexes within its layers.</li>
+    <li><b>Tuning:</b> loose: raise the tip (5.30 → 5.40) or the rib crush (0.15 → 0.25). Too hard to push in: lower the tip or widen the slot. Keep the slot wider than tip − hole, so the prongs never close up.</li>
+    <li><b>Fit check:</b> before a full accessory, print one key and a small block with one 5.00 hole. Adjust the tip size and rib crush, then keep the values that work for your printer.</li>
+  </ul>
+</section>
+
+<section id="accessory">
+  <h2><span class="n">漆</span>Accessory interface</h2>
+  <p>Holes go in the accessory's <b>back face</b>, the flat face that rests against the panel. The key's stop sits between the two faces.</p>
+  <div class="flag"><b>Direction — common mistake</b>The key is one straight bar. Its panel leg goes into the panel and <b>down</b>, so its accessory leg points out of the panel and <b>up</b>. The accessory hole follows that leg: from the back face it goes in and <b>rises 45°</b>, 1 mm up for every 1 mm in. Same 45° line as the socket, run the other way. Never copy the socket's "45° down into the face" onto the accessory: a downward hole cannot take a key that is already in the panel. See View D.</div>
+  <p style="margin-top:14px">Gravity lock: the accessory is pressed onto the rising leg, and its weight pulls it down and back along the bar, toward the panel.</p>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Cross-section</td><td class="num"><strong>5.00 × 5.00</strong> square</td><td>Line-to-line with the key root; fit set by the key taper</td></tr>
+    <tr><td>Direction</td><td class="num"><strong>45° rising</strong> into the accessory</td><td>Same line as the socket, opposite sense</td></tr>
+    <tr><td>Face height</td><td class="num">7.07</td><td>5 × √2, on the back face</td></tr>
+    <tr><td>Depth</td><td class="num"><strong>6.00</strong> ⊥ <span class="why">(8.49 along slope)</span></td><td>Accessory leg 5.00 + 1.00 relief</td></tr>
+    <tr><td>Floor</td><td>Flat, parallel to the back face</td><td class="num">6.00 higher than the mouth</td></tr>
+    <tr><td>Blind or through</td><td>Blind when the wall is thicker than depth + skin</td><td>Through only on a wall thinner than the depth; the leg still needs its full 5.00</td></tr>
+  </table></div>
+  <h3>Placement</h3>
+  <ul class="rules">
+    <li>Horizontal hole spacing, C–C: a multiple of 10.00. Reference tray: 2 holes, 40 apart.</li>
+    <li>Vertical hole spacing, C–C: a multiple of 18.536.</li>
+    <li><b>Width for side-by-side hanging:</b> <i>n</i> columns wide = <i>n</i> × 10 − clearance. Suggested clearance 1.00 total, so a 2-column holder is 19.00 wide.</li>
+    <li><b>Top margin:</b> the floor ends one depth higher than the mouth. Top of the back face to top of the upper mouth ≥ depth + skin (6 + 2 = 8.00).</li>
+    <li><b>Wall behind the floor:</b> check cavities, slopes and fillets inside the accessory. Keep at least 2.00 skin.</li>
+    <li><b>Check before finishing:</b> from the back face, every hole goes in and up. A key already in a panel socket must slide straight into it.</li>
+  </ul>
+</section>
+
+<section id="params">
+  <h2><span class="n">捌</span>Parameters</h2>
+  <p>Drive the model from these values. Derive counts, row pitch and groove length; do not enter them as fixed numbers. Keep full precision in CAD; round only the displayed values.</p>
+  <div class="tblwrap"><table>
+    <tr><th>Parameter</th><th>Default</th><th>Drives</th></tr>
+    <tr><td>Functional depth</td><td class="num">10.0</td><td>Key engagement, modelled depth</td></tr>
+    <tr><td>Relief</td><td class="num">1.0</td><td>Modelled depth = functional + relief</td></tr>
+    <tr><td>Socket size</td><td class="num">5.0</td><td>Socket section, face height, accessory hole</td></tr>
+    <tr><td>Column pitch</td><td class="num">10.0</td><td>Column count, span</td></tr>
+    <tr><td>Row rule distance</td><td class="num">30.0</td><td>Row pitch, gap, row count</td></tr>
+    <tr><td>Groove thickness / depth</td><td class="num">2.1 / 8.0</td><td>Groove section</td></tr>
+    <tr><td>Key root / tip width</td><td class="num">5.0 / 5.3</td><td>Accessory leg taper; tip oversize for the expanding fit</td></tr>
+    <tr><td>Prong slot width / root land</td><td class="num">1.0 / 0.5</td><td>Prong flex; solid leg in front of the back face</td></tr>
+    <tr><td>Tip lead-in</td><td class="num">0.6</td><td>Setback on the prong tip corners</td></tr>
+    <tr><td>Rib crush / width / tip gap</td><td class="num">0.15 / 0.6 / 1.0</td><td>Rib height = hole − 4.6 + crush</td></tr>
+    <tr><td>Key stop thickness</td><td class="num">1.0</td><td>Stop plate; sets key insertion depth</td></tr>
+    <tr><td>Accessory hole depth</td><td class="num">6.0</td><td>Key accessory leg + relief; floor height above the mouth</td></tr>
+    <tr><td>Accessory top skin</td><td class="num">2.0</td><td>Top margin = hole depth + skin</td></tr>
+    <tr><td>Accessory width clearance</td><td class="num">1.0</td><td>Width = columns × 10 − clearance</td></tr>
+    <tr><td>Panel area or margins</td><td class="num">per design</td><td>Counts and centring</td></tr>
+  </table></div>
+</section>
+
+<section id="open">
+  <h2><span class="n">玖</span>Open points</h2>
+  <ol class="open">
+    <li>Purpose and profile of the wide groove along the top edge of the reference cover.</li>
+    <li>Minimum margin around the grid. Reference: about 2.5–3 mm horizontally.</li>
+    <li>RunnerCollector lid is 10 mm thick. Options: 12 mm lid, local raised panel on the inner face, or shallower face with a customised key.</li>
+  </ol>
+</section>
+
+<section id="revisions">
+  <h2><span class="n">拾</span>Revisions</h2>
+  <div class="tblwrap"><table class="rev">
+    <tr><th>Rev</th><th>Change</th></tr>
+    <tr><td>v0.1</td><td>First draft from design intent and the reference top cover.</td></tr>
+    <tr><td>v0.2</td><td>Groove made optional. Purpose: hollowing and FDM strength.</td></tr>
+    <tr><td>v0.3</td><td>Key slips into the panel. Key customisable for shallow faces.</td></tr>
+    <tr><td>v0.4</td><td>Accessory leg tapers 4.8 → 5.0 for a press fit.</td></tr>
+    <tr><td>v0.5</td><td>Key shape fixed: one straight 45° bar with a 1 mm stop. Groove face height 2.97, land 4.25.</td></tr>
+    <tr><td>v0.6</td><td>Added ∥ and C–C conventions, groove wall 3.00 and floor material 4.00, key engagement datum, fit check.</td></tr>
+    <tr><td>v0.7</td><td>Accessory hole direction fixed: rises 45° into the accessory (was read as "same as the socket", i.e. downward). Added hole depth 6.00, floor, blind/through, top margin, wall skin, side-by-side width and a direction check. Back face term added.</td></tr>
+    <tr><td>v0.8</td><td>Key side faces flat and flush along the whole key (4.60); taper on the upper and lower faces only.</td></tr>
+    <tr><td>v0.9</td><td>Tapered press fit proved loose. Accessory leg is now an expanding peg: slot splits it into two prongs, tip oversize 5.30 (root 5.00), 0.60 tip lead-in, two crush ribs on one side face (0.15 crush). New parameters for slot, lead-in and ribs.</td></tr>
+  </table></div>
+</section>
+</main>
+</div>
+
+</body></html>

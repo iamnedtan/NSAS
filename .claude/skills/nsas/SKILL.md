@@ -1,6 +1,6 @@
 ---
 name: nsas
-description: Ned Slotted Angle System (NSAS) — the user's own pegboard-style mounting grid of 45° downward-angled 5 mm square sockets with optional angled grooves between rows, used with a square key (one straight 45° bar with a 1 mm stop, 4.6 mm slip-fit leg into the panel, 4.8→5.0 mm press-fit leg into the accessory, tapered on the upper/lower faces only, side faces flat and flush) so accessories gravity-lock. Use whenever the user says "NSAS", "use NSAS", "add NSAS", "Ned Slotted Angle System", or asks to add their slotted/angled socket grid to any panel, lid, wall or accessory in any CAD design (SolidCraft, cadgen/text-to-cad, or other).
+description: Ned Slotted Angle System (NSAS) — the user's own pegboard-style mounting grid of 45° downward-angled 5 mm square sockets with optional angled grooves between rows, used with a square key (one straight 45° bar with a 1 mm stop, 4.6 mm slip-fit leg into the panel, expanding split-prong leg into the accessory (5.0 root → 5.3 mm oversize tip on the upper/lower faces, crush ribs on one side face), side faces flat and flush) so accessories gravity-lock. Use whenever the user says "NSAS", "use NSAS", "add NSAS", "Ned Slotted Angle System", or asks to add their slotted/angled socket grid to any panel, lid, wall or accessory in any CAD design (SolidCraft, cadgen/text-to-cad, or other).
 ---
 
 # Ned Slotted Angle System (NSAS)
@@ -41,7 +41,9 @@ The full spec, with derivations and the reference-model notes, is in [spec.md](s
 - Panel leg: 10.0 mm perpendicular from the stop. Accessory leg: 5.0 mm perpendicular from the stop, on the same axis.
 - **Panel leg: slip fit (slot in), not a press fit.** 4.6 × 4.6 mm square, 0.2 mm clearance per side. This allows quick replacement and movement of accessories.
 - **Flat sides:** the two side faces (vertical, parallel to the bar axis) are flat and flush along the whole key: panel leg, stop and accessory leg all 4.6 mm wide, one plane per side. The key prints lying on one flat side.
-- **Accessory leg: press fit.** Only the upper and lower faces (at 45° to the panel face) taper, linearly over the full length, from 4.8 mm at the tip to 5.0 mm at the root (line-to-line with the 5.0 mm accessory hole). Across the flat sides it stays 4.6 mm. Keep the accessory hole at 5.0 mm; the fit is set by the key only.
+- **Accessory leg: expanding press fit** (v0.9; the plain 4.8→5.0 taper proved loose). Only the upper and lower faces (at 45° to the panel face) taper, linearly over the full length, from 5.0 mm at the root (line-to-line with the 5.0 mm hole) to an oversize 5.3 mm at the tip. A 1.0 mm slot along the axis splits the leg into two prongs, from the tip to 0.5 mm (perpendicular) in front of the accessory back face, through both flat sides. The prongs squeeze together in the hole and spring back against its walls. A 0.6 mm lead-in cuts both prong tip corners. Across the flat sides the leg stays 4.6 mm, except two crush ribs (one per prong, 0.6 mm wide, 0.55 mm high = hole − 4.6 + 0.15 crush) on **one** side face only, ending 1.0 mm (along the slope) short of the tip. Keep the slot wider than tip − hole. Keep the accessory hole at 5.0 mm; the fit is set by the key only.
+- **Print the key** lying on the side face without ribs: ribs on top, slot walls vertical, each prong flexes within its layers.
+- Reference model: `nsas holders/NSAS key - accessories.solidcraft` (parameters `key_root`, `key_bulge`, `prong_gap`, `prong_root`, `lead_in`, `rib_crush`, `rib_h`, `rib_w`, `rib_lead`, `acc_hole`). Slot, ribs and lead-in are boxes tilted 45° (or the lead-in angles) with parameter expressions and cut or joined by body name, so nothing depends on picked edges.
 - Customisable: on a slotted face shallower than normal, shorten the panel leg to that face's functional depth and keep the 1 mm relief.
 
 **Accessories**
@@ -54,11 +56,11 @@ The full spec, with derivations and the reference-model notes, is in [spec.md](s
 
 ## Making it parametric
 
-Expose at least: functional depth (10), relief (1), socket size (5), key press-fit root and tip widths (5.0, 4.8), key stop thickness (1.0), column pitch (10), the row rule distance (30), groove thickness (2.1) and depth (8), and the panel area or margins. Derive the counts, row pitch and groove length from those, not as fixed numbers. In SolidCraft, avoid sketch planes whose origin is an expression, and avoid edges picked by fixed points (both break on resize). Prefer primitives or extrudes driven by parameters, with patterns or mirrors for repetition.
+Expose at least: functional depth (10), relief (1), socket size (5), key accessory-leg root and tip widths (5.0, 5.3), prong slot width and root land (1.0, 0.5), tip lead-in (0.6), rib crush, width and tip gap (0.15, 0.6, 1.0), key stop thickness (1.0), column pitch (10), the row rule distance (30), groove thickness (2.1) and depth (8), and the panel area or margins. Derive the counts, row pitch and groove length from those, not as fixed numbers. In SolidCraft, avoid sketch planes whose origin is an expression, and avoid edges picked by fixed points (both break on resize). Also avoid sketch chamfers held by point-to-corner distances: the solver can flip a chamfer point past the corner on a large parameter change. Prefer primitives or extrudes driven by parameters, with patterns or mirrors for repetition.
 
 ## Before finishing
 
-- Check: socket depth, row pitch, the k→k+2 = 30 mm rule, groove length = outer socket span (if grooves are used), grid centring, and the key sizes (panel leg 4.6 mm × 10 mm; accessory leg 4.6 mm flat sides, 4.8 mm tip to 5.0 mm root on the upper/lower faces, × 5 mm; stop 1 mm; flat sides one face each), measured from the model.
+- Check: socket depth, row pitch, the k→k+2 = 30 mm rule, groove length = outer socket span (if grooves are used), grid centring, and the key sizes (panel leg 4.6 mm × 10 mm; accessory leg 4.6 mm flat sides, 5.0 mm root to 5.3 mm tip on the upper/lower faces, × 5 mm, prong slot present, ribs on one side only, one solid body; stop 1 mm; flat sides one face each apart from the ribs), measured from the model.
 - Accessory holes: confirm from the model that each hole floor is higher than its mouth (rises going in), the depth is 6 mm, and no floor breaks into a cavity or the top face.
 - Keep full precision in CAD; round only displayed values. Square sizes are measured across the 45° axis; pitches and spacings are centre to centre.
 - Suggest a fit check before a full accessory: one key plus a small block with one 5.0 mm hole.
@@ -71,4 +73,4 @@ Expose at least: functional depth (10), relief (1), socket size (5), key press-f
 
 ## Source
 
-Derived from the user's top cover in `E:\Dev\RunnerCollector Ned\reference\gunpla desk vacuum box.step`. The spec was written on 2026-10-18 (v0.7, 2026-10-19: accessory hole direction fixed; v0.8, 2026-10-19: key flat flush sides, taper on upper/lower faces only); the project copy is `reference/slotted_system_spec.md`.
+Derived from the user's top cover in `E:\Dev\RunnerCollector Ned\reference\gunpla desk vacuum box.step`. The spec was written on 2026-10-18 (v0.7, 2026-10-19: accessory hole direction fixed; v0.8, 2026-10-19: key flat flush sides, taper on upper/lower faces only; v0.9, 2026-10-20: expanding split-prong accessory leg with crush ribs); the project copy is `reference/slotted_system_spec.md`, and the illustrated sheet is `reference/NSAS Spec Sheet.html`.

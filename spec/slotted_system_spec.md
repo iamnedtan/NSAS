@@ -1,6 +1,6 @@
 # Slotted panel system — spec sheet
 
-Draft v0.8, 2026-10-19 (v0.2: groove made optional; v0.3: key can be customised; v0.4: key slips into the panel and press-fits into the accessory; v0.5: key shape fixed with a 1 mm stop, groove values corrected; v0.6: conventions, groove wall, key datum, fit check; v0.7: accessory hole direction (rises into the accessory), depth, floor and placement rules, direction check; v0.8: key side faces flat and flush, accessory-leg taper on the upper and lower faces only). Written from the user's design intent plus measurements of the top cover in `gunpla desk vacuum box.step`. Where the reference model and the intent differ, the intent wins and the difference is noted.
+Draft v0.9, 2026-10-20 (v0.9: accessory leg split into two flexing prongs with an oversize tip, tip lead-in chamfer, crush ribs on one flat side; v0.2: groove made optional; v0.3: key can be customised; v0.4: key slips into the panel and press-fits into the accessory; v0.5: key shape fixed with a 1 mm stop, groove values corrected; v0.6: conventions, groove wall, key datum, fit check; v0.7: accessory hole direction (rises into the accessory), depth, floor and placement rules, direction check; v0.8: key side faces flat and flush, accessory-leg taper on the upper and lower faces only). Written from the user's design intent plus measurements of the top cover in `gunpla desk vacuum box.step`. Where the reference model and the intent differ, the intent wins and the difference is noted.
 
 ## 1. What it is
 
@@ -112,16 +112,20 @@ The key connects the accessory interface (section 7) to the panel sockets.
 - **Stop:** a vertical plate 1.0 mm thick (perpendicular), 4.6 mm wide (flush with the flat sides) and 15.0 mm tall, centred on the bar. Its ends are cut at 45°, parallel to the bar. It rests flat on the panel face and sets the insertion depth. It is taller than the 7.07 mm socket mouth, so it cannot enter the socket.
 
 - **Panel leg:** slip fit (slot in), **not a press fit**. This allows quick replacement and movement of accessories.
-- **Accessory leg:** press fit. Across the upper and lower faces this leg is slightly larger than the panel leg and tapers along its full length, so it starts easily and then grips. Across the flat sides it stays 4.6 mm, flush with the panel leg and stop (0.2 mm clearance per side in the 5.0 mm hole). The key stays in the accessory when the accessory is moved.
+- **Accessory leg:** expanding press fit (v0.9). A slot along the bar axis splits the leg into two prongs, one at the upper face and one at the lower face. Across the upper and lower faces the leg widens from 5.0 mm at the root to an oversize 5.3 mm at the tip, so the prongs squeeze together in the 5.0 mm hole and spring back against its walls. A chamfer on the two tip edges leads the oversize tip into the hole. Across the flat sides the leg stays 4.6 mm, flush with the panel leg and stop. One crush rib per prong on **one** flat side takes up both side clearances plus 0.15 mm crush, so the key cannot rock sideways. The key stays in the accessory when the accessory is moved.
+- **Printing:** print the key lying on the flat side **without** ribs. The ribs are then on the top face and the slot walls are vertical, so each prong is made of full layers and flexes within the layer plane.
 - **Customisable:** if a slotted face is shallower than normal, customise the key to match. Shorten the panel leg so that it engages only the functional depth of that face, and keep the 1 mm relief to the socket floor.
 
 | Item | Value | Notes |
 |---|---|---|
 | Section, panel leg | 4.6 × 4.6 mm square | 0.2 mm clearance per side in a 5.0 mm socket |
 | Width across the flat sides | 4.6 mm, whole key | panel leg, stop and accessory leg flush; one flat face per side |
-| Section, accessory leg, at the root (stop end) | 4.6 (flat sides) × 5.0 mm (upper/lower faces) | 5.0 is line-to-line with the 5.0 mm hole; grip comes from the taper closing up to full hole size |
-| Section, accessory leg, at the tip | 4.6 × 4.8 mm | 0.1 mm clearance per side on the tapered faces, so the tip enters the hole freely |
-| Taper on the accessory leg | linear, 4.8 → 5.0 mm, upper and lower faces only | over the full 5.0 mm leg length; the flat sides do not taper |
+| Section, accessory leg, at the root (stop end) | 4.6 (flat sides) × 5.0 mm (upper/lower faces) | `key_root`; line-to-line with the 5.0 mm hole |
+| Section, accessory leg, at the tip (prongs relaxed) | 4.6 × 5.3 mm | `key_bulge`; 0.15 mm interference per side, taken up by the prongs flexing |
+| Taper on the accessory leg | linear, 5.0 → 5.3 mm (widens toward the tip), upper and lower faces only | over the full 5.0 mm leg length; the flat sides do not taper |
+| Prong slot | 1.0 mm wide across the axis, from the tip to 0.5 mm (perpendicular) in front of the accessory back face, through both flat sides | `prong_gap`, `prong_root`; keep `prong_gap` > `key_bulge` − hole size so the prongs never close up |
+| Tip lead-in | 0.6 mm chamfer on the two tip edges of the tapered faces | `lead_in` |
+| Crush ribs | 2 ribs (one per prong), 0.6 mm wide, 0.55 mm high, on one flat side only | `rib_w`, `rib_h` = hole − 4.6 + `rib_crush` (0.15); end `rib_lead` (1.0 mm along the slope) short of the tip |
 | Leg lengths, perpendicular | panel 10.0, accessory 5.0 | measured from the stop faces |
 | Stop | 1.0 thick × 4.6 wide (flush) × 15.0 tall | vertical, ends cut at 45°, flat on the panel face |
 | Engagement in the panel | functional depth (10 mm on a standard face), measured from the panel face where the stop rests | the 1 mm relief keeps it off the floor |
