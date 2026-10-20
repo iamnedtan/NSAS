@@ -380,7 +380,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
     <span class="sub">45° gravity-lock socket grid for FDM-printed panels and accessories</span>
   </div>
   <div><span class="k">Document</span><span class="v">NSAS-SPEC</span></div>
-  <div><span class="k">Revision</span><span class="v">v0.10 draft</span></div>
+  <div><span class="k">Revision</span><span class="v">v0.11 draft</span></div>
   <div><span class="k">Date</span><span class="v">2026-10-20</span></div>
   <div><span class="k">Units</span><span class="v">mm, degrees</span></div>
   <div><span class="k">Views</span><span class="v">to scale, per view</span></div>
@@ -653,7 +653,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 <section id="key">
   <h2><span class="n">陸</span>Key</h2>
   <p>The key joins the accessory to the panel sockets. It is one straight 45° square bar with a thin stop plate across it. The bar fits snugly into the panel (not a press fit), so accessories can be moved and replaced quickly. It press-fits into the accessory, so it stays with the accessory when moved. The stop rests flat on the panel face and sets the insertion depth.</p>
-  <p>The two side faces are flat and flush along the whole key (4.60 apart), so it prints lying on one side. The accessory leg is an <b>expanding peg</b>: a slot along the axis splits it into two prongs, and the upper and lower faces widen from 5.00 at the root to an oversize 5.30 at the tip. In the 5.00 hole the prongs squeeze together and spring back against the walls. A lead-in at the tip starts the oversize prongs. Crush ribs on one side face take up the side clearance, so the key cannot rock. The panel leg uses the same idea with a lighter fit: it widens from 4.60 to 5.00 (line-to-line), its slot stops 3.00 from the panel face, its ribs crush only 0.05, and a 1.00 chamfer on its upper tip edge finds the socket. All ribs taper 0.15 lower toward their tip end.</p>
+  <p>The two side faces are flat and flush along the whole key (4.60 apart), so it prints lying on one side. The accessory leg is an <b>expanding peg</b>: a slot along the axis splits it into two prongs, and the upper and lower faces widen from 5.00 at the root to an oversize 5.30 at the tip. In the 5.00 hole the prongs squeeze together and spring back against the walls. A lead-in at the tip starts the oversize prongs. The panel leg uses the same idea with a lighter fit: it widens from 4.60 to 5.00 (line-to-line), its slot stops 3.00 from the panel face, and a 1.00 chamfer on its upper tip edge finds the socket. Neither leg has crush ribs (v0.11): both keep 0.20 side clearance per side.</p>
   <div class="pair">
     <figure>
       <div class="dwgwrap"><svg class="dwg" viewBox="-33 -23.5 61 50" style="max-width:671px;min-width:416px" role="img" aria-label="Key seated in a panel socket and an accessory wall" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch4" patternUnits="userSpaceOnUse" width="0.636" height="0.636" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.636"/></pattern></defs>
@@ -669,7 +669,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 <polygon class="key" style="fill:var(--sheet)" points="3,2.293 10,9.293 10,10.707 3,3.707"/>
 <polygon class="key" points="-1,-4.536 -5.576,-9.324 -6,-9.148 -6,-2.852 -5.576,-1.828 -1,2.536"/>
 <polygon class="key" style="fill:var(--sheet)" points="-1.5,-2.207 -6,-6.707 -6,-5.293 -1.5,-0.793"/>
-<polygon class="key" points="-1,-8.5 0,-7.5 0,7.5 -1,6.5"/>
+<polygon class="key" points="-1,-7 0,-6 0,6 -1,5"/>
 <polygon class="key" points="-1,-4.253 0,-3.253 0,3.253 -1,2.253"/>
 <line class="ctr" x1="-9" y1="-9" x2="13" y2="13"/>
 <text class="lbl" x="0.4" y="-17.4" font-size="1.136" text-anchor="start" dominant-baseline="middle">PANEL</text>
@@ -683,9 +683,9 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 <text class="note" x="-12.273" y="-12.5" font-size="1.136" text-anchor="end" dominant-baseline="middle">accessory leg</text>
 <text class="note" x="-12.273" y="-11.08" font-size="1.136" text-anchor="end" dominant-baseline="middle">split prongs, 5.0 → 5.3</text>
 <text class="note" x="-12.273" y="-9.659" font-size="1.136" text-anchor="end" dominant-baseline="middle">expanding press fit</text>
-<line class="lead" x1="-0.5" y1="6" x2="-12" y2="13.5"/>
-<circle class="dot" cx="-0.5" cy="6" r="0.2"/>
-<text class="note" x="-12.273" y="13.5" font-size="1.136" text-anchor="end" dominant-baseline="middle">stop 1 × 4.6 × 15</text>
+<line class="lead" x1="-0.5" y1="4.5" x2="-12" y2="13.5"/>
+<circle class="dot" cx="-0.5" cy="4.5" r="0.2"/>
+<text class="note" x="-12.273" y="13.5" font-size="1.136" text-anchor="end" dominant-baseline="middle">stop 1 × 4.6 × 12</text>
 <text class="note" x="-12.273" y="14.92" font-size="1.136" text-anchor="end" dominant-baseline="middle">flat on panel face</text>
 <line class="ext" x1="0" y1="21.273" x2="0" y2="23.564"/>
 <line class="ext" x1="10" y1="13.523" x2="10" y2="23.564"/>
@@ -709,19 +709,16 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
       <tr><td>Panel leg, root</td><td class="num"><strong>4.60 × 4.60</strong></td><td>0.20 / side clearance</td></tr>
       <tr><td>Panel leg, tip</td><td class="num"><strong>5.00</strong> × 4.60</td><td>Snug, line-to-line; taper on upper and lower faces</td></tr>
       <tr><td>Panel prong slot</td><td class="num">1.00 wide, to 3.00 ⊥ from panel face</td><td>Solid near the face for bending strength</td></tr>
-      <tr><td>Panel crush ribs</td><td class="num">2 × 0.60 wide × 0.45 high</td><td>Same side face as accessory ribs; 0.05 crush</td></tr>
       <tr><td>Panel tip chamfer</td><td class="num"><strong>1.00</strong></td><td>Upper tip edge; finds the socket</td></tr>
       <tr><td>Panel leg engagement</td><td class="num">10.00 ⊥ from panel face</td><td>Stop on face; 1.00 relief to floor</td></tr>
-      <tr><td>Side faces, whole key</td><td class="num"><strong>4.60</strong> apart</td><td>Flat and flush; print on the side without ribs</td></tr>
+      <tr><td>Side faces, whole key</td><td class="num"><strong>4.60</strong> apart</td><td>Flat and flush; 0.20 / side clearance; print on either side</td></tr>
       <tr><td>Accessory leg, root</td><td class="num"><strong>5.00</strong> × 4.60</td><td>Line-to-line in 5.00 hole</td></tr>
       <tr><td>Accessory leg, tip (relaxed)</td><td class="num"><strong>5.30</strong> × 4.60</td><td>0.15 / side interference, taken by the prongs</td></tr>
       <tr><td>Accessory leg taper</td><td class="num">linear, 5.00 → 5.30</td><td>Upper and lower faces only, widens to the tip</td></tr>
       <tr><td>Prong slot</td><td class="num"><strong>1.00</strong> wide, to 0.50 ⊥ from back face</td><td>Through both side faces; keep wider than tip − hole</td></tr>
       <tr><td>Tip lead-in</td><td class="num">0.60</td><td>Setback on both prong tip corners</td></tr>
-      <tr><td>Crush ribs</td><td class="num">2 × 0.60 wide × 0.55 high</td><td>One side face only, one per prong; 0.15 crush; end 1.00 ∥ short of the tip</td></tr>
-      <tr><td>Rib taper, all ribs</td><td class="num">−0.15 root → tip end</td><td>Accessory 0.55 → 0.40, panel 0.45 → 0.30</td></tr>
       <tr><td>Accessory leg length</td><td class="num">5.00 ⊥</td><td>From stop to tip</td></tr>
-      <tr><td>Stop</td><td class="num"><strong>1.00</strong> ⊥ × 4.60 × 15.0</td><td>Vertical plate, flat on panel face; ends cut at 45°</td></tr>
+      <tr><td>Stop</td><td class="num"><strong>1.00</strong> ⊥ × 4.60 × <strong>12.00</strong></td><td>Vertical plate, flat on panel face; ends cut at 45°; 2.75 past the bar above and below</td></tr>
       <tr><td>Accessory hole</td><td class="num">5.00 square, 6.00 ⊥, rising</td><td>Fit set by the key only; see section 7</td></tr>
     </table></div>
   </div>
@@ -730,34 +727,30 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 <polygon class="holeline" points="3,2.5 8,2.5 8,-2.5 3,-2.5"/>
 <polygon class="keysec" points="3.2,-2.5 7.8,-2.5 7.8,-0.5 3.2,-0.5"/>
 <polygon class="keysec" points="3.2,0.5 7.8,0.5 7.8,2.5 3.2,2.5"/>
-<polygon class="keysec" points="7.8,-1.7 8.25,-1.7 8.25,-1.1 7.8,-1.1"/>
-<polygon class="keysec" points="7.8,1.1 8.25,1.1 8.25,1.7 7.8,1.7"/>
 <text class="lbl" x="5.5" y="-6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">PANEL LEG TIP</text>
 <text class="big" x="5.5" y="-1.5" font-size="0.868" text-anchor="middle" dominant-baseline="middle">5.0</text>
 <text class="note" x="5.5" y="4.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">socket 5.0 (root 4.6)</text>
-<text class="note" x="5.5" y="6.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">snug; ribs crush 0.05</text>
+<text class="note" x="5.5" y="6.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">snug, line-to-line</text>
 <polygon class="holeline" points="16,2.5 21,2.5 21,-2.5 16,-2.5"/>
 <polygon class="keysec" points="16.2,-2.65 20.8,-2.65 20.8,-0.5 16.2,-0.5"/>
 <polygon class="keysec" points="16.2,0.5 20.8,0.5 20.8,2.65 16.2,2.65"/>
-<polygon class="keysec" points="20.8,-1.9 21.35,-1.9 21.35,-1.3 20.8,-1.3"/>
-<polygon class="keysec" points="20.8,1.3 21.35,1.3 21.35,1.9 20.8,1.9"/>
 <text class="lbl" x="18.5" y="-6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">ACCESSORY TIP</text>
 <text class="big" x="18.5" y="-1.6" font-size="0.868" text-anchor="middle" dominant-baseline="middle">5.3</text>
 <text class="note" x="18.5" y="4.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">hole 5.0, prongs relaxed</text>
-<text class="note" x="18.5" y="6.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">squeeze 0.15 / side; ribs crush 0.15</text>
+<text class="note" x="18.5" y="6.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">squeeze 0.15 / side</text>
 <polygon class="holeline" points="29,2.5 34,2.5 34,-2.5 29,-2.5"/>
 <polygon class="keysec" points="29.2,2.5 33.8,2.5 33.8,-2.5 29.2,-2.5"/>
 <text class="lbl" x="31.5" y="-6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">ACCESSORY ROOT</text>
 <text class="big" x="31.5" y="0" font-size="0.868" text-anchor="middle" dominant-baseline="middle">5.0</text>
 <text class="note" x="31.5" y="4.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">hole 5.0</text>
 <text class="note" x="31.5" y="6.6" font-size="0.694" text-anchor="middle" dominant-baseline="middle">0 / side, line-to-line</text></svg></div>
-    <figcaption><b>View E.</b> Key sections (shaded) inside a 5.00 hole (dashed). Tapered faces top and bottom, flat sides left and right. Both tips: two prongs with the slot between, ribs on the right side face only (shown at their root-end height).</figcaption>
+    <figcaption><b>View E.</b> Key sections (shaded) inside a 5.00 hole (dashed). Tapered faces top and bottom, flat sides left and right. Both tips: two prongs with the slot between. No crush ribs; 0.20 side clearance per side.</figcaption>
   </figure>
   <ul class="rules" style="margin-top:14px">
     <li><b>Shallow faces:</b> shorten the panel leg to that face's functional depth. Keep the 1 mm relief.</li>
-    <li><b>Print orientation:</b> lie the key on the side face without ribs. The ribs are then on top, the slot walls are vertical, and each prong flexes within its layers.</li>
-    <li><b>Tuning:</b> loose: raise the tip (5.30 → 5.40) or the rib crush (0.15 → 0.25). Too hard to push in: lower the tip or widen the slot. Keep the slot wider than tip − hole, so the prongs never close up.</li>
-    <li><b>Fit check:</b> before a full accessory, print one key and a small block with one 5.00 hole. Adjust the tip size and rib crush, then keep the values that work for your printer.</li>
+    <li><b>Print orientation:</b> lie the key on either flat side. The slot walls are then vertical, and each prong flexes within its layers.</li>
+    <li><b>Tuning:</b> loose: raise the tip (5.30 → 5.40). Too hard to push in: lower the tip or widen the slot. Keep the slot wider than tip − hole, so the prongs never close up.</li>
+    <li><b>Fit check:</b> before a full accessory, print one key and a small block with one 5.00 hole. Adjust the tip size, then keep the values that work for your printer.</li>
   </ul>
 </section>
 
@@ -800,11 +793,9 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
     <tr><td>Key root / tip width</td><td class="num">5.0 / 5.3</td><td>Accessory leg taper; tip oversize for the expanding fit</td></tr>
     <tr><td>Prong slot width / root land</td><td class="num">1.0 / 0.5</td><td>Prong flex; solid leg in front of the back face</td></tr>
     <tr><td>Tip lead-in</td><td class="num">0.6</td><td>Setback on the prong tip corners</td></tr>
-    <tr><td>Rib crush / width / tip gap</td><td class="num">0.15 / 0.6 / 1.0</td><td>Rib height = hole − 4.6 + crush</td></tr>
-    <tr><td>Rib taper</td><td class="num">0.15</td><td>All ribs: height drop, root end → tip end</td></tr>
     <tr><td>Panel leg tip width / slot root land</td><td class="num">5.0 / 3.0</td><td>Panel snug fit; solid leg next to the panel face</td></tr>
-    <tr><td>Panel rib crush / tip chamfer</td><td class="num">0.05 / 1.0</td><td>Panel rib height = socket − 4.6 + crush</td></tr>
-    <tr><td>Key stop thickness</td><td class="num">1.0</td><td>Stop plate; sets key insertion depth</td></tr>
+    <tr><td>Panel tip chamfer</td><td class="num">1.0</td><td>Upper tip edge of the panel leg</td></tr>
+    <tr><td>Key stop thickness / height</td><td class="num">1.0 / 12.0</td><td>Stop plate; sets key insertion depth</td></tr>
     <tr><td>Accessory hole depth</td><td class="num">6.0</td><td>Key accessory leg + relief; floor height above the mouth</td></tr>
     <tr><td>Accessory top skin</td><td class="num">2.0</td><td>Top margin = hole depth + skin</td></tr>
     <tr><td>Accessory width clearance</td><td class="num">1.0</td><td>Width = columns × 10 − clearance</td></tr>
@@ -835,6 +826,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
     <tr><td>v0.8</td><td>Key side faces flat and flush along the whole key (4.60); taper on the upper and lower faces only.</td></tr>
     <tr><td>v0.9</td><td>Tapered press fit proved loose. Accessory leg is now an expanding peg: slot splits it into two prongs, tip oversize 5.30 (root 5.00), 0.60 tip lead-in, two crush ribs on one side face (0.15 crush). New parameters for slot, lead-in and ribs.</td></tr>
     <tr><td>v0.10</td><td>Panel leg: snug fit, widens 4.60 → 5.00, prong slot to 3.00 from the face, two crush ribs (0.05 crush) on the same side face, 1.00 chamfer on the upper tip edge. All crush ribs taper 0.15 lower toward the tip.</td></tr>
+    <tr><td>v0.11</td><td>Stop height reduced, 15.0 → 12.00 (2.75 past the bar above and below). All crush ribs removed from both legs.</td></tr>
   </table></div>
 </section>
 </main>
