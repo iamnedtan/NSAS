@@ -61,10 +61,8 @@ ACC_HOLE = 5.0
 ACC_DEPTH = 6.0
 HOLE_PITCH = 10.0
 BLOCK_T = 10.0  # 6 deep + 4 skin behind the floor
-MOUTH_Y0 = 8.0  # bottom of the hole mouth on the back face
-BLOCK_H = 29.0  # 13.9 above the top of the mouth (>= depth + skin)
-HANG_D = 3.5  # through hole under each test hole, for the hang test
-HANG_Y = 3.5
+MOUTH_Y0 = 3.0  # bottom of the hole mouth on the back face
+BLOCK_H = 24.0  # 13.9 above the top of the mouth (>= depth + skin)
 BLOCK_LABEL_H = 3.0
 
 
@@ -209,7 +207,6 @@ def block_shape(names):
             bd.Location((-1, 0, -1))
         )
         body = body - (bar & slab)
-        body = body - bd.Cylinder(HANG_D / 2, 3 * BLOCK_T).moved(bd.Location((x, HANG_Y, 0)))
         txt = bd.extrude(bd.Text(name, BLOCK_LABEL_H, font=FONT), LABEL_DEPTH + 0.5)
         body = body - txt.moved(bd.Location((x, BLOCK_H - 3.5, BLOCK_T - LABEL_DEPTH)))
     body = body.clean()

@@ -6,7 +6,7 @@ Spec sheet is **not** changed until the results are in.
 
 Keys print as exported: lying on a flat side, no supports. Variant name is debossed 0.4 mm into the top flat
 side at the panel-leg root (no effect on fit). Test block prints back face down; one 5.00 hole per key,
-10 C-C, rising 45°, 6.00 deep, Ø3.5 hang hole under each, name debossed on the front.
+10 C-C, rising 45°, 6.00 deep, name debossed on the front.
 
 | Variant | Accessory leg (upper/lower faces) | Other |
 |---|---|---|
