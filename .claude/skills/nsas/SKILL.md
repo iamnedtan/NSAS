@@ -1,0 +1,74 @@
+---
+name: nsas
+description: Ned Slotted Angle System (NSAS) — the user's own pegboard-style mounting grid of 45° downward-angled 5 mm square sockets with optional angled grooves between rows, used with a square key (one straight 45° bar with a 1 mm stop, 4.6 mm slip-fit leg into the panel, 4.8→5.0 mm press-fit leg into the accessory, tapered on the upper/lower faces only, side faces flat and flush) so accessories gravity-lock. Use whenever the user says "NSAS", "use NSAS", "add NSAS", "Ned Slotted Angle System", or asks to add their slotted/angled socket grid to any panel, lid, wall or accessory in any CAD design (SolidCraft, cadgen/text-to-cad, or other).
+---
+
+# Ned Slotted Angle System (NSAS)
+
+When the user says "use NSAS" (or "add NSAS to …"), they mean: put this socket-and-groove grid on the named surface, sized to fill it, following the spec exactly. Accessories meant to hang on an NSAS panel get matching angled holes on the same grid.
+
+The full spec, with derivations and the reference-model notes, is in [spec.md](spec.md). Read it before modelling. The rules below are the working summary.
+
+## Core rules
+
+**Socket**
+- 5.0 × 5.0 mm square section, angled **45° downward into the face**. When the panel hangs vertically, each socket descends as it goes in.
+- On the face it shows 7.07 mm tall (5 × √2).
+- **Functional depth 10.0 mm perpendicular. Modelled depth 11.0 mm perpendicular** (functional + 1 mm, so the key never bottoms out). Rule: modelled = functional + 1 mm.
+- Flat floor parallel to the face.
+- Mouth lead-in: 0.5 mm × 45° chamfer on the side edges, small 22.5° bevel on the lip.
+- The panel must be at least modelled depth + skin thick (reference: 11 mm raised panel on a 1 mm skin). If the surface is thinner, add a local raised panel, or use a shallower face with a customised key, or ask the user.
+
+**Grid**
+- Column pitch 10.0 mm (5 mm socket, 5 mm wall).
+- Row rule: measured vertically, the top wall of row k to the bottom wall of row k+2 is **30.0 mm** (two interleaved 30 mm sets). For adjacent rows this gives:
+  - row pitch **18.536 mm** (= 15 + 2.5√2)
+  - gap, top wall of row k to bottom wall of row k+1: **11.464 mm**
+  - outer to outer across rows k and k+1: **25.607 mm**
+- **Not a fixed size:** as many columns and rows as fit the available area. Centre the grid in both directions so opposite margins are equal. No staggering between rows.
+- Outer-wall span of n columns: (n − 1) × 10 + 5 mm.
+
+**Groove (optional)**
+- Main purpose: hollow out material and, at the same time, increase strength for FDM printing.
+- Ask the user if the groove is required. If the area is small and does not need it (for example a small accessory panel, or a single row with no gap), skip it without asking and tell the user it was skipped.
+- When used: one groove in every gap between adjacent socket rows, centred vertically in the gap (4.25 mm land above and below).
+- 2.1 mm thick perpendicular to its walls (2.97 mm on the face), 45° downward parallel to the sockets, 8.0 mm deep perpendicular. This leaves a 3.0 mm wall to each socket and 4.0 mm behind the groove floor on a 12 mm panel.
+- **Length = exactly the outer-wall span of the socket grid**, from the outer wall of the leftmost socket to the outer wall of the rightmost. Square ends aligned with those walls.
+
+**Key ("stick")**
+- Connects the accessory interface to the panel sockets.
+- Shape: one straight square bar on the 45° socket axis, crossed by a vertical stop plate 1.0 mm thick (perpendicular), 4.6 mm wide, 15.0 mm tall, ends cut at 45°. The stop rests flat on the panel face and sets the insertion depth.
+- Panel leg: 10.0 mm perpendicular from the stop. Accessory leg: 5.0 mm perpendicular from the stop, on the same axis.
+- **Panel leg: slip fit (slot in), not a press fit.** 4.6 × 4.6 mm square, 0.2 mm clearance per side. This allows quick replacement and movement of accessories.
+- **Flat sides:** the two side faces (vertical, parallel to the bar axis) are flat and flush along the whole key: panel leg, stop and accessory leg all 4.6 mm wide, one plane per side. The key prints lying on one flat side.
+- **Accessory leg: press fit.** Only the upper and lower faces (at 45° to the panel face) taper, linearly over the full length, from 4.8 mm at the tip to 5.0 mm at the root (line-to-line with the 5.0 mm accessory hole). Across the flat sides it stays 4.6 mm. Keep the accessory hole at 5.0 mm; the fit is set by the key only.
+- Customisable: on a slotted face shallower than normal, shorten the panel leg to that face's functional depth and keep the 1 mm relief.
+
+**Accessories**
+- Holes go in the accessory's back face (the flat face that rests on the panel). Grid: 10 mm horizontal, 18.536 mm vertical. Reference: 2 holes, 40 mm apart.
+- **Direction: the hole RISES 45° going into the accessory** (from its back face: 1 mm up per 1 mm in). It is on the same line as the panel socket but runs the other way, because the key is one straight bar: panel leg in and down, accessory leg out and up. **Never copy the socket's "downward into the face" onto the accessory.**
+- 5.0 × 5.0 mm square (7.07 mm tall on the face). Depth 6.0 mm perpendicular (leg 5 + 1 relief). Flat floor parallel to the back face. Blind, unless the wall is thinner than the depth.
+- The floor ends 6 mm higher than the mouth. Keep top-of-face to top-of-upper-mouth ≥ depth + skin (8 mm). Keep ≥ 2 mm skin behind every floor.
+- Accessory width for side-by-side hanging: n × 10 mm − clearance (1.0 mm total suggested).
+- SolidCraft method that works: sketch the 5 × 7.07 mm mouth rectangle on the back-face plane, sweep-cut it (orientation parallel) along a 45° line going in and up, then a rectangular feature pattern with parameter spacings.
+
+## Making it parametric
+
+Expose at least: functional depth (10), relief (1), socket size (5), key press-fit root and tip widths (5.0, 4.8), key stop thickness (1.0), column pitch (10), the row rule distance (30), groove thickness (2.1) and depth (8), and the panel area or margins. Derive the counts, row pitch and groove length from those, not as fixed numbers. In SolidCraft, avoid sketch planes whose origin is an expression, and avoid edges picked by fixed points (both break on resize). Prefer primitives or extrudes driven by parameters, with patterns or mirrors for repetition.
+
+## Before finishing
+
+- Check: socket depth, row pitch, the k→k+2 = 30 mm rule, groove length = outer socket span (if grooves are used), grid centring, and the key sizes (panel leg 4.6 mm × 10 mm; accessory leg 4.6 mm flat sides, 4.8 mm tip to 5.0 mm root on the upper/lower faces, × 5 mm; stop 1 mm; flat sides one face each), measured from the model.
+- Accessory holes: confirm from the model that each hole floor is higher than its mouth (rises going in), the depth is 6 mm, and no floor breaks into a cavity or the top face.
+- Keep full precision in CAD; round only displayed values. Square sizes are measured across the 45° axis; pitches and spacings are centre to centre.
+- Suggest a fit check before a full accessory: one key plus a small block with one 5.0 mm hole.
+- Tell the user the resulting row and column counts, the margins, and whether grooves were included or skipped.
+
+## Open points (ask if they matter for the design)
+
+- Purpose and profile of the wider groove along the top edge seen in the reference cover.
+- Minimum margin around the grid (reference: about 2.5–3 mm horizontally).
+
+## Source
+
+Derived from the user's top cover in `E:\Dev\RunnerCollector Ned\reference\gunpla desk vacuum box.step`. The spec was written on 2026-10-18 (v0.7, 2026-10-19: accessory hole direction fixed; v0.8, 2026-10-19: key flat flush sides, taper on upper/lower faces only); the project copy is `reference/slotted_system_spec.md`.
