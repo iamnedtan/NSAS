@@ -73,4 +73,4 @@ Expose at least: functional depth (10), relief (1), socket size (5), key accesso
 
 ## Source
 
-Derived from the user's top cover in `E:\Dev\RunnerCollector Ned\reference\gunpla desk vacuum box.step`. The spec was written on 2026-10-18 (v0.7, 2026-10-19: accessory hole direction fixed; v0.8, 2026-10-19: key flat flush sides, taper on upper/lower faces only; v0.9, 2026-10-20: expanding split-prong accessory leg with crush ribs); the project copy is `reference/slotted_system_spec.md`, and the illustrated sheet is `reference/NSAS Spec Sheet.html`.
+Derived from the user's top cover in `E:\Dev\RunnerCollector Ned\reference\gunpla desk vacuum box.step`. The spec was written on 2026-10-18 (v0.7, 2026-10-19: accessory hole direction fixed; v0.8, 2026-10-19: key flat flush sides, taper on upper/lower faces only; v0.9, 2026-10-20: expanding split-prong accessory leg with crush ribs); [spec.md](spec.md) is the only text copy (edit it there), and the illustrated sheet is `reference/NSAS Spec Sheet.html`.
