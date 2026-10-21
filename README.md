@@ -30,7 +30,9 @@ New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\skills\nsas" -Target
 
 ## History
 
-NSAS started inside [RunnerCollector](https://github.com/iamnedtan/RunnerCollector) and was split out with its history on 2026-10-21. The first commit in this repo is RunnerCollector's initial commit, filtered to the NSAS files. The RunnerCollector boxes and the socket broach that repairs early box prints stay in that repo. The nipper holder and the sanding block were copied into [systems/modelling-gunpla](systems/modelling-gunpla/); the originals also stay there.
+Ned ([iamnedtan](https://github.com/iamnedtan)) invented NSAS in 2026 as part of a project to remodel a plastic modelling trolley. The aim is a quick way to reconfigure and move items around, similar to a pegboard system.
+
+The design work was first done alongside [RunnerCollector](https://github.com/iamnedtan/RunnerCollector), the first project to use NSAS. On 2026-10-21 the NSAS files moved to this repo with their git history, so the early commits here carry RunnerCollector commit messages. RunnerCollector keeps its own NSAS-based parts (the boxes and the socket broach that repairs early box prints). The nipper holder and the sanding block were copied from it into [systems/modelling-gunpla](systems/modelling-gunpla/).
 
 ## License
 
