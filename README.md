@@ -42,7 +42,7 @@ Accessory sets built on NSAS, one folder per hobby or use. More systems, such as
 | System | Contents |
 |---|---|
 | [modelling-gunpla](systems/modelling-gunpla/) | Nipper holder, sanding block |
-| [tools](systems/tools/) | Coffee cup holder (Starbucks, Luckin) |
+| [tools](systems/tools/) | Mini coffee cup holder (Starbucks, Luckin) |
 
 ## <img src="assets/readme/n05.svg" height="40" align="absmiddle" alt="5"> Printing <sub>印刷</sub>
 

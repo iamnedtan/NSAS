@@ -1,4 +1,4 @@
-"""Coffee cup holder: one mini instant-coffee cup on an NSAS panel.
+"""Mini coffee cup holder: one mini instant-coffee cup on an NSAS panel.
 
 An open ring whose bore follows the cup's own taper. The cup drops in from
 the top and wedges in the taper, held over the full HOLDER_H. No floor: the

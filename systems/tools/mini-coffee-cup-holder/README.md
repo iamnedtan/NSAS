@@ -1,4 +1,4 @@
-# Coffee cup holder
+# Mini coffee cup holder
 
 Holds one mini cup of freeze-dried instant coffee on an NSAS panel. Each brand gets its own variant, because the cup sizes differ. Only the cup body is measured; the lid is ignored.
 

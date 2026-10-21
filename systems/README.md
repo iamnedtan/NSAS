@@ -5,6 +5,6 @@ Accessories and sets built on NSAS, grouped by hobby or use. Each system has its
 | System | Contents |
 |---|---|
 | [modelling-gunpla](modelling-gunpla/) | Tool holders for plastic model building: nipper holder, sanding block |
-| [tools](tools/) | Everyday desk tools and supplies: coffee cup holder (Starbucks, Luckin) |
+| [tools](tools/) | Everyday desk tools and supplies: mini coffee cup holder (Starbucks, Luckin) |
 
 Planned: display bases and other systems.
