@@ -26,13 +26,15 @@ from cadgen import step, stl
 
 VARIANTS = {
     "starbucks": dict(top_d=30.9, bot_d=24.0, slant=37.0, label="STARBUCKS"),
+    "luckin": dict(top_d=29.7, bot_d=20.0, slant=28.6, label="LUCKIN"),
 }
 
 HOLDER_H = 22.0  # cup held over this length; >= 20 asked
 LIP_GAP = 1.5  # cup lip underside to ring top, at line-to-line fit
 # Radial bore offset from the cup surface. The cup seats where the bore
-# meets it, so every +0.1 mm here drops the cup about 1.1 mm (taper about
-# 5.3 deg). 0 = line-to-line; raise it if the print comes out tight.
+# meets it, so every +0.1 mm here drops the cup 0.1 / tan(taper): about
+# 1.1 mm for Starbucks (5.3 deg), 0.6 mm for Luckin (9.8 deg).
+# 0 = line-to-line; raise it if the print comes out tight.
 FIT = 0.0
 WALL = 2.0  # ring wall at the top of the bore
 LEAD_IN = 0.5  # 45 deg chamfer at the bore mouth
@@ -43,7 +45,8 @@ HOLDER_W = 39.0  # 4 x 10 - 1, so holders hang side by side
 # Engraved label on the top face, in the land between the back face and
 # the bore (8 mm deep at the centre).
 LABEL_FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-LABEL_W = 30.0  # text width, mm; the font size follows
+LABEL_W = 30.0  # maximum text width, mm
+LABEL_H = 3.5  # maximum text height, mm; the font size fits both
 LABEL_Y = 4.0  # text centre, from the back face
 LABEL_DEPTH = 0.6
 
@@ -86,7 +89,8 @@ def _nsas_holes(height):
 def _label_cut(text):
     """Text sunk LABEL_DEPTH into the top face, reading from the front."""
     probe = bd.Text(text, 10.0, font_path=LABEL_FONT)
-    size = 10.0 * LABEL_W / probe.bounding_box().size.X
+    pb = probe.bounding_box().size
+    size = 10.0 * min(LABEL_W / pb.X, LABEL_H / pb.Y)
     sk = bd.Text(text, size, font_path=LABEL_FONT)  # centred on the origin
     cut = bd.extrude(sk, LABEL_DEPTH + 1)
     # Seen from the front (+Y, looking at the panel) the reader's right is
@@ -140,13 +144,24 @@ def cup_holder_shape(top_d, bot_d, slant, label=None):
     return body
 
 
+def _variant(name):
+    body = cup_holder_shape(**VARIANTS[name])
+    body.label = f"cup_holder_{name}"
+    return body
+
+
 @stl(out="../cup_holder_starbucks.stl")
 @step(out="../cup_holder_starbucks.step")
 def cup_holder_starbucks():
-    body = cup_holder_shape(**VARIANTS["starbucks"])
-    body.label = "cup_holder_starbucks"
-    return body
+    return _variant("starbucks")
+
+
+@stl(out="../cup_holder_luckin.stl")
+@step(out="../cup_holder_luckin.step")
+def cup_holder_luckin():
+    return _variant("luckin")
 
 
 if __name__ == "__main__":
     cup_holder_starbucks()
+    cup_holder_luckin()

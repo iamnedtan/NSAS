@@ -1,10 +1,10 @@
-"""Mockup: Starbucks cup seated in its holder, to check how it sits.
+"""Mockups: each variant's cup seated in its holder, to check how it sits.
 
 Not for printing. The cup is a 0.5 mm shell with a simple rolled lip, built
 from the measured body values only (no lid). It sits where its taper meets
 the bore (line-to-line), on the holder's bore axis, with its lower part
-below the ring. A second output cuts both in
-half on the YZ plane so the seat in the bore shows.
+below the ring. The *_half outputs cut both in half on the YZ plane so
+the seat in the bore shows.
 """
 from __future__ import annotations
 
@@ -35,8 +35,8 @@ def cup_shape(top_d, bot_d, slant, label=None):
     return (outer - inner) + lip.moved(bd.Location((0, 0, h)))
 
 
-def mockup(half=False):
-    v = ch.VARIANTS["starbucks"]
+def mockup(name, half=False):
+    v = ch.VARIANTS[name]
     _, _, axis_y, cup_z = ch.bore_fit(**v)
     holder = ch.cup_holder_shape(**v)
     cup = cup_shape(**v).moved(bd.Location((0, axis_y, cup_z)))
@@ -45,20 +45,32 @@ def mockup(half=False):
         keep = keep.moved(bd.Location((0, 0, -30)))
         holder, cup = holder & keep, cup & keep
     holder.label = "holder"
-    cup.label = "starbucks_cup"
+    cup.label = f"{name}_cup"
     return bd.Compound(children=[holder, cup], label="cup_holder_mockup")
 
 
 @step(out="../mockup/cup_holder_starbucks_mockup.step")
 def cup_holder_starbucks_mockup():
-    return mockup()
+    return mockup("starbucks")
 
 
 @step(out="../mockup/cup_holder_starbucks_mockup_half.step")
 def cup_holder_starbucks_mockup_half():
-    return mockup(half=True)
+    return mockup("starbucks", half=True)
+
+
+@step(out="../mockup/cup_holder_luckin_mockup.step")
+def cup_holder_luckin_mockup():
+    return mockup("luckin")
+
+
+@step(out="../mockup/cup_holder_luckin_mockup_half.step")
+def cup_holder_luckin_mockup_half():
+    return mockup("luckin", half=True)
 
 
 if __name__ == "__main__":
     cup_holder_starbucks_mockup()
     cup_holder_starbucks_mockup_half()
+    cup_holder_luckin_mockup()
+    cup_holder_luckin_mockup_half()
