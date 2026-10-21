@@ -14,6 +14,7 @@ Current spec: **v0.13** (2026-10-21).
 | `keys/NSAS key - accessories.*` | Standard key (1 mm stop): SolidCraft source, STEP, STL |
 | `keys/NSAS key - accessories thick.*` | Thick-stop key (3 mm stop), for accessories that must stand off the panel |
 | [keys/key_fit_test/](keys/key_fit_test/) | Accessory-leg fit test: variant keys, test block and print plates |
+| [systems/](systems/) | Created systems: accessory sets built on NSAS, one folder per hobby or use (first: [modelling-gunpla](systems/modelling-gunpla/)) |
 
 ## Printing the keys
 
@@ -29,7 +30,7 @@ New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\skills\nsas" -Target
 
 ## History
 
-NSAS started inside [RunnerCollector](https://github.com/iamnedtan/RunnerCollector) and was split out with its history on 2026-10-21. The first commit in this repo is RunnerCollector's initial commit, filtered to the NSAS files. Designs that use NSAS (the RunnerCollector boxes, the nipper holder, the socket broach that repairs early box prints) stay in that repo.
+NSAS started inside [RunnerCollector](https://github.com/iamnedtan/RunnerCollector) and was split out with its history on 2026-10-21. The first commit in this repo is RunnerCollector's initial commit, filtered to the NSAS files. The RunnerCollector boxes and the socket broach that repairs early box prints stay in that repo. The nipper holder and the sanding block were copied into [systems/modelling-gunpla](systems/modelling-gunpla/); the originals also stay there.
 
 ## License
 
