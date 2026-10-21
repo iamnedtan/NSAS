@@ -26,14 +26,14 @@ from cadgen import step, stl
 
 VARIANTS = {
     "starbucks": dict(top_d=30.9, bot_d=24.0, slant=37.0, label="STARBUCKS"),
-    "luckin": dict(top_d=29.7, bot_d=20.0, slant=28.6, label="LUCKIN"),
+    "luckin": dict(top_d=24.7, bot_d=20.0, slant=28.6, label="LUCKIN"),
 }
 
 HOLDER_H = 22.0  # cup held over this length; >= 20 asked
 LIP_GAP = 1.5  # cup lip underside to ring top, at line-to-line fit
 # Radial bore offset from the cup surface. The cup seats where the bore
 # meets it, so every +0.1 mm here drops the cup 0.1 / tan(taper): about
-# 1.1 mm for Starbucks (5.3 deg), 0.6 mm for Luckin (9.8 deg).
+# 1.1 mm for Starbucks (5.3 deg), 1.2 mm for Luckin (4.7 deg).
 # 0 = line-to-line; raise it if the print comes out tight.
 FIT = 0.0
 WALL = 2.0  # ring wall at the top of the bore
