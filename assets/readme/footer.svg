@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="34" viewBox="0 0 1080 34" role="img" aria-label="Technical design, FDM fabrication">
+<rect width="1080" height="34" fill="#ffffff"/>
+<rect width="1080" height="3" fill="#30383e"/>
+<rect width="54" height="3" fill="#d82f25"/>
+<text x="28" y="22" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="9" font-weight="500" letter-spacing="1.35">TECHNICAL DESIGN • FDM FABRICATION</text>
+<text x="1052" y="22" text-anchor="end" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="9" letter-spacing="1.35">NSAS / ENGINEERING SYSTEMS</text>
+<rect x="0.5" y="0.5" width="1079" height="33" fill="none" stroke="#aab3b9"/>
+</svg>

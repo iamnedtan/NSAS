@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="928" height="640" viewBox="0 0 928 640" role="img" aria-label="Key seated in a panel socket and an accessory wall">
+<rect width="928" height="640" fill="#ffffff"/>
+<rect width="928" height="3" fill="#30383e"/>
+<text x="918" y="16" text-anchor="end" fill="#626d75" fill-opacity="0.75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="9" letter-spacing="1.1">FIG / KEY SEATED · SECTION</text>
+<rect x="0.5" y="0.5" width="927" height="639" fill="none" stroke="#aab3b9"/>
+<svg x="104" y="36" width="720" height="590.2" viewBox="-33 -23.5 61 50" overflow="visible">
+<style>
+.part { fill: none; stroke: #20262b; stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.cut, .cut2 { stroke: none; }
+.hatchl { stroke: #929ba1; stroke-width: 0.9px; vector-effect: non-scaling-stroke; }
+.brk { stroke: #20262b; stroke-width: 0.8px; stroke-dasharray: 10 3 2 3; vector-effect: non-scaling-stroke; }
+.func { stroke: #a82c26; stroke-width: 1.2px; stroke-dasharray: 5 3; vector-effect: non-scaling-stroke; }
+.ctr { stroke: #626d75; stroke-width: 0.8px; stroke-dasharray: 12 3 2 3; vector-effect: non-scaling-stroke; }
+.ctrs { stroke: #626d75; stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.dim, .ext, .dimarc { stroke: #a82c26; stroke-width: 0.9px; fill: none; vector-effect: non-scaling-stroke; }
+.ext { stroke-width: 0.6px; }
+.lead { stroke: #626d75; stroke-width: 0.8px; vector-effect: non-scaling-stroke; }
+.dot { fill: #626d75; }
+.arrow { fill: #a82c26; stroke: none; }
+.arrowm { fill: #626d75; stroke: none; }
+text { font-family: 'IBM Plex Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace; }
+.dimt { fill: #a82c26; }
+.note { fill: #20262b; }
+.lbl { fill: #626d75; letter-spacing: 0.08em; }
+.big { fill: #20262b; font-weight: 500; }
+.sheetfill { fill: #ffffff; stroke: #20262b; stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.holef { fill: #20262b; stroke: none; }
+.groovef { fill: #929ba1; stroke: #20262b; stroke-width: 0.8px; vector-effect: non-scaling-stroke; }
+.key, .keysec { fill: #e5ebef; stroke: #a82c26; stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.holeline { fill: none; stroke: #20262b; stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+</style>
+<defs><pattern id="hatch4" patternUnits="userSpaceOnUse" width="0.636" height="0.636" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.636"/></pattern></defs>
+<path class="cut" fill-rule="evenodd" fill="url(#hatch4)" d="M0,-16 L12,-16 L12,21 L0,21 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
+<path class="part" fill="none" fill-rule="evenodd" d="M0,-16 L12,-16 L12,21 L0,21 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
+<line class="brk" x1="-0.6" y1="21" x2="12.6" y2="21"/>
+<line class="brk" x1="-0.6" y1="-16" x2="12.6" y2="-16"/>
+<path class="cut2" fill-rule="evenodd" fill="url(#hatch4)" d="M-9.5,-16 L-2,-16 L-2,21 L-9.5,21 Z M-9.5,-13.036 L-2,-5.536 L-2,1.536 L-9.5,-5.964 Z"/>
+<path class="part" fill="none" fill-rule="evenodd" d="M-9.5,-16 L-2,-16 L-2,21 L-9.5,21 Z M-9.5,-13.036 L-2,-5.536 L-2,1.536 L-9.5,-5.964 Z"/>
+<line class="brk" x1="-10.1" y1="21" x2="-1.4" y2="21"/>
+<line class="brk" x1="-10.1" y1="-16" x2="-1.4" y2="-16"/>
+<path class="key" d="M0,-3.253 L9.849,6.317 A0.5,0.5 0 0 1 10,6.675 L10,8.086 A0.5,0.5 0 0 1 9.146,8.439 L3.707,3 A0.5,0.5 0 0 0 3,3.707 L9.854,10.561 A0.5,0.5 0 0 1 10,10.914 L10,12.305 A0.5,0.5 0 0 1 9.142,12.653 L0,3.253 Z"/>
+<path class="key" d="M-1,-4.394 L-5.94,-9.515 A0.5,0.5 0 0 0 -6.8,-9.167 L-6.8,-7.714 A0.5,0.5 0 0 0 -6.654,-7.361 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-5.946,-5.239 A0.5,0.5 0 0 0 -6.8,-4.886 L-6.8,-3.407 A0.5,0.5 0 0 0 -6.647,-3.047 L-1,2.394 Z"/>
+<path class="key" d="M-1,-5.793 A0.5,0.5 0 0 1 -0.146,-6.146 A0.5,0.5 0 0 1 0,-5.793 L0,4.793 A0.5,0.5 0 0 1 -0.854,5.146 A0.5,0.5 0 0 1 -1,4.793 Z"/>
+<polygon class="key" points="-1,-4.253 0,-3.253 0,3.253 -1,2.253"/>
+<path style="fill:var(--sheet);stroke:none" d="M-2,-2.707 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-2,-1.293 Z"/>
+<path class="key" style="fill:none" d="M-2,-2.707 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-2,-1.293"/>
+<line class="ctr" x1="-9" y1="-9" x2="13" y2="13"/>
+<text class="lbl" x="0.4" y="-17.4" font-size="1.136" text-anchor="start" dominant-baseline="middle">PANEL</text>
+<text class="lbl" x="-9.5" y="-17.4" font-size="1.136" text-anchor="start" dominant-baseline="middle">ACCESSORY</text>
+<line class="lead" x1="6" y1="6" x2="13.5" y2="-9.5"/>
+<circle class="dot" cx="6" cy="6" r="0.2"/>
+<text class="note" x="13.773" y="-9.5" font-size="1.136" text-anchor="start" dominant-baseline="middle">panel leg 4.6 → 5.0, split</text>
+<text class="note" x="13.773" y="-8.08" font-size="1.136" text-anchor="start" dominant-baseline="middle">snug fit, 0.5 edge rounds</text>
+<line class="lead" x1="-4.6" y1="-4.6" x2="-12" y2="-12.5"/>
+<circle class="dot" cx="-4.6" cy="-4.6" r="0.2"/>
+<text class="note" x="-12.273" y="-12.5" font-size="1.136" text-anchor="end" dominant-baseline="middle">accessory leg</text>
+<text class="note" x="-12.273" y="-11.08" font-size="1.136" text-anchor="end" dominant-baseline="middle">split prongs, 4.8 → 5.1</text>
+<text class="note" x="-12.273" y="-9.659" font-size="1.136" text-anchor="end" dominant-baseline="middle">expanding press fit</text>
+<line class="lead" x1="-0.536" y1="-0.536" x2="-0.536" y2="-21.8"/><circle class="dot" cx="-0.536" cy="-0.536" r="0.2"/><text class="note" x="-0.536" y="-22.5" font-size="1.136" text-anchor="middle" dominant-baseline="middle">slot ends 5.00 apart along the bar (View D1)</text>
+<line class="lead" x1="-0.5" y1="4.5" x2="-12" y2="13.5"/>
+<circle class="dot" cx="-0.5" cy="4.5" r="0.2"/>
+<text class="note" x="-12.273" y="13.5" font-size="1.136" text-anchor="end" dominant-baseline="middle">stop 1 × 4.6 × 12</text>
+<text class="note" x="-12.273" y="14.92" font-size="1.136" text-anchor="end" dominant-baseline="middle">flat on panel face</text>
+<line class="ext" x1="0" y1="21.273" x2="0" y2="23.564"/>
+<line class="ext" x1="10" y1="13.523" x2="10" y2="23.564"/>
+<line class="dim" x1="0" y1="23.2" x2="10" y2="23.2"/>
+<polygon class="arrow" points="0,23.2 0.682,23.418 0.682,22.982"/>
+<polygon class="arrow" points="10,23.2 9.318,22.982 9.318,23.418"/>
+<text class="dimt" x="5" y="24.166" font-size="1.136" text-anchor="middle" dominant-baseline="middle">10.00</text>
+<line class="ext" x1="-6.8" y1="-10.663" x2="-6.8" y2="-19.764"/>
+<line class="ext" x1="-1" y1="-8.773" x2="-1" y2="-19.764"/>
+<line class="dim" x1="-8.095" y1="-19.4" x2="0.295" y2="-19.4"/>
+<polygon class="arrow" points="-6.8,-19.4 -7.482,-19.618 -7.482,-19.182"/>
+<polygon class="arrow" points="-1,-19.4 -0.318,-19.182 -0.318,-19.618"/>
+<text class="dimt" x="-3.9" y="-20.366" font-size="1.136" text-anchor="middle" dominant-baseline="middle">5.80</text>
+<line class="ctrs" x1="-29" y1="1" x2="-29" y2="6.8"/>
+<polygon class="arrowm" points="-29,8 -28.782,7.318 -29.218,7.318"/>
+<text class="lbl" x="-29" y="-0.6" font-size="1.136" text-anchor="middle" dominant-baseline="middle">LOAD</text>
+</svg>
+</svg>

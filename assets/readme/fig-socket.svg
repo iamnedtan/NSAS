@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="928" height="761" viewBox="0 0 928 761" role="img" aria-label="Section through one socket">
+<rect width="928" height="761" fill="#ffffff"/>
+<rect width="928" height="3" fill="#30383e"/>
+<text x="918" y="16" text-anchor="end" fill="#626d75" fill-opacity="0.75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="9" letter-spacing="1.1">FIG / SOCKET · SECTION</text>
+<rect x="0.5" y="0.5" width="927" height="760" fill="none" stroke="#aab3b9"/>
+<svg x="104" y="36" width="720" height="711.2" viewBox="-15 -14.5 41 40.5" overflow="visible">
+<style>
+.part { fill: none; stroke: #20262b; stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.cut, .cut2 { stroke: none; }
+.hatchl { stroke: #929ba1; stroke-width: 0.9px; vector-effect: non-scaling-stroke; }
+.brk { stroke: #20262b; stroke-width: 0.8px; stroke-dasharray: 10 3 2 3; vector-effect: non-scaling-stroke; }
+.func { stroke: #a82c26; stroke-width: 1.2px; stroke-dasharray: 5 3; vector-effect: non-scaling-stroke; }
+.ctr { stroke: #626d75; stroke-width: 0.8px; stroke-dasharray: 12 3 2 3; vector-effect: non-scaling-stroke; }
+.ctrs { stroke: #626d75; stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.dim, .ext, .dimarc { stroke: #a82c26; stroke-width: 0.9px; fill: none; vector-effect: non-scaling-stroke; }
+.ext { stroke-width: 0.6px; }
+.lead { stroke: #626d75; stroke-width: 0.8px; vector-effect: non-scaling-stroke; }
+.dot { fill: #626d75; }
+.arrow { fill: #a82c26; stroke: none; }
+.arrowm { fill: #626d75; stroke: none; }
+text { font-family: 'IBM Plex Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace; }
+.dimt { fill: #a82c26; }
+.note { fill: #20262b; }
+.lbl { fill: #626d75; letter-spacing: 0.08em; }
+.big { fill: #20262b; font-weight: 500; }
+.sheetfill { fill: #ffffff; stroke: #20262b; stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.holef { fill: #20262b; stroke: none; }
+.groovef { fill: #929ba1; stroke: #20262b; stroke-width: 0.8px; vector-effect: non-scaling-stroke; }
+.key, .keysec { fill: #e5ebef; stroke: #a82c26; stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.holeline { fill: none; stroke: #20262b; stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+</style>
+<defs><pattern id="hatch1" patternUnits="userSpaceOnUse" width="0.467" height="0.467" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.467"/></pattern></defs>
+<path class="cut" fill-rule="evenodd" fill="url(#hatch1)" d="M0,-8 L12,-8 L12,19 L0,19 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
+<path class="part" fill="none" fill-rule="evenodd" d="M0,-8 L12,-8 L12,19 L0,19 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
+<line class="brk" x1="-0.6" y1="19" x2="12.6" y2="19"/>
+<line class="brk" x1="-0.6" y1="-8" x2="12.6" y2="-8"/>
+<line class="func" x1="10" y1="6.464" x2="10" y2="13.536"/>
+<line class="ctr" x1="-3" y1="0" x2="9" y2="0"/>
+<line class="ctr" x1="-2.5" y1="-2.5" x2="13" y2="13"/>
+<path class="dimarc" d="M4.6,0 A4.6,4.6 0 0 1 3.253,3.253"/>
+<text class="dimt" x="5.728" y="1.973" font-size="0.833" text-anchor="middle" dominant-baseline="middle">45°</text>
+<line class="ext" x1="-0.2" y1="-3.536" x2="-4.467" y2="-3.536"/>
+<line class="ext" x1="-0.2" y1="3.536" x2="-4.467" y2="3.536"/>
+<line class="dim" x1="-4.2" y1="-3.536" x2="-4.2" y2="3.536"/>
+<polygon class="arrow" points="-4.2,-3.536 -4.36,-3.036 -4.04,-3.036"/>
+<polygon class="arrow" points="-4.2,3.536 -4.04,3.036 -4.36,3.036"/>
+<text class="dimt" x="-3.492" y="-0" font-size="0.833" text-anchor="middle" dominant-baseline="middle" transform="rotate(90.0 -3.492 -0)">7.07</text>
+<line class="dim" x1="6.4" y1="9.936" x2="9.936" y2="6.4"/>
+<polygon class="arrow" points="6.4,9.936 6.867,9.695 6.64,9.469"/>
+<polygon class="arrow" points="9.936,6.4 9.469,6.64 9.695,6.867"/>
+<text class="dimt" x="7.667" y="7.667" font-size="0.833" text-anchor="middle" dominant-baseline="middle" transform="rotate(-45.0 7.667 7.667)">5.00 ⊥</text>
+<line class="ext" x1="0" y1="19.2" x2="0" y2="20.867"/>
+<line class="ext" x1="10" y1="13.736" x2="10" y2="20.867"/>
+<line class="dim" x1="0" y1="20.6" x2="10" y2="20.6"/>
+<polygon class="arrow" points="0,20.6 0.5,20.76 0.5,20.44"/>
+<polygon class="arrow" points="10,20.6 9.5,20.44 9.5,20.76"/>
+<text class="dimt" x="5" y="21.308" font-size="0.833" text-anchor="middle" dominant-baseline="middle">10.00 functional</text>
+<line class="ext" x1="0" y1="19.2" x2="0" y2="23.667"/>
+<line class="ext" x1="11" y1="14.736" x2="11" y2="23.667"/>
+<line class="dim" x1="0" y1="23.4" x2="11" y2="23.4"/>
+<polygon class="arrow" points="0,23.4 0.5,23.56 0.5,23.24"/>
+<polygon class="arrow" points="11,23.4 10.5,23.24 10.5,23.56"/>
+<text class="dimt" x="5.5" y="24.108" font-size="0.833" text-anchor="middle" dominant-baseline="middle">11.00 modelled</text>
+<line class="ext" x1="11" y1="-8.2" x2="11" y2="-10.667"/>
+<line class="ext" x1="12" y1="-8.2" x2="12" y2="-10.667"/>
+<line class="dim" x1="10.05" y1="-10.4" x2="12.95" y2="-10.4"/>
+<polygon class="arrow" points="11,-10.4 10.5,-10.56 10.5,-10.24"/>
+<polygon class="arrow" points="12,-10.4 12.5,-10.24 12.5,-10.56"/>
+<text class="dimt" x="11.5" y="-11.108" font-size="0.833" text-anchor="middle" dominant-baseline="middle">1 skin</text>
+<line class="lead" x1="11" y1="13.636" x2="15" y2="9.5"/>
+<circle class="dot" cx="11" cy="13.636" r="0.147"/>
+<text class="note" x="15.2" y="9.5" font-size="0.833" text-anchor="start" dominant-baseline="middle">flat floor,</text>
+<text class="note" x="15.2" y="10.542" font-size="0.833" text-anchor="start" dominant-baseline="middle">parallel to face</text>
+<line class="lead" x1="10" y1="9.336" x2="15" y2="1.5"/>
+<circle class="dot" cx="10" cy="9.336" r="0.147"/>
+<text class="note" x="15.2" y="1.5" font-size="0.833" text-anchor="start" dominant-baseline="middle">key stops here,</text>
+<text class="note" x="15.2" y="2.542" font-size="0.833" text-anchor="start" dominant-baseline="middle">1 mm relief beyond</text>
+<text class="lbl" x="-0.4" y="-13" font-size="0.833" text-anchor="middle" dominant-baseline="middle">FACE</text>
+<text class="lbl" x="14.6" y="-13" font-size="0.833" text-anchor="middle" dominant-baseline="middle">BACK</text>
+<text class="lbl" x="-12.2" y="14" font-size="0.833" text-anchor="middle" dominant-baseline="middle">DOWN</text>
+<polygon class="arrowm" points="-12.2,18.6 -12.04,18.1 -12.36,18.1"/>
+<line class="ctrs" x1="-12.2" y1="15.2" x2="-12.2" y2="17.4"/>
+</svg>
+</svg>

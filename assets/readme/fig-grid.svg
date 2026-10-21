@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="928" height="762" viewBox="0 0 928 762" role="img" aria-label="Face view of a 5 by 3 grid">
+<rect width="928" height="762" fill="#ffffff"/>
+<rect width="928" height="3" fill="#30383e"/>
+<text x="918" y="16" text-anchor="end" fill="#626d75" fill-opacity="0.75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="9" letter-spacing="1.1">FIG / GRID · FACE VIEW</text>
+<rect x="0.5" y="0.5" width="927" height="761" fill="none" stroke="#aab3b9"/>
+<svg x="104" y="36" width="720" height="712.4" viewBox="-14 -65.142 81 80.142" overflow="visible">
+<style>
+.part { fill: none; stroke: #20262b; stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.cut, .cut2 { stroke: none; }
+.hatchl { stroke: #929ba1; stroke-width: 0.9px; vector-effect: non-scaling-stroke; }
+.brk { stroke: #20262b; stroke-width: 0.8px; stroke-dasharray: 10 3 2 3; vector-effect: non-scaling-stroke; }
+.func { stroke: #a82c26; stroke-width: 1.2px; stroke-dasharray: 5 3; vector-effect: non-scaling-stroke; }
+.ctr { stroke: #626d75; stroke-width: 0.8px; stroke-dasharray: 12 3 2 3; vector-effect: non-scaling-stroke; }
+.ctrs { stroke: #626d75; stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.dim, .ext, .dimarc { stroke: #a82c26; stroke-width: 0.9px; fill: none; vector-effect: non-scaling-stroke; }
+.ext { stroke-width: 0.6px; }
+.lead { stroke: #626d75; stroke-width: 0.8px; vector-effect: non-scaling-stroke; }
+.dot { fill: #626d75; }
+.arrow { fill: #a82c26; stroke: none; }
+.arrowm { fill: #626d75; stroke: none; }
+text { font-family: 'IBM Plex Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace; }
+.dimt { fill: #a82c26; }
+.note { fill: #20262b; }
+.lbl { fill: #626d75; letter-spacing: 0.08em; }
+.big { fill: #20262b; font-weight: 500; }
+.sheetfill { fill: #ffffff; stroke: #20262b; stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.holef { fill: #20262b; stroke: none; }
+.groovef { fill: #929ba1; stroke: #20262b; stroke-width: 0.8px; vector-effect: non-scaling-stroke; }
+.key, .keysec { fill: #e5ebef; stroke: #a82c26; stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.holeline { fill: none; stroke: #20262b; stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+</style>
+<defs><pattern id="hatch2" patternUnits="userSpaceOnUse" width="0.761" height="0.761" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.761"/></pattern></defs>
+<polygon class="sheetfill" points="0,0 51,0 51,-50.142 0,-50.142"/>
+<polygon class="holef" points="3,-3 8,-3 8,-10.071 3,-10.071"/>
+<polygon class="holef" points="13,-3 18,-3 18,-10.071 13,-10.071"/>
+<polygon class="holef" points="23,-3 28,-3 28,-10.071 23,-10.071"/>
+<polygon class="holef" points="33,-3 38,-3 38,-10.071 33,-10.071"/>
+<polygon class="holef" points="43,-3 48,-3 48,-10.071 43,-10.071"/>
+<polygon class="groovef" points="3,-14.318 48,-14.318 48,-17.288 3,-17.288"/>
+<polygon class="holef" points="3,-21.536 8,-21.536 8,-28.607 3,-28.607"/>
+<polygon class="holef" points="13,-21.536 18,-21.536 18,-28.607 13,-28.607"/>
+<polygon class="holef" points="23,-21.536 28,-21.536 28,-28.607 23,-28.607"/>
+<polygon class="holef" points="33,-21.536 38,-21.536 38,-28.607 33,-28.607"/>
+<polygon class="holef" points="43,-21.536 48,-21.536 48,-28.607 43,-28.607"/>
+<polygon class="groovef" points="3,-32.854 48,-32.854 48,-35.824 3,-35.824"/>
+<polygon class="holef" points="3,-40.071 8,-40.071 8,-47.142 3,-47.142"/>
+<polygon class="holef" points="13,-40.071 18,-40.071 18,-47.142 13,-47.142"/>
+<polygon class="holef" points="23,-40.071 28,-40.071 28,-47.142 23,-47.142"/>
+<polygon class="holef" points="33,-40.071 38,-40.071 38,-47.142 33,-47.142"/>
+<polygon class="holef" points="43,-40.071 48,-40.071 48,-47.142 43,-47.142"/>
+<line class="ctr" x1="5.5" y1="-51.342" x2="5.5" y2="-39.071"/>
+<line class="ctr" x1="15.5" y1="-51.342" x2="15.5" y2="-39.071"/>
+<line class="ctr" x1="-1.2" y1="-6.536" x2="9.5" y2="-6.536"/>
+<line class="ctr" x1="-1.2" y1="-25.071" x2="9.5" y2="-25.071"/>
+<line class="ext" x1="5.5" y1="-50.468" x2="5.5" y2="-58.077"/>
+<line class="ext" x1="15.5" y1="-50.468" x2="15.5" y2="-58.077"/>
+<line class="dim" x1="5.5" y1="-57.642" x2="15.5" y2="-57.642"/>
+<polygon class="arrow" points="5.5,-57.642 6.315,-57.381 6.315,-57.903"/>
+<polygon class="arrow" points="15.5,-57.642 14.685,-57.903 14.685,-57.381"/>
+<text class="dimt" x="10.5" y="-58.797" font-size="1.359" text-anchor="middle" dominant-baseline="middle">10.00 pitch</text>
+<line class="ext" x1="8" y1="-47.468" x2="8" y2="-53.177"/>
+<line class="ext" x1="13" y1="-47.468" x2="13" y2="-53.177"/>
+<line class="dim" x1="6.451" y1="-52.742" x2="14.549" y2="-52.742"/>
+<polygon class="arrow" points="8,-52.742 7.185,-53.003 7.185,-52.481"/>
+<polygon class="arrow" points="13,-52.742 13.815,-52.481 13.815,-53.003"/>
+<text class="dimt" x="10.5" y="-53.897" font-size="1.359" text-anchor="middle" dominant-baseline="middle">5.00 wall</text>
+<line class="ext" x1="3" y1="0.326" x2="3" y2="5.435"/>
+<line class="ext" x1="48" y1="0.326" x2="48" y2="5.435"/>
+<line class="dim" x1="3" y1="5" x2="48" y2="5"/>
+<polygon class="arrow" points="3,5 3.815,5.261 3.815,4.739"/>
+<polygon class="arrow" points="48,5 47.185,4.739 47.185,5.261"/>
+<text class="dimt" x="25.5" y="3.845" font-size="1.359" text-anchor="middle" dominant-baseline="middle">45 span = (n − 1) × 10 + 5</text>
+<line class="ext" x1="0" y1="0.326" x2="0" y2="10.435"/>
+<line class="ext" x1="3" y1="0.326" x2="3" y2="10.435"/>
+<line class="dim" x1="-1.549" y1="10" x2="4.549" y2="10"/>
+<polygon class="arrow" points="0,10 -0.815,9.739 -0.815,10.261"/>
+<polygon class="arrow" points="3,10 3.815,10.261 3.815,9.739"/>
+<text class="dimt" x="1.5" y="8.845" font-size="1.359" text-anchor="middle" dominant-baseline="middle">m</text>
+<line class="ext" x1="48" y1="0.326" x2="48" y2="10.435"/>
+<line class="ext" x1="51" y1="0.326" x2="51" y2="10.435"/>
+<line class="dim" x1="46.451" y1="10" x2="52.549" y2="10"/>
+<polygon class="arrow" points="48,10 47.185,9.739 47.185,10.261"/>
+<polygon class="arrow" points="51,10 51.815,10.261 51.815,9.739"/>
+<text class="dimt" x="49.5" y="8.845" font-size="1.359" text-anchor="middle" dominant-baseline="middle">m</text>
+<line class="ext" x1="-0.326" y1="-6.536" x2="-6.435" y2="-6.536"/>
+<line class="ext" x1="-0.326" y1="-25.071" x2="-6.435" y2="-25.071"/>
+<line class="dim" x1="-6" y1="-6.536" x2="-6" y2="-25.071"/>
+<polygon class="arrow" points="-6,-6.536 -5.739,-7.351 -6.261,-7.351"/>
+<polygon class="arrow" points="-6,-25.071 -6.261,-24.256 -5.739,-24.256"/>
+<text class="dimt" x="-7.155" y="-15.803" font-size="1.359" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90.0 -7.155 -15.803)">18.536 pitch</text>
+<line class="lead" x1="42" y1="-15.803" x2="53.5" y2="-26.303"/>
+<circle class="dot" cx="42" cy="-15.803" r="0.239"/>
+<text class="note" x="53.826" y="-26.303" font-size="1.359" text-anchor="start" dominant-baseline="middle">groove,</text>
+<text class="note" x="53.826" y="-24.605" font-size="1.359" text-anchor="start" dominant-baseline="middle">length = span</text>
+<line class="lead" x1="48" y1="-10.071" x2="53.5" y2="-5"/>
+<circle class="dot" cx="48" cy="-10.071" r="0.239"/>
+<text class="note" x="53.826" y="-5" font-size="1.359" text-anchor="start" dominant-baseline="middle">socket</text>
+<text class="note" x="53.826" y="-3.302" font-size="1.359" text-anchor="start" dominant-baseline="middle">5.00 × 7.07</text>
+</svg>
+</svg>

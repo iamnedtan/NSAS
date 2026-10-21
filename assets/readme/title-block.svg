@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="148" viewBox="0 0 1080 148" role="img" aria-label="NSAS spec sheet title block: Ned Slotted Angle System, v0.13 draft, 2026-10-21">
+<rect width="1080" height="148" fill="#ffffff"/>
+<polygon points="734.4000000000001,29 1080,29 1080,145 694.4000000000001,145" fill="#828c93" fill-opacity="0.07"/>
+<rect width="1080" height="26" fill="#30383e"/>
+<rect y="26" width="1080" height="3" fill="#d82f25"/>
+<text x="28" y="17" fill="#f4f5f5" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" font-weight="500" letter-spacing="1.9">NSAS  /  ENGINEERING SYSTEMS</text>
+<rect x="0" y="29" width="470" height="116" fill="#879198" fill-opacity="0.08"/>
+<rect x="0" y="29" width="5" height="116" fill="#d82f25"/>
+<text x="25" y="51" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" letter-spacing="1.5">SPECIFICATION</text>
+<text x="24" y="89" fill="#20262b" font-family="&#x27;Barlow Condensed&#x27;, &#x27;Arial Narrow&#x27;, &#x27;Roboto Condensed&#x27;, &#x27;Helvetica Neue&#x27;, Arial, sans-serif" font-size="40" font-weight="700" textLength="420" lengthAdjust="spacingAndGlyphs">NED SLOTTED ANGLE SYSTEM</text>
+<text x="25" y="111" fill="#626d75" font-family="&#x27;IBM Plex Sans&#x27;, &#x27;Segoe UI&#x27;, Helvetica, Arial, sans-serif" font-size="13">45° gravity-lock socket grid for FDM-printed panels and accessories</text>
+<text x="25" y="132" fill="#c99a3d" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" font-weight="500" letter-spacing="1.7">SYSTEM / 001</text>
+<text x="486.0" y="51" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" letter-spacing="1.5">DOCUMENT</text>
+<text x="486.0" y="71" fill="#20262b" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="13">NSAS-SPEC</text>
+<text x="689.3" y="51" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" letter-spacing="1.5">REVISION</text>
+<text x="689.3" y="71" fill="#20262b" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="13">v0.13 draft</text>
+<text x="892.7" y="51" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" letter-spacing="1.5">DATE</text>
+<text x="892.7" y="71" fill="#20262b" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="13">2026-10-21</text>
+<text x="486.0" y="109" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" letter-spacing="1.5">UNITS</text>
+<text x="486.0" y="129" fill="#20262b" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="13">mm, degrees</text>
+<text x="689.3" y="109" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" letter-spacing="1.5">VIEWS</text>
+<text x="689.3" y="129" fill="#20262b" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="13">to scale, per view</text>
+<text x="892.7" y="109" fill="#626d75" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="10" letter-spacing="1.5">PROCESS</text>
+<text x="892.7" y="129" fill="#20262b" font-family="&#x27;IBM Plex Mono&#x27;, &#x27;Cascadia Mono&#x27;, Consolas, &#x27;Courier New&#x27;, monospace" font-size="13">FDM</text>
+<line x1="470.0" y1="29" x2="470.0" y2="145" stroke="#c4cbd0"/>
+<line x1="673.3" y1="29" x2="673.3" y2="145" stroke="#c4cbd0"/>
+<line x1="876.7" y1="29" x2="876.7" y2="145" stroke="#c4cbd0"/>
+<line x1="470" y1="87" x2="1080" y2="87" stroke="#c4cbd0"/>
+<rect y="145" width="1080" height="3" fill="#30383e"/>
+<rect x="0.5" y="0.5" width="1079" height="147" fill="none" stroke="#aab3b9"/>
+</svg>
