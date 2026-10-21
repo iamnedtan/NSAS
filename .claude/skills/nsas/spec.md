@@ -1,6 +1,6 @@
 # Slotted panel system — spec sheet
 
-Draft v0.13, 2026-10-21 (v0.13, print-tested: accessory leg takes the panel leg profile, taper 4.8 → 5.1 mm, square tip with no lead-in or root relief, leg 5.8 mm with a 0.2 mm tip gap to the hole floor, prong slot end 5.0 mm from the panel slot end along the bar, panel tip chamfer removed, 0.5 mm round on the edges between the flat sides except the stop-to-leg inside corners; v0.12: accessory leg taper reduced to 4.9 → 5.1 mm, Ø1.0 mm root reliefs tangent to the stop, prong slot ends 1.0 mm from the stop; v0.11: stop height reduced to 12.0 mm, all crush ribs removed; v0.10: panel leg snug fit with its own taper 4.6 → 5.0, prong slot and crush ribs, 1 mm panel tip chamfer, all crush ribs tapered; v0.9: accessory leg split into two flexing prongs with an oversize tip, tip lead-in chamfer, crush ribs on one flat side; v0.2: groove made optional; v0.3: key can be customised; v0.4: key slips into the panel and press-fits into the accessory; v0.5: key shape fixed with a 1 mm stop, groove values corrected; v0.6: conventions, groove wall, key datum, fit check; v0.7: accessory hole direction (rises into the accessory), depth, floor and placement rules, direction check; v0.8: key side faces flat and flush, accessory-leg taper on the upper and lower faces only). Written from the user's design intent plus measurements of the top cover in `gunpla desk vacuum box.step`. Where the reference model and the intent differ, the intent wins and the difference is noted.
+Draft v0.13, 2026-10-21 (v0.13, print-tested: accessory leg takes the panel leg profile, taper 4.8 → 5.1 mm, square tip with no lead-in or root relief, leg 5.8 mm with a 0.2 mm tip gap to the hole floor, prong slot end 5.0 mm from the panel slot end along the bar, panel tip chamfer removed, 0.5 mm round on the edges between the flat sides except the stop-to-leg inside corners, thick-stop key variant, tileable-panel margins 2.5 / 5.732 mm, groove trade-off and top-edge groove purpose, open points closed; v0.12: accessory leg taper reduced to 4.9 → 5.1 mm, Ø1.0 mm root reliefs tangent to the stop, prong slot ends 1.0 mm from the stop; v0.11: stop height reduced to 12.0 mm, all crush ribs removed; v0.10: panel leg snug fit with its own taper 4.6 → 5.0, prong slot and crush ribs, 1 mm panel tip chamfer, all crush ribs tapered; v0.9: accessory leg split into two flexing prongs with an oversize tip, tip lead-in chamfer, crush ribs on one flat side; v0.2: groove made optional; v0.3: key can be customised; v0.4: key slips into the panel and press-fits into the accessory; v0.5: key shape fixed with a 1 mm stop, groove values corrected; v0.6: conventions, groove wall, key datum, fit check; v0.7: accessory hole direction (rises into the accessory), depth, floor and placement rules, direction check; v0.8: key side faces flat and flush, accessory-leg taper on the upper and lower faces only). Written from the user's design intent plus measurements of the top cover in `gunpla desk vacuum box.step`. Where the reference model and the intent differ, the intent wins and the difference is noted.
 
 ## 1. What it is
 
@@ -47,6 +47,7 @@ The grid is not fixed. It fills whatever area is available.
 | Outer-wall span of *n* columns | (n − 1) × 10 + 5 mm |
 | Number of columns | as many as fit the available width |
 | Placement | centred in the width, equal left and right margins |
+| Side margin, tileable panel | 2.5 mm each side (half a wall), so panels placed side by side keep the 10.0 mm pitch; panel width = n × 10 mm |
 
 *Reference model:* 18 columns, span 175.0 mm in a 180.5 mm panel. The grid sits 0.25 mm off centre (margins 3.0 / 2.5 mm). The spec calls for centring.
 
@@ -71,13 +72,14 @@ Let h = vertical socket height = 7.07 mm, and p = row pitch. From row *k* to row
 
 - Number of rows: as many as fit the available height.
 - Placement: centred in the height.
+- **Tileable panels** (combined side by side or stacked): margins 2.5 mm left and right and **5.732 mm** top and bottom (= gap / 2 = (30 − h) / 4 = 7.5 − 1.25√2). Two margins then make exactly one wall (5.0 mm) or one row gap (11.464 mm), so column pitch, row pitch and the 30 mm rule carry on across the joint. Panel size: n × 10.0 mm wide, r × 18.536 mm tall. The row gap at a stacked joint is split across two panels, so it gets no groove.
 - Every row has the same column positions (no staggering).
 
 ## 5. Groove (slot between rows)
 
 The groove is **optional**.
 
-- **Purpose:** mainly to hollow out material and, at the same time, increase strength for FDM printing.
+- **Purpose:** mainly to hollow out material and, at the same time, increase strength for FDM printing. Less infill is needed, but the extra walls can make the print take longer.
 - **When to include:** ask the user if the groove is required.
 - **When to skip:** if the area is small and does not need it (for example a small accessory panel, or a grid with only one row, which has no gap), skip the groove and tell the user it was skipped.
 
@@ -97,7 +99,7 @@ When the groove is used, it follows this table:
 
 *Reference model:* the groove is 175.5 mm long (centred) against a 175.0 mm socket span (shifted 0.25 mm), so one end overshoots by 0.5 mm. The spec says the lengths match.
 
-*Also in the reference:* a wider groove along the top edge of the panel. Its purpose is not yet defined; it is not part of this spec.
+*Also in the reference:* a wider groove along the top edge of the panel (optional). Same purpose: it reinforces the panel for FDM printing and reduces infill, at the cost of a possibly longer print. Take its profile from the reference cover; it is not dimensioned in this spec.
 
 ## 6. Key ("stick")
 
@@ -133,6 +135,8 @@ The key connects the accessory interface (section 7) to the panel sockets.
 | Stop | 1.0 thick × 4.6 wide (flush) × 12.0 tall | vertical, ends cut at 45°, flat on the panel face |
 | Engagement in the panel | functional depth (10 mm on a standard face), measured from the panel face where the stop rests | the 1 mm relief keeps it off the floor |
 
+**Variant: thick stop (v0.13).** For accessories that must stand farther off the panel face, for example to clear obstructions such as the lip of a cover design. The stop is 3.0 mm thick instead of 1.0 mm; the extra 2.0 mm grows toward the panel side. Everything from the stop's accessory face outward is the same as the standard key: accessory leg 5.8 mm, taper, slot end 0.46 mm inside the stop from its accessory face. The panel leg still engages 10.0 mm from the panel face. Results: the accessory back face sits 3.0 mm from the panel face (1.0 mm standard), the slot ends are 7.83 mm apart along the bar (5.54 mm perpendicular), overall length 18.8 mm perpendicular (16.8 standard). Same 0.5 mm edge rounds. Model: `nsas holders/NSAS key - accessories thick.solidcraft`, with `stop_t` = 3 mm and `prong_root` computed with the standard 1 mm stop. Panels and accessory holes do not change.
+
 *Reference model:* `stick (5mm)` has a 2 mm stop; this spec uses 1 mm. The stick overlaps the tray body by about 115 mm³, which matches the press fit on the accessory side. In a new model, do not copy that overlap; use the tapered accessory leg above in a 5.0 mm hole instead.
 
 ## 7. Accessory interface
@@ -162,6 +166,4 @@ Check before finishing: from the back face, each hole goes in and up; a key plac
 
 ## 8. Open points
 
-- Purpose and profile of the wide top-edge groove.
-- Minimum panel margin around the grid (reference: about 2.5–3 mm horizontally).
-- For RunnerCollector: the lid is 10 mm thick. An 11 mm socket plus a 1 mm skin needs a 12 mm lid, a local raised panel on the lid's inner face, or a shallower face with a customised key (section 6).
+None at present. Closed in v0.13: the wide top-edge groove purpose (section 5) and the grid margins for tileable panels (section 4.2).

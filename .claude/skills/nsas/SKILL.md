@@ -26,10 +26,11 @@ The full spec, with derivations and the reference-model notes, is in [spec.md](s
   - gap, top wall of row k to bottom wall of row k+1: **11.464 mm**
   - outer to outer across rows k and k+1: **25.607 mm**
 - **Not a fixed size:** as many columns and rows as fit the available area. Centre the grid in both directions so opposite margins are equal. No staggering between rows.
+- **Tileable panels** (combined side by side or stacked): margins 2.5 mm left/right and 5.732 mm top/bottom (= (30 − h) / 4), so pitches and the 30 mm rule carry across the joint. Panel = n × 10 mm wide, r × 18.536 mm tall. No groove in the gap at a stacked joint.
 - Outer-wall span of n columns: (n − 1) × 10 + 5 mm.
 
 **Groove (optional)**
-- Main purpose: hollow out material and, at the same time, increase strength for FDM printing.
+- Main purpose: hollow out material and, at the same time, increase strength for FDM printing. Less infill, but possibly longer print time. The wide top-edge groove in the reference cover has the same purpose; take its profile from the reference.
 - Ask the user if the groove is required. If the area is small and does not need it (for example a small accessory panel, or a single row with no gap), skip it without asking and tell the user it was skipped.
 - When used: one groove in every gap between adjacent socket rows, centred vertically in the gap (4.25 mm land above and below).
 - 2.1 mm thick perpendicular to its walls (2.97 mm on the face), 45° downward parallel to the sockets, 8.0 mm deep perpendicular. This leaves a 3.0 mm wall to each socket and 4.0 mm behind the groove floor on a 12 mm panel.
@@ -44,6 +45,7 @@ The full spec, with derivations and the reference-model notes, is in [spec.md](s
 - **Flat sides:** the two side faces (vertical, parallel to the bar axis) are flat and flush along the whole key: panel leg, stop and accessory leg all 4.6 mm wide, one plane per side. The key prints lying on one flat side.
 - **Accessory leg: expanding press fit** (v0.9), same profile as the panel leg (v0.13, print-tested). Only the upper and lower faces (at 45° to the panel face) taper, in a straight line over the full length, from 4.8 mm at the root (0.1 mm clearance per side in the 5.0 mm hole) to an oversize 5.1 mm at the tip. Square tip: no lead-in, no root relief. A 1.0 mm slot along the axis splits the leg into two prongs, through both flat sides, from the tip back to 5.0 mm from the panel slot end measured along the bar (it ends 0.46 mm perpendicular inside the stop). The prongs squeeze together in the hole and spring back against its walls. The tip stops 0.2 mm short of the hole floor. Across the flat sides the leg stays 4.6 mm. Keep the slot wider than tip − hole. Keep the accessory hole at 5.0 mm; the fit is set by the key only.
 - **Edge rounds:** 0.5 mm on every edge between the two flat sides (leg tips, slot mouths, slot ends, stop ends). Not on the four stop-to-leg inside corners, so the stop seats flat.
+- **Thick-stop variant:** stop 3.0 mm instead of 1.0, grown toward the panel side; the accessory side and panel leg are unchanged, so the accessory back face stands 3.0 mm off the panel (to clear obstructions such as the lip of a cover design). Model: `nsas holders/NSAS key - accessories thick.solidcraft`.
 - **Print the key** lying on one flat side: slot walls vertical, each prong flexes within its layers.
 - Reference model: `nsas holders/NSAS key - accessories.solidcraft` (v0.13; parameters `key_w`, `key_root`, `key_bulge`, `stop_t`, `stop_h`, `prong_gap`, `slot_spacing`, `prong_root` (derived), `acc_hole_depth`, `acc_tip_gap`, `acc_leg` (derived), `edge_round`, `acc_hole`, `panel_socket`, `panel_bulge`, `panel_prong_gap`, `panel_prong_root`). Slots are boxes tilted 45° with parameter expressions and cut by body name. The edge rounds are one fillet (`Fillet1`) on edges picked by point: after a size change, re-pick its tip edges.
 - Customisable: on a slotted face shallower than normal, shorten the panel leg to that face's functional depth and keep the 1 mm relief.
@@ -68,11 +70,10 @@ Expose at least: functional depth (10), relief (1), socket size (5), key accesso
 - Suggest a fit check before a full accessory: one key plus a small block with one 5.0 mm hole.
 - Tell the user the resulting row and column counts, the margins, and whether grooves were included or skipped.
 
-## Open points (ask if they matter for the design)
+## Open points
 
-- Purpose and profile of the wider groove along the top edge seen in the reference cover.
-- Minimum margin around the grid (reference: about 2.5–3 mm horizontally).
+None at present.
 
 ## Source
 
-Derived from the user's top cover in `E:\Dev\RunnerCollector Ned\reference\gunpla desk vacuum box.step`. The spec was written on 2026-10-18 (v0.7, 2026-10-19: accessory hole direction fixed; v0.8, 2026-10-19: key flat flush sides, taper on upper/lower faces only; v0.9, 2026-10-20: expanding split-prong accessory leg with crush ribs; v0.10, 2026-10-20: snug split-prong panel leg, tapered ribs, panel tip chamfer; v0.11, 2026-10-20: stop height 12 mm, crush ribs removed; v0.12, 2026-10-20: accessory leg 4.9 → 5.1, root reliefs, slot to 1.0 mm from the stop; v0.13, 2026-10-21: accessory leg takes the panel leg profile, 4.8 → 5.1, 5.8 mm long with 0.2 mm tip gap, slot ends 5.0 mm apart along the bar, panel tip chamfer removed, 0.5 mm edge rounds); [spec.md](spec.md) is the only text copy (edit it there), and the illustrated sheet is `reference/NSAS Spec Sheet.html`.
+Derived from the user's top cover in `E:\Dev\RunnerCollector Ned\reference\gunpla desk vacuum box.step`. The spec was written on 2026-10-18 (v0.7, 2026-10-19: accessory hole direction fixed; v0.8, 2026-10-19: key flat flush sides, taper on upper/lower faces only; v0.9, 2026-10-20: expanding split-prong accessory leg with crush ribs; v0.10, 2026-10-20: snug split-prong panel leg, tapered ribs, panel tip chamfer; v0.11, 2026-10-20: stop height 12 mm, crush ribs removed; v0.12, 2026-10-20: accessory leg 4.9 → 5.1, root reliefs, slot to 1.0 mm from the stop; v0.13, 2026-10-21: accessory leg takes the panel leg profile, 4.8 → 5.1, 5.8 mm long with 0.2 mm tip gap, slot ends 5.0 mm apart along the bar, panel tip chamfer removed, 0.5 mm edge rounds, thick-stop variant, tileable margins 2.5 / 5.732 mm, open points closed); [spec.md](spec.md) is the only text copy (edit it there), and the illustrated sheet is `reference/NSAS Spec Sheet.html`.

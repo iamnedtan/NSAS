@@ -366,6 +366,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
   h2 .n { flex-basis: 49px; width: 49px; height: 49px; font-size: 27px; }
   h2 { gap: 11px; }
 }
+h2 .ja { font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Sans", sans-serif; font-weight: 700; font-size: .68em; letter-spacing: .06em; color: var(--muted); text-transform: none; }
 @media print {
   h2 .n { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
@@ -389,14 +390,14 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 
 <main>
 <section id="overview">
-  <h2><span class="n">壱</span>What it is</h2>
+  <h2><span class="n">壱</span>What it is <span class="ja">概要</span></h2>
   <p>A pegboard-style mounting surface. A grid of 5 mm square sockets is cut into a panel. Every socket slopes 45° downward into the material. Accessories such as trays and tool holders carry matching holes, and a square key joins the accessory to a socket. The key is one straight bar, so the accessory hole lies on the same 45° line as the socket but, seen from the accessory's back face, it <b>rises</b> as it goes in (section 7).</p>
   <p>The socket slopes down as it goes in, so the accessory's weight pushes the key deeper. The key cannot be pulled straight out. To remove it, lift and tilt. No clips or screws are needed.</p>
   <p>An optional thin groove between socket rows hollows out the panel and stiffens it for FDM printing.</p>
 </section>
 
 <section id="terms">
-  <h2><span class="n">弐</span>Orientation and terms</h2>
+  <h2><span class="n">弐</span>Orientation and terms <span class="ja">向きと用語</span></h2>
   <div class="tblwrap"><table>
     <tr><th>Term</th><th>Meaning</th></tr>
     <tr><td>Face</td><td>Panel surface the accessories hang on. Used vertically.</td></tr>
@@ -411,7 +412,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 </section>
 
 <section id="socket">
-  <h2><span class="n">参</span>Socket</h2>
+  <h2><span class="n">参</span>Socket <span class="ja">ソケット</span></h2>
   <div class="pair">
     <figure>
       <div class="dwgwrap"><svg class="dwg" viewBox="-15 -14.5 41 40.5" style="max-width:615px;min-width:381px" role="img" aria-label="Section through one socket" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch1" patternUnits="userSpaceOnUse" width="0.467" height="0.467" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.467"/></pattern></defs>
@@ -486,8 +487,9 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 </section>
 
 <section id="grid">
-  <h2><span class="n">肆</span>Grid layout</h2>
+  <h2><span class="n">肆</span>Grid layout <span class="ja">グリッド配置</span></h2>
   <p>The grid has no fixed size. Fit as many columns and rows as the area allows, then centre the grid so that opposite margins are equal. Rows are not staggered.</p>
+  <p><b>Tileable panels.</b> When panels may be combined side by side or stacked, use a <b>2.50</b> margin left and right and a <b>5.732</b> margin top and bottom. Two margins then add up to exactly one wall (5.00) or one row gap (11.464), so the column pitch, row pitch and the 30 mm rule carry on across the joint. Panel size: <i>n</i> columns × 10.00 wide, <i>r</i> rows × 18.536 tall.</p>
   <div class="pair wide">
     <figure>
       <div class="dwgwrap"><svg class="dwg" viewBox="-14 -65.142 81 80.142" style="max-width:745px;min-width:462px" role="img" aria-label="Face view of a 5 by 3 grid" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch2" patternUnits="userSpaceOnUse" width="0.761" height="0.761" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.761"/></pattern></defs>
@@ -614,6 +616,8 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
         <tr><td>Column pitch</td><td class="num"><strong>10.00</strong></td></tr>
         <tr><td>Wall between sockets</td><td class="num">5.00</td></tr>
         <tr><td>Outer-wall span, <i>n</i> columns</td><td class="num">(n − 1) × 10 + 5</td></tr>
+        <tr><td>Side margin, tileable</td><td class="num"><strong>2.50</strong> <span class="why">(wall / 2)</span></td></tr>
+        <tr><td>Panel width, tileable</td><td class="num">n × 10</td></tr>
       </table></div>
       <h3>Rows: the 30 mm rule</h3>
       <p>Top wall of row <i>k</i> to bottom wall of row <i>k</i> + 2, measured vertically, is <b>30.000</b>. With <i>h</i> = 7.071 face height:</p>
@@ -624,17 +628,21 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
         <tr><td>Outer to outer, 2 rows</td><td class="num">(30 + 3h) / 2</td><td class="num">25.607</td></tr>
         <tr><td>Row <i>k</i> → <i>k</i> + 2</td><td class="num">2p − h</td><td class="num">30.000</td></tr>
         <tr><td>Solid between tunnels ⊥</td><td class="num">p × sin 45° − 5</td><td class="num">8.107</td></tr>
+        <tr><td>Top / bottom margin, tileable</td><td class="num">gap / 2 = (30 − h) / 4</td><td class="num"><strong>5.732</strong></td></tr>
+        <tr><td>Panel height, tileable, <i>r</i> rows</td><td class="num">r × p</td><td class="num">r × 18.536</td></tr>
       </table></div>
+      <p style="margin-top:10px">Stacked tileable panels: the row gap at the joint is split across the two panels, so it gets no groove.</p>
     </div>
   </div>
 </section>
 
 <section id="groove">
-  <h2><span class="n">伍</span>Groove <span class="optional">optional</span></h2>
+  <h2><span class="n">伍</span>Groove <span class="ja">溝</span> <span class="optional">optional</span></h2>
   <ul class="rules">
-    <li><b>Purpose:</b> hollows out material and increases strength for FDM printing.</li>
+    <li><b>Purpose:</b> hollows out material and increases strength for FDM printing. Less infill is needed, but the extra walls can make the print take longer.</li>
     <li><b>Include:</b> ask if the groove is required.</li>
     <li><b>Skip:</b> when the area is small and does not need it, for example a small accessory panel or a single row. Say that it was skipped.</li>
+    <li><b>Wide top-edge groove</b> (reference cover, optional): same purpose. It reinforces the panel for FDM printing and reduces infill, at the cost of a possibly longer print. Take its profile from the reference cover; it is not dimensioned here.</li>
   </ul>
   <div class="tblwrap"><table>
     <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
@@ -651,10 +659,10 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 </section>
 
 <section id="key">
-  <h2><span class="n">陸</span>Key</h2>
+  <h2><span class="n">陸</span>Key <span class="ja">キー</span></h2>
   <p>The key joins the accessory to the panel sockets. It is one straight 45° square bar with a thin stop plate across it. The bar fits snugly into the panel (not a press fit), so accessories can be moved and replaced quickly. It press-fits into the accessory, so it stays with the accessory when moved. The stop rests flat on the panel face and sets the insertion depth.</p>
   <p>The two side faces are flat and flush along the whole key (4.60 apart), so it prints lying on one side. Both legs share one profile: a <b>split peg</b> whose upper and lower faces widen in a straight line from the root to a square tip, with a 1.00 slot along the axis that splits it into two prongs. Neither leg has a chamfer, lead-in or root relief (v0.13). Instead, every edge that runs across the key between the flat sides has a 0.50 round: the tips, slot mouths, slot ends and stop ends. The four inside corners where the stop meets the legs stay sharp, so the stop seats flat. The legs differ only in fit. The accessory leg is an <b>expanding peg</b>: it is 5.80 long, 0.20 short of the 6.00 hole floor, and widens from 4.80 at the root to an oversize 5.10 at the tip, so in the 5.00 hole the prongs squeeze together and spring back against the walls. The panel leg has a lighter fit: it widens from 4.60 to 5.00 (line-to-line), and its slot stops 3.00 from the panel face. The accessory slot runs back toward the stop until its end is <b>5.00 from the panel slot end, measured along the bar</b>, so it ends 0.46 inside the stop (View D1). Neither leg has crush ribs (v0.11): both keep 0.20 side clearance per side.</p>
-  <div class="pair">
+  <div class="pair wide">
     <figure>
       <div class="dwgwrap"><svg class="dwg" viewBox="-33 -23.5 61 50" style="max-width:671px;min-width:416px" role="img" aria-label="Key seated in a panel socket and an accessory wall" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="hatch4" patternUnits="userSpaceOnUse" width="0.636" height="0.636" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="0.636"/></pattern></defs>
 <path class="cut" fill-rule="evenodd" fill="url(#hatch4)" d="M0,-16 L12,-16 L12,21 L0,21 Z M0,-3.536 L11,7.464 L11,14.536 L0,3.536 Z "/>
@@ -665,12 +673,12 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 <path class="part" fill="none" fill-rule="evenodd" d="M-9.5,-16 L-2,-16 L-2,21 L-9.5,21 Z M-9.5,-13.036 L-2,-5.536 L-2,1.536 L-9.5,-5.964 Z"/>
 <line class="brk" x1="-10.1" y1="21" x2="-1.4" y2="21"/>
 <line class="brk" x1="-10.1" y1="-16" x2="-1.4" y2="-16"/>
-<polygon class="key" points="0,-3.253 10,6.464 10,13.536 0,3.253"/>
-<polygon class="key" points="-1,-4.394 -6.8,-10.406 -6.8,-3.194 -1,2.394"/>
-<polygon class="key" points="-1,-7 0,-6 0,6 -1,5"/>
+<path class="key" d="M0,-3.253 L9.849,6.317 A0.5,0.5 0 0 1 10,6.675 L10,8.086 A0.5,0.5 0 0 1 9.146,8.439 L3.707,3 A0.5,0.5 0 0 0 3,3.707 L9.854,10.561 A0.5,0.5 0 0 1 10,10.914 L10,12.305 A0.5,0.5 0 0 1 9.142,12.653 L0,3.253 Z"/>
+<path class="key" d="M-1,-4.394 L-5.94,-9.515 A0.5,0.5 0 0 0 -6.8,-9.167 L-6.8,-7.714 A0.5,0.5 0 0 0 -6.654,-7.361 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-5.946,-5.239 A0.5,0.5 0 0 0 -6.8,-4.886 L-6.8,-3.407 A0.5,0.5 0 0 0 -6.647,-3.047 L-1,2.394 Z"/>
+<path class="key" d="M-1,-5.793 A0.5,0.5 0 0 1 -0.146,-6.146 A0.5,0.5 0 0 1 0,-5.793 L0,4.793 A0.5,0.5 0 0 1 -0.854,5.146 A0.5,0.5 0 0 1 -1,4.793 Z"/>
 <polygon class="key" points="-1,-4.253 0,-3.253 0,3.253 -1,2.253"/>
-<path class="key" style="fill:var(--sheet)" d="M10,9.293 L3.707,3 A0.5,0.5 0 0 0 3,3.707 L10,10.707 Z"/>
-<path class="key" style="fill:var(--sheet)" d="M-6.8,-7.507 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-6.8,-6.093 Z"/>
+<path style="fill:var(--sheet);stroke:none" d="M-2,-2.707 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-2,-1.293 Z"/>
+<path class="key" style="fill:none" d="M-2,-2.707 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-2,-1.293"/>
 <line class="ctr" x1="-9" y1="-9" x2="13" y2="13"/>
 <text class="lbl" x="0.4" y="-17.4" font-size="1.136" text-anchor="start" dominant-baseline="middle">PANEL</text>
 <text class="lbl" x="-9.5" y="-17.4" font-size="1.136" text-anchor="start" dominant-baseline="middle">ACCESSORY</text>
@@ -703,7 +711,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 <line class="ctrs" x1="-29" y1="1" x2="-29" y2="6.8"/>
 <polygon class="arrowm" points="-29,8 -28.782,7.318 -29.218,7.318"/>
 <text class="lbl" x="-29" y="-0.6" font-size="1.136" text-anchor="middle" dominant-baseline="middle">LOAD</text></svg></div>
-      <figcaption><b>View D.</b> Key seated in a panel socket and an accessory wall. Key shaded; prongs drawn relaxed (before they squeeze to 5.00), slot between them. Square tips; the 0.50 edge rounds are too small to show at this scale. The leg tip stops 0.20 short of the hole floor.</figcaption>
+      <figcaption><b>View D.</b> Key seated in a panel socket and an accessory wall. Key shaded; prongs drawn relaxed (before they squeeze to 5.00), slot between them. Square tips with the 0.50 edge rounds on the tips, slot mouths, slot ends and stop ends. The leg tip stops 0.20 short of the hole floor.</figcaption>
     </figure>
     <div class="tblwrap"><table>
       <tr><th>Item</th><th>Value</th><th>Fit</th></tr>
@@ -716,7 +724,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
       <tr><td>Accessory leg, root</td><td class="num"><strong>4.80</strong> × 4.60</td><td>0.10 / side clearance in 5.00 hole</td></tr>
       <tr><td>Accessory leg, tip (relaxed)</td><td class="num"><strong>5.10</strong> × 4.60</td><td>0.05 / side interference, taken by the prongs; square tip, 0.50 edge rounds</td></tr>
       <tr><td>Accessory leg taper</td><td class="num">linear, 4.80 → 5.10</td><td>Upper and lower faces only, widens to the tip; line-to-line at 3.87 ⊥ from the stop (2/3 of the length)</td></tr>
-      <tr><td>Prong slot</td><td class="num"><strong>1.00</strong> wide; end <strong>5.00</strong> from the panel slot end, along the bar</td><td>Ends 0.46 ⊥ inside the stop; deepest point 0.18 ⊥ from the panel face (View D1). Through both side faces; keep wider than tip − hole</td></tr>
+      <tr><td>Prong slot</td><td class="num"><strong>1.00</strong> wide; end <strong>5.00</strong> from the panel slot end, along the bar</td><td>Ends 0.46 ⊥ inside the stop; deepest point 0.39 ⊥ from the panel face (View D1). Through both side faces; keep wider than tip − hole</td></tr>
       <tr><td>Accessory leg length</td><td class="num"><strong>5.80</strong> ⊥</td><td>From stop to tip; 0.20 tip gap to the 6.00 hole floor</td></tr>
       <tr><td>Edge rounds</td><td class="num"><strong>0.50</strong></td><td>Every edge running between the flat sides: leg tips, slot mouths, slot ends (full round), stop ends. Not on the four stop-to-leg inside corners</td></tr>
       <tr><td>Stop</td><td class="num"><strong>1.00</strong> ⊥ × 4.60 × <strong>12.00</strong></td><td>Vertical plate, flat on panel face; ends cut at 45°; 2.75 past the bar above and below</td></tr>
@@ -726,12 +734,12 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
   <figure style="margin-top:20px">
     <div class="dwgwrap"><svg class="dwg" viewBox="-7.4 -4.5 14.6 10.2" style="max-width:760px;min-width:440px" role="img" aria-label="Detail of the two prong slot ends at the stop" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="d1clip"><rect x="-2.8" y="-3.6" width="9.4" height="8.8"/></clipPath></defs>
 <g clip-path="url(#d1clip)">
-<polygon class="key" points="0,-3.253 10,6.464 10,13.536 0,3.253"/>
-<polygon class="key" points="-1,-4.394 -6.8,-10.406 -6.8,-3.194 -1,2.394"/>
-<polygon class="key" points="-1,-7 0,-6 0,6 -1,5"/>
+<path class="key" d="M0,-3.253 L9.849,6.317 A0.5,0.5 0 0 1 10,6.675 L10,8.086 A0.5,0.5 0 0 1 9.146,8.439 L3.707,3 A0.5,0.5 0 0 0 3,3.707 L9.854,10.561 A0.5,0.5 0 0 1 10,10.914 L10,12.305 A0.5,0.5 0 0 1 9.142,12.653 L0,3.253 Z"/>
+<path class="key" d="M-1,-4.394 L-5.94,-9.515 A0.5,0.5 0 0 0 -6.8,-9.167 L-6.8,-7.714 A0.5,0.5 0 0 0 -6.654,-7.361 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-5.946,-5.239 A0.5,0.5 0 0 0 -6.8,-4.886 L-6.8,-3.407 A0.5,0.5 0 0 0 -6.647,-3.047 L-1,2.394 Z"/>
+<path class="key" d="M-1,-5.793 A0.5,0.5 0 0 1 -0.146,-6.146 A0.5,0.5 0 0 1 0,-5.793 L0,4.793 A0.5,0.5 0 0 1 -0.854,5.146 A0.5,0.5 0 0 1 -1,4.793 Z"/>
 <polygon class="key" points="-1,-4.253 0,-3.253 0,3.253 -1,2.253"/>
-<path class="key" style="fill:var(--sheet)" d="M10,9.293 L3.707,3 A0.5,0.5 0 0 0 3,3.707 L10,10.707 Z"/>
-<path class="key" style="fill:var(--sheet)" d="M-6.8,-7.507 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-6.8,-6.093 Z"/>
+<path style="fill:var(--sheet);stroke:none" d="M-2,-2.707 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-2,-1.293 Z"/>
+<path class="key" style="fill:none" d="M-2,-2.707 L-0.536,-1.243 A0.5,0.5 0 0 1 -1.243,-0.536 L-2,-1.293"/>
 <line class="ctr" x1="-3" y1="-3" x2="6.6" y2="6.6"/>
 </g>
 <line class="ext" x1="-0.536" y1="-0.536" x2="1.833" y2="-2.905"/>
@@ -784,14 +792,32 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
     <li><b>Shallow faces:</b> shorten the panel leg to that face's functional depth. Keep the 1 mm relief.</li>
     <li><b>Print orientation:</b> lie the key on either flat side. The slot walls are then vertical, and each prong flexes within its layers.</li>
     <li><b>Tuning:</b> loose: raise the tip (5.10 → 5.20). Too hard to push in: lower the tip or widen the slot. Keep the slot wider than tip − hole, so the prongs never close up.</li>
-    <li><b>Stop check:</b> the accessory slot ends inside the stop, so the stop is thin at the slot end (0.18 at the deepest point). After a few insert-and-remove cycles, look for cracks there. If it cracks, increase the slot spacing or thicken the stop.</li>
+    <li><b>Stop check:</b> the accessory slot ends inside the stop, so the stop is thin at the slot end (0.39 at the deepest point). After a few insert-and-remove cycles, look for cracks there. If it cracks, increase the slot spacing or thicken the stop.</li>
     <li><b>Fit check:</b> before a full accessory, print one key and a small block with one 5.00 hole. Adjust the tip size, then keep the values that work for your printer.</li>
     <li><b>Tip gap:</b> keep the accessory leg 0.20 shorter than the hole depth. Zero gap fitted best in test, but then a hole printed slightly shallow stops the key before the stop seats.</li>
+  </ul>
+  <h3>Variant: thick stop</h3>
+  <p>For accessories that must stand farther off the panel face, for example to clear obstructions such as the lip of a cover design. The stop is <b>3.00</b> thick instead of 1.00. The extra 2.00 grows toward the panel side: everything from the stop's accessory face outward is the same as the standard key, and the panel leg still engages the full 10.00 from the panel face. The accessory back face therefore sits 3.00 from the panel face (1.00 on the standard key).</p>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Standard</th><th>Thick stop</th></tr>
+    <tr><td>Stop thickness ⊥</td><td class="num">1.00</td><td class="num"><strong>3.00</strong></td></tr>
+    <tr><td>Stop width × height</td><td class="num">4.60 × 12.00</td><td class="num">4.60 × 12.00 (unchanged)</td></tr>
+    <tr><td>Panel leg, accessory leg</td><td class="num">10.00, 5.80</td><td class="num">10.00, 5.80 (unchanged)</td></tr>
+    <tr><td>Accessory slot end</td><td class="num">0.46 ⊥ inside the stop</td><td class="num">0.46 ⊥ inside the stop, from its accessory face</td></tr>
+    <tr><td>Slot ends apart, along the bar</td><td class="num">5.00</td><td class="num">7.83 <span class="why">(5.54 ⊥)</span></td></tr>
+    <tr><td>Panel face to accessory back face</td><td class="num">1.00</td><td class="num"><strong>3.00</strong></td></tr>
+    <tr><td>Overall length ⊥, tip to tip</td><td class="num">16.80</td><td class="num">18.80</td></tr>
+    <tr><td>Edge rounds</td><td class="num">0.50</td><td class="num">0.50, same edges</td></tr>
+  </table></div>
+  <ul class="rules" style="margin-top:12px">
+    <li><b>Model:</b> <code>nsas holders/NSAS key - accessories thick</code>. Same parameters as the standard key with <code>stop_t</code> = 3 mm. The accessory slot end is held at its standard place: <code>prong_root</code> uses the standard 1 mm stop, not <code>stop_t</code>.</li>
+    <li><b>Accessories and panels are unchanged:</b> same sockets, same 6.00 accessory holes. Only the stand-off grows.</li>
+    <li><b>Stop check:</b> not needed on this variant. The stop is solid for 2.39 ⊥ behind the slot end.</li>
   </ul>
 </section>
 
 <section id="accessory">
-  <h2><span class="n">漆</span>Accessory interface</h2>
+  <h2><span class="n">漆</span>Accessory interface <span class="ja">アクセサリー接続部</span></h2>
   <p>Holes go in the accessory's <b>back face</b>, the flat face that rests against the panel. The key's stop sits between the two faces.</p>
   <div class="flag"><b>Direction — common mistake</b>The key is one straight bar. Its panel leg goes into the panel and <b>down</b>, so its accessory leg points out of the panel and <b>up</b>. The accessory hole follows that leg: from the back face it goes in and <b>rises 45°</b>, 1 mm up for every 1 mm in. Same 45° line as the socket, run the other way. Never copy the socket's "45° down into the face" onto the accessory: a downward hole cannot take a key that is already in the panel. See View D.</div>
   <p style="margin-top:14px">Gravity lock: the accessory is pressed onto the rising leg, and its weight pulls it down and back along the bar, toward the panel.</p>
@@ -816,7 +842,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
 </section>
 
 <section id="params">
-  <h2><span class="n">捌</span>Parameters</h2>
+  <h2><span class="n">捌</span>Parameters <span class="ja">パラメーター</span></h2>
   <p>Drive the model from these values. Derive counts, row pitch and groove length; do not enter them as fixed numbers. Keep full precision in CAD; round only the displayed values.</p>
   <div class="tblwrap"><table>
     <tr><th>Parameter</th><th>Default</th><th>Drives</th></tr>
@@ -836,20 +862,17 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
     <tr><td>Accessory top skin</td><td class="num">2.0</td><td>Top margin = hole depth + skin</td></tr>
     <tr><td>Accessory width clearance</td><td class="num">1.0</td><td>Width = columns × 10 − clearance</td></tr>
     <tr><td>Panel area or margins</td><td class="num">per design</td><td>Counts and centring</td></tr>
+    <tr><td>Tileable margins, side / top and bottom</td><td class="num">2.5 / 5.732</td><td>Panels combined side by side or stacked; 5.732 = (30 − h) / 4</td></tr>
   </table></div>
 </section>
 
 <section id="open">
-  <h2><span class="n">玖</span>Open points</h2>
-  <ol class="open">
-    <li>Purpose and profile of the wide groove along the top edge of the reference cover.</li>
-    <li>Minimum margin around the grid. Reference: about 2.5–3 mm horizontally.</li>
-    <li>RunnerCollector lid is 10 mm thick. Options: 12 mm lid, local raised panel on the inner face, or shallower face with a customised key.</li>
-  </ol>
+  <h2><span class="n">玖</span>Open points <span class="ja">未決事項</span></h2>
+  <p>None at present. Earlier points closed in v0.13: wide top-edge groove purpose (section 5), grid margins for tileable panels (section 4).</p>
 </section>
 
 <section id="revisions">
-  <h2><span class="n">拾</span>Revisions</h2>
+  <h2><span class="n">拾</span>Revisions <span class="ja">改訂履歴</span></h2>
   <div class="tblwrap"><table class="rev">
     <tr><th>Rev</th><th>Change</th></tr>
     <tr><td>v0.1</td><td>First draft from design intent and the reference top cover.</td></tr>
@@ -864,7 +887,7 @@ section:nth-of-type(3n) h2 .n::before { color: #fffaf0; }
     <tr><td>v0.10</td><td>Panel leg: snug fit, widens 4.60 → 5.00, prong slot to 3.00 from the face, two crush ribs (0.05 crush) on the same side face, 1.00 chamfer on the upper tip edge. All crush ribs taper 0.15 lower toward the tip.</td></tr>
     <tr><td>v0.11</td><td>Stop height reduced, 15.0 → 12.00 (2.75 past the bar above and below). All crush ribs removed from both legs.</td></tr>
     <tr><td>v0.12</td><td>Accessory leg kept popping out. Taper 5.00 → 5.30 reduced to 4.90 → 5.10. Ø1.00 relief at the root on the upper and lower faces, tangent to the stop. Prong slot now ends 1.00 from the stop (was 0.50).</td></tr>
-    <tr><td>v0.13</td><td>Print-tested: fits very well. Accessory leg takes the panel leg profile: straight taper 4.80 → 5.10 (root was 4.90), square tip, root reliefs and tip lead-in removed. Accessory leg 5.00 → 5.80, 0.20 short of the 6.00 hole floor (was 1.00). Accessory prong slot made longer: its end is 5.00 from the panel slot end along the bar (was 7.07), so it ends 0.46 inside the stop. Panel tip chamfer removed. 0.50 round on every edge between the flat sides, except the stop-to-leg inside corners.</td></tr>
+    <tr><td>v0.13</td><td>Print-tested: fits very well. Accessory leg takes the panel leg profile: straight taper 4.80 → 5.10 (root was 4.90), square tip, root reliefs and tip lead-in removed. Accessory leg 5.00 → 5.80, 0.20 short of the 6.00 hole floor (was 1.00). Accessory prong slot made longer: its end is 5.00 from the panel slot end along the bar (was 7.07), so it ends 0.46 inside the stop. Panel tip chamfer removed. 0.50 round on every edge between the flat sides, except the stop-to-leg inside corners. Thick-stop variant (3.00 stop, grown toward the panel side) added. Tileable-panel margins 2.50 side, 5.732 top and bottom. Groove trade-off and wide top-edge groove purpose added. Open points closed.</td></tr>
   </table></div>
 </section>
 </main>
