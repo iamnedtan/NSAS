@@ -1,10 +1,14 @@
 # IKEA UPPDATERA and VARIERA - NSAS slot in holder
 
-Work in progress. A side profile from a Fusion sketch, extruded 70 mm. Only the largest region of the sketch is solid; the smaller enclosed regions are notches cut through the full 70 mm.
+Work in progress. Holds an IKEA UPPDATERA or VARIERA 24 × 17 cm box (10 cm tall): the box's back wall leans on the holder, its bottom edge on the ledge and its rim up in the slot behind the lip. A test print of the first version fits.
+
+Mounting: the flat back face (128.5 × 69 mm) goes against the NSAS panel, with standard keys in the top and bottom rows of holes. It fits current panels and older plates with sockets every second row. Print it with the profile flat on the bed, as tested; no supports are needed.
+
+A side profile from a Fusion sketch, extruded 69 mm. Only the largest region of the sketch is solid; the smaller enclosed regions are notches cut through the full width.
 
 Profile (XY plane, sketch origin at 0, 0; extruded along +Z):
 
-- Base 10 mm below Y = 0, from X = 5 to the back face.
+- Base 10.5 mm below Y = 0 (sketch: 10 mm), from X = 5 to the back face.
 - Front ledge on Y = 0, 15 mm deep (X = 5 to 20). A notch 8 × 3 mm sits in the ledge, its back on X = 20.
 - From X = 20 a wall leans back 5° from vertical (95° to the ledge) up to Y = 102.
 - A lip 8 mm thick, parallel to the wall, hangs 10 mm below Y = 102. Its inner face is 3 mm in front of the wall top.
@@ -12,9 +16,26 @@ Profile (XY plane, sketch origin at 0, 0; extruded along +Z):
 
 The back face (X = 45) and top face (Y = 118) are not dimensioned in the sketch. They were read off the screenshot; set `RIGHT_X` and `TOP_Y` to the real values.
 
+Optimised after the test print (about 31 % less material than the solid profile):
+
+- Two pockets through the full width: one behind the wall and wedge, one in the top block over the slot. They leave 3 mm walls (`SHELL`), a 3 mm floor and a 10 mm solid back plate (`BACK_T`) for the NSAS accessory holes. The pockets suit printing with the profile on the bed.
+- Fillets on the inner corners: base notch (1 mm), wedge tip (0.5 mm), lip root (0.8 mm), pockets (1 mm).
+- Lead-ins for the box: a 1.5 mm chamfer on the lip's inner bottom edge, a 1 mm round on the ledge's front edge.
+- Width 69 mm (7 × 10 − 1), so holders sit side by side on the NSAS 10 mm column pitch.
+
+NSAS accessory holes, in the back face:
+
+- 8 holes: 2 columns 40 mm apart (centred), 4 rows two row pitches (37.07 mm) apart, mouth centres Y = 106.46 (8 mm under the top face), 69.39, 32.32 and −4.75. Every second row, so the same rows meet sockets on current panels (socket on every row) and older plates (socket every second row).
+- The box hangs in front, so its weight tries to pull the top of the holder off the panel. Key the top and bottom rows (111.2 mm apart); the middle rows are spare.
+- The base is 10.5 mm deep instead of the sketch's 10 mm, so the bottom row keeps 2.2 mm of material under it.
+- Each hole is 5 mm square, rises 45° going in, and is 6 mm deep with a flat floor. That leaves 4 mm to the pockets and 2 mm under the top face.
+- Printed profile-down (Z = 0 on the bed), each hole is a tunnel bridged on top. The key's tapered faces meet the hole walls that print vertically.
+- The bridge is a 30° gable (`NSAS_ROOF_ANGLE`), 1.44 mm high at the ridge, instead of a flat roof, so a sagging bridge (ABS) does not close the hole. It is over a flat side of the key, which has 0.2 mm clearance anyway, so the press fit is unchanged. Keep Z = 0 on the bed, or the gable ends up on the floor of the hole.
+- `NSAS_ROWS`, `NSAS_ROW_STEP` and `NSAS_COL_STEPS` set the layout.
+
 | File | Size |
 |---|---|
-| `IKEA UPPDATERA and VARIERA - NSAS slot in holder.step`, `.stl` | 40 × 128 × 70 |
+| `IKEA UPPDATERA and VARIERA - NSAS slot in holder.step`, `.stl` | 40 × 128.5 × 69 |
 
 ## Source
 
