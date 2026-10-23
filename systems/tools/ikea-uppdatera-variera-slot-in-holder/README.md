@@ -2,7 +2,7 @@
 
 Work in progress. Holds an IKEA UPPDATERA or VARIERA 24 × 17 cm box (10 cm tall): the box's back wall leans on the holder, its bottom edge on the ledge and its rim up in the slot behind the lip. A test print of the first version fits.
 
-Mounting: the flat back face (130.5 × 69 mm) goes against the NSAS panel, with standard keys in the top and bottom rows of holes. It fits current panels and older plates with sockets every second row. Print it with the profile flat on the bed, as tested; no supports are needed.
+Mounting: the flat back face (130.5 × 69 mm) goes against the NSAS panel, with four standard keys in its two rows of holes. It fits current panels and older plates with sockets every second row. Print it with the profile flat on the bed, as tested; no supports are needed.
 
 A side profile from a Fusion sketch, extruded 69 mm. Only the largest region of the sketch is solid; the smaller enclosed regions are notches cut through the full width.
 
@@ -29,25 +29,39 @@ Optimised after the test print (about 48 % less material than the solid profile)
 
 NSAS accessory holes, in the back face:
 
-- 14 holes: 2 columns 40 mm apart (centred), 7 rows one row pitch (18.536 mm) apart, mouth centres Y = 104.46 (10 mm under the top face), 85.93, 67.39, 48.86, 30.32, 11.79 and −6.75.
-- Rows 1, 3, 5, 7 (every second row) meet sockets on current panels (socket on every row) and on older plates (socket every second row). Rows 2, 4, 6 are extra, for the test print; drop them with `NSAS_ROWS = 4`, `NSAS_ROW_STEP = 2`.
-- The box hangs in front, so its weight tries to pull the top of the holder off the panel. Key the top and bottom rows (111.2 mm apart).
+- 4 holes: 2 columns 40 mm apart (centred), 2 rows with mouth centres Y = 67.39 and 30.32. They are rows 3 and 5 of a row grid one row pitch (18.536 mm) apart from the top (row 1 at Y = 104.46, 10 mm under the top face), so 37.07 mm (two pitches) apart.
+- Two pitches apart, the rows meet sockets on current panels (socket on every row) and on older plates (socket every second row).
 - The base is 12.5 mm deep instead of the sketch's 10 mm, so the bottom row keeps 2.2 mm of material under it.
 - Each hole is 5 mm square, rises 45° going in, and goes 8 mm deep, through the back plate. Behind it, it opens into a pocket; where no pocket is behind (the top 1 mm of the top row), it ends flat, 2 mm under the top face.
 - Printed profile-down (Z = 0 on the bed), each hole is a tunnel bridged on top. The key's tapered faces meet the hole walls that print vertically.
 - The bridge is a 30° gable (`NSAS_ROOF_ANGLE`), 1.44 mm high at the ridge, instead of a flat roof, so a sagging bridge (ABS) does not close the hole. It is over a flat side of the key, which has 0.2 mm clearance anyway, so the press fit is unchanged. Keep Z = 0 on the bed, or the gable ends up on the floor of the hole.
-- `NSAS_ROWS`, `NSAS_ROW_STEP` and `NSAS_COL_STEPS` set the layout.
+- `NSAS_KEEP_ROWS` picks the rows from the grid (`NSAS_ROWS`, `NSAS_ROW_STEP`); `NSAS_COL_STEPS` sets the columns.
 
-| File | Size |
-|---|---|
-| `IKEA UPPDATERA and VARIERA - NSAS slot in holder.step`, `.stl` | 40 × 130.5 × 69 |
+## Variants
+
+| Variant | Files | Size | Notes |
+|---|---|---|---|
+| `flat` | `IKEA UPPDATERA and VARIERA - NSAS slot in holder - flat.step`, `.stl` | 40 × 130.5 × 69 | Mounts straight on an NSAS panel. Everything above. |
+| `offset` | `IKEA UPPDATERA and VARIERA - NSAS slot in holder - offset.step`, `.stl` | 40 × 130.5 × 69 | Work in progress: hangs on a NABS base standing vertical, with four standard NSAS keys. See below. |
+
+### Offset variant
+
+Mounts with thick-stop keys on a NABS base (`systems/nabs`) standing vertical (wall mode, hinge edge B down), so the base's two socket rows, 37.071 mm apart, act like an NSAS panel's rows 3 and 5. Differences from `flat`:
+
+- The main pocket is filled solid, so there are no windows.
+- An 8 mm rectangle (`OFFSET_W`) is cut from the back, from the bottom up to Y = 99.43, with a 1 mm round in its inner corner. The holder's mounting face is then X = 37, and the block above is an overhang whose underside sits 0.5 mm (`OFFSET_CLEAR`) over the top of the NABS base (its edge-A hinge fingers, at Y = 98.93) when the keys join them; the keys carry the load. `offset_top()` works that height out from the top hole row and the base's row and finger sizes.
+- It takes the thick-stop NSAS key (`keys/NSAS key - accessories thick`, 3 mm stop). Round each hole mouth, the X = 37 face has a 3 mm deep recess (`KEY_STOP`) shaped like the stop plate: 4.6 wide and 12 tall, centred on the hole axis, with its ends at 45° parallel to the hole, plus 0.5 mm all round (`STOP_CLEAR`). The stops sit in the recesses, so the holder sits flush on the base. Printed profile-down, each recess has a 3 mm deep flat roof.
+- The NSAS holes run on along their 45° line, through the leaning wall into the slot, and end 0.5 mm past where they break out (`HOLE_EXIT`), clear of the lip. Their mouths on the X = 37 face are at Y = 75.39 and 38.32, the same as the base's socket mouths.
+
+`mockup/slot_in_holder_offset_on_NABS_base.step` shows it on a 10-column NABS base, joined by four `keys/NSAS key - accessories thick` keys, standing Z-up. The keys' stops sit in the recesses and the holder is flush on the base; the base's back face is 2 mm behind the overhang's back (base 10 mm thick, offset 8 mm), and the overhang sits 0.5 mm over its top fingers. For checking only, not for printing. Build it with `src/slot_in_holder_mockup.py`.
 
 ## Source
 
-`src/slot_in_holder.py`. All sketch dimensions are named values at the top of the file.
+`src/slot_in_holder.py`. `VARIANTS` sets what differs between `flat` and `offset`; both are built on each run. All sketch dimensions are named values at the top of the file.
 
 Rebuild from `src/` (cadgen 0.7.25, Python 3.13):
 
 ```
 uvx --no-config --python 3.13 --from cadgen==0.7.25 python -I slot_in_holder.py
+uvx --no-config --python 3.13 --from cadgen==0.7.25 python -I slot_in_holder_mockup.py
 ```

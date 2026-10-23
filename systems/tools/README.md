@@ -8,4 +8,4 @@ Holder for one mini cup of freeze-dried instant coffee, an open ring that grips 
 
 ## IKEA UPPDATERA and VARIERA - NSAS slot in holder (`ikea-uppdatera-variera-slot-in-holder/`)
 
-Work in progress. Holds an IKEA UPPDATERA or VARIERA 24 × 17 cm box by its back wall: a slot profile from a Fusion sketch (front ledge, wall leaning back 5°, overhanging lip), pocketed and extruded 69 mm, with NSAS accessory holes on every row in the back face; every second row fits both current panels and older plates. See [`ikea-uppdatera-variera-slot-in-holder/README.md`](ikea-uppdatera-variera-slot-in-holder/README.md).
+Work in progress. Holds an IKEA UPPDATERA or VARIERA 24 × 17 cm box by its back wall: a slot profile from a Fusion sketch (front ledge, wall leaning back 5°, overhanging lip), pocketed and extruded 69 mm, with two rows of NSAS accessory holes in the back face that fit both current panels and older plates. Two variants: `flat` for an NSAS panel, `offset` (in progress) to hang on a NABS base standing vertical, with thick-stop keys. See [`ikea-uppdatera-variera-slot-in-holder/README.md`](ikea-uppdatera-variera-slot-in-holder/README.md).

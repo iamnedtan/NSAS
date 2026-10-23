@@ -26,10 +26,9 @@ Optimised from the tested print:
     NSAS 10 mm column pitch.
 
 Mounting: the back face (X = RIGHT_X) goes against the NSAS panel, Y up.
-NSAS accessory holes in it, 2 columns 40 mm apart and 7 rows one row
-pitch apart; rows 1, 3, 5, 7 fit current panels and older plates with
-sockets every second row. Key the top and bottom rows: the box hangs in
-front, so its weight pulls the top of the holder off the panel.
+NSAS accessory holes in it, 2 columns 40 mm apart and 2 rows (rows 3
+and 5 of the row grid, two row pitches apart), so it fits current
+panels and older plates with sockets every second row.
 Print with the profile on the bed.
 
 Coordinates: profile in XY with the sketch origin at (0, 0), extruded
@@ -79,6 +78,24 @@ LEDGE_R = 1.0  # ledge front top edge
 # bed, and softer ends. Pocket and window outlines are left square.
 END_CHAMFER = 0.8  # < STRIP_H, the 1 mm strip at the slot mouth
 
+# Offset variant.
+OFFSET_W = 8.0  # cut from the back face, for the NABS base piece
+# The overhang's underside sits OFFSET_CLEAR over the top of the NABS base
+# (its edge-A hinge fingers) when the keys join them: see offset_top().
+KEY_STOP = 3.0  # thick-stop NSAS key: stop plate thickness, and recess depth
+NABS_ROW1_MOUTH = 10.0 + 2.5 * math.sqrt(2)  # row 1 mouth centre from body face A
+NABS_FINGER = 10.0  # hinge fingers past body face A
+OFFSET_CLEAR = 0.5  # gap between the overhang and the top of the base
+# Recess for each key's stop plate in the offset face, so the holder sits
+# flush on the base. The thick-stop key's stop is KEY_STOP thick (from the
+# base face into the holder), STOP_W wide and 2 x STOP_HALF tall, centred
+# on the bar, with its ends cut at 45 deg, parallel to the bar.
+STOP_W = 4.6
+STOP_HALF = 6.0
+STOP_CLEAR = 0.5  # recess outline clearance, each side
+OFFSET_R = 1.0  # inner corner under the overhang
+HOLE_EXIT = 0.5  # through holes end this far past the break-out
+
 # NSAS accessory holes in the back face (X = RIGHT_X, against the panel).
 # They go in (-X) and rise 45 deg (+Y), through the BACK_T back plate:
 # open into the pockets, with a flat end parallel to the back face where
@@ -89,12 +106,13 @@ NSAS_DEPTH = BACK_T  # perpendicular to the back face; key leg needs 6
 NSAS_FACE_H = NSAS_HOLE * math.sqrt(2)  # 7.07 tall on the face
 NSAS_TOP_SKIN = NSAS_DEPTH + 2  # top face to top of the upper mouth
 NSAS_ROW_PITCH = 15 + 2.5 * math.sqrt(2)  # 18.536
-# Rows NSAS_ROW_STEP pitches apart from the top down. Rows 1, 3, 5, 7
-# (every second row) fit both current panels (sockets on every row) and
-# older plates (sockets every second row); rows 2, 4, 6 are extra, kept
-# for the test print and may be dropped (NSAS_ROWS = 4, NSAS_ROW_STEP = 2).
+# Row grid: one row pitch apart from the top down (row 1 under the top
+# skin). Only the NSAS_KEEP_ROWS of it get holes. Rows 3 and 5 are two
+# pitches apart, so they fit current panels (sockets on every row) and
+# older plates (sockets every second row).
 NSAS_ROWS = 7
 NSAS_ROW_STEP = 1
+NSAS_KEEP_ROWS = (3, 5)  # 1-based, from the top
 # Printed profile-down (Z = 0 on the bed), each hole's +Z face is a 5 mm
 # bridge. A gable over it, NSAS_ROOF_ANGLE from flat on both sides, gives
 # room for an ABS bridge that sags. It sits on a face against a flat side
@@ -220,23 +238,57 @@ def upper_pocket_points():
 
 
 def nsas_hole_centres():
-    """Mouth centres (Y, Z) on the back face: NSAS_ROWS x 2 columns."""
+    """Mouth centres (Y, Z) on the back face: NSAS_KEEP_ROWS x 2 columns."""
     y_top = TOP_Y - NSAS_TOP_SKIN - NSAS_FACE_H / 2
     step = NSAS_ROW_STEP * NSAS_ROW_PITCH
-    rows = [y_top - k * step for k in range(NSAS_ROWS)]
-    assert rows[-1] - NSAS_FACE_H / 2 >= -BASE_H + 2.0, "bottom skin < 2 mm"
+    grid = [y_top - k * step for k in range(NSAS_ROWS)]
+    assert grid[-1] - NSAS_FACE_H / 2 >= -BASE_H + 2.0, "bottom skin < 2 mm"
+    rows = [grid[r - 1] for r in NSAS_KEEP_ROWS]
     dz = NSAS_COL_STEPS * NSAS_COL_PITCH
     return [(y, EXTRUDE / 2 + s * dz) for y in rows for s in (-1, 1)]
 
 
-def _nsas_holes():
+def _front_x(y):
+    """X of the profile's front faces the holes can break out through:
+    the leaning wall up to the wedge tip, the wedge's back face above."""
+    t15 = math.tan(math.radians(WALL_ANGLE + WEDGE_ANGLE))
+    y_tip = notch_polygons()[2][0][1]
+    if y < y_tip:
+        return _wall_x(y)
+    return _wall_x(SLOT_TOP) + WEDGE_W - (SLOT_TOP - y) * t15
+
+
+def hole_end_x(y_mouth):
+    """Through holes (offset variant): X where a hole's flat end sits,
+    HOLE_EXIT past the point where its lower edge breaks out of the front
+    faces into the slot. Its upper edge must stay clear of the lip."""
+    h = NSAS_FACE_H / 2
+
+    def lower(x):  # lower edge, vertically under the axis
+        return y_mouth + (RIGHT_X - x) - h
+
+    lo, hi = 0.0, RIGHT_X  # x - front_x(lower(x)) is < 0 at lo, > 0 at hi
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if mid - _front_x(lower(mid)) > 0:
+            hi = mid
+        else:
+            lo = mid
+    x_end = hi - HOLE_EXIT
+    upper = y_mouth + (RIGHT_X - x_end) + h
+    lip_bot = SLOT_TOP - LIP_DROP
+    assert upper < lip_bot - HOLE_EXIT, "through hole would hit the lip"
+    return x_end
+
+
+def _nsas_holes(through=False):
     h = NSAS_HOLE / 2
     rise = h * math.tan(math.radians(NSAS_ROOF_ANGLE))
     holes = []
     for y, z in nsas_hole_centres():
         # Bar along X turned -45 deg about Z: axis along (1, -1), so going
         # in (-X) it rises (+Y).
-        bar = bd.Box(40.0, NSAS_HOLE, NSAS_HOLE).rotate(bd.Axis.Z, -45)
+        bar = bd.Box(100.0, NSAS_HOLE, NSAS_HOLE).rotate(bd.Axis.Z, -45)
         bar = bar.moved(bd.Location((RIGHT_X, y, z)))
         # Gable on the +Z face: sketch plane square to the hole axis,
         # local x across the hole in XY, local y = -Z.
@@ -244,9 +296,12 @@ def _nsas_holes():
             origin=(RIGHT_X, y, z), x_dir=(1, 1, 0), z_dir=(-1, 1, 0)
         )
         tri = plane * bd.Polygon((-h, -h), (h, -h), (0, -h - rise), align=None)
-        roof = bd.extrude(tri, 20.0, both=True)
-        slab = bd.Box(NSAS_DEPTH + 1, 3 * TOP_Y, EXTRUDE + 2).moved(
-            bd.Location((RIGHT_X - (NSAS_DEPTH - 1) / 2, y, z))
+        roof = bd.extrude(tri, 50.0, both=True)
+        # Flat end parallel to the back face.
+        x_end = hole_end_x(y) if through else RIGHT_X - NSAS_DEPTH
+        depth = RIGHT_X - x_end
+        slab = bd.Box(depth + 1, 3 * TOP_Y, EXTRUDE + 2).moved(
+            bd.Location((RIGHT_X - (depth - 1) / 2, y, z))
         )
         holes.append((bar + roof) & slab)
     return holes
@@ -345,13 +400,88 @@ def _z_edges_near(body, points, tol=0.05):
     return found
 
 
-def slot_in_holder_shape():
+def base_face_x():
+    """X of the NABS base's top face when keyed on: on the offset face,
+    since the key stops sit in recesses in it."""
+    return RIGHT_X - OFFSET_W
+
+
+def _stop_recesses():
+    """Offset variant: a KEY_STOP deep pocket in the offset face round
+    each hole mouth, the stop plate's shape plus STOP_CLEAR: in the
+    profile a parallelogram along the hole axis, 2 x STOP_HALF tall."""
+    x0 = base_face_x()
+    x1 = x0 - KEY_STOP  # recess floor
+    hz = STOP_W / 2 + STOP_CLEAR
+    hy = STOP_HALF + STOP_CLEAR
+    out = []
+    for y, z in nsas_hole_centres():
+
+        def axis(x):  # hole axis Y at X
+            return y + (RIGHT_X - x)
+
+        xo = x0 + 1.0  # start outside the face
+        pts = [
+            (x1, axis(x1) - hy),
+            (xo, axis(xo) - hy),
+            (xo, axis(xo) + hy),
+            (x1, axis(x1) + hy),
+        ]
+        face = bd.Polygon(*pts, align=None).moved(bd.Location((0, 0, z - hz)))
+        out.append(bd.extrude(face, 2 * hz, dir=(0, 0, 1)))
+    return out
+
+
+def offset_top():
+    """Y of the overhang's underside: the top of the NABS base when keyed
+    on (its upper row's mouth centre on its face, where the holder's top
+    hole axis meets base_face_x(), plus the row's distance from
+    body face A and the hinge fingers), plus OFFSET_CLEAR."""
+    y_hole = max(y for y, _ in nsas_hole_centres())
+    base_top = y_hole + (RIGHT_X - base_face_x()) + NABS_ROW1_MOUTH + NABS_FINGER
+    return base_top + OFFSET_CLEAR
+
+
+def offset_points():
+    """Offset variant: rectangle cut from the back, OFFSET_W deep, from
+    below the base up to offset_top(); the top block above stays as an
+    overhang just over the NABS base."""
+    x0, x1 = RIGHT_X - OFFSET_W, RIGHT_X + 1.0
+    y0, y1 = -BASE_H - 1.0, offset_top()
+    return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+
+
+# Variants:
+#   flat    mounts straight on an NSAS panel: main pocket, windows into it.
+#   offset  to mount over a NABS base piece (work in progress): the main
+#           pocket is filled solid, so there are no windows into it; the
+#           NSAS holes run on through the wall into the slot; an
+#           OFFSET_W rectangle is cut from the back, from the bottom up
+#           to offset_top(), so the overhang above sits just over the base;
+#           the key stops sit in recesses, so the holder is flush on the base.
+VARIANTS = {
+    "flat": dict(main_pocket=True, offset=False),
+    "offset": dict(main_pocket=False, offset=True),
+}
+
+
+def slot_in_holder_shape(variant="flat"):
+    opts = VARIANTS[variant]
     base, strip, wedge = notch_polygons()
     face = bd.Polygon(*profile_points(), align=None)
-    pockets = [pocket_points(), upper_pocket_points()]
-    for pts in [base, strip, wedge] + pockets:
+    pockets = [upper_pocket_points()]
+    if opts["main_pocket"]:
+        pockets.insert(0, pocket_points())
+    cuts = [base, strip, wedge] + pockets
+    if opts["offset"]:
+        cuts.append(offset_points())
+    for pts in cuts:
         face = face - bd.Polygon(*pts, align=None)
     body = bd.extrude(face, EXTRUDE).clean()
+    if opts["offset"]:
+        # Inner corner where the offset meets the overhang above it.
+        corner = offset_points()[3]
+        body = body.fillet(OFFSET_R, _z_edges_near(body, [corner]))
 
     # Inner corners: base notch floor, pockets. (The wedge tip is a 170 deg
     # corner of the slot: no fillet, it would block the end chamfer.)
@@ -367,20 +497,38 @@ def slot_in_holder_shape():
     ends = body.faces().filter_by(bd.Axis.Z)
     outline = [e for f in ends for e in f.outer_wire().edges()]
     body = body.chamfer(END_CHAMFER, None, outline)
-    for hole in _nsas_holes():
+    for hole in _nsas_holes(through=opts["offset"]):
         body = body - hole
-    for window in _windows() + _front_windows():
-        body = body - window
+    if opts["offset"]:
+        for recess in _stop_recesses():
+            body = body - recess
+    if opts["main_pocket"]:
+        for window in _windows() + _front_windows():
+            body = body - window
     return body.clean()
 
 
-@stl(out="../IKEA UPPDATERA and VARIERA - NSAS slot in holder.stl")
-@step(out="../IKEA UPPDATERA and VARIERA - NSAS slot in holder.step")
-def slot_in_holder():
-    body = slot_in_holder_shape()
-    body.label = "slot_in_holder"
+NAME = "IKEA UPPDATERA and VARIERA - NSAS slot in holder"
+
+
+def _variant(name):
+    body = slot_in_holder_shape(name)
+    body.label = f"slot_in_holder_{name}"
     return body
 
 
+@stl(out=f"../{NAME} - flat.stl")
+@step(out=f"../{NAME} - flat.step")
+def slot_in_holder_flat():
+    return _variant("flat")
+
+
+@stl(out=f"../{NAME} - offset.stl")
+@step(out=f"../{NAME} - offset.step")
+def slot_in_holder_offset():
+    return _variant("offset")
+
+
 if __name__ == "__main__":
-    slot_in_holder()
+    slot_in_holder_flat()
+    slot_in_holder_offset()
