@@ -22,7 +22,8 @@ Optimised after the test print (about 48 % less material than the solid profile)
 - Six windows through the back plate into the main pocket, in the band between the two hole columns (Z = 21.4 to 49, 3 mm clear of the holes). Each is 12 mm wide along Y with a flat bottom and a 45° pointed top, so printed profile-down none needs a bridge. 7 mm ribs between them (`WINDOW_W`, `WINDOW_RIB`).
 - Four windows of the same shape through the leaning wall (the face the box rests on) into the main pocket, cut square to the wall. They run up the wall from 3 mm above its foot to 3 mm under the wedge, with 6.7 mm ribs between them, and leave 8 mm of solid wall at each end (`FRONT_WINDOW_MARGIN`). The box's back wall rests on the ribs and end bands.
 - Both sets of windows are split in two along Z (`WINDOW_SETS = 2`), with a 6 mm band between the halves: 12 windows in the back plate, 8 in the leaning wall. The bands lie in XY planes and stiffen the walls in the profile plane. A web across the pocket would be stiffer still, but printed profile-down it would be a floor over open air.
-- Fillets on the inner corners: base notch (1 mm), wedge tip (0.5 mm), lip root (0.8 mm), pockets (1 mm).
+- Fillets on the inner corners: base notch (1 mm), lip root (0.8 mm), pockets (1 mm).
+- A 0.8 mm 45° chamfer round the outline of both profile faces (`END_CHAMFER`), the bottom and top as printed: no elephant's foot on the bed, softer ends. It is under 1 mm so it fits the 1 mm strip at the slot mouth. Pocket, window and hole outlines stay square.
 - Lead-ins for the box: a 1.5 mm chamfer on the lip's inner bottom edge, a 1 mm round on the ledge's front edge.
 - Width 69 mm (7 × 10 − 1), so holders sit side by side on the NSAS 10 mm column pitch.
 

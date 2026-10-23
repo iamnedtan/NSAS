@@ -17,8 +17,9 @@ Optimised from the tested print:
   - two pockets through the body, one behind the wall and wedge and one
     in the top block over the slot, leaving SHELL walls, a FLOOR_T floor
     and a BACK_T back plate that the NSAS accessory holes pass through;
-  - fillets on the inner corners of the base notch, the wedge tip, the
-    lip root and the pocket;
+  - fillets on the inner corners of the base notch, the lip root and the
+    pockets;
+  - an END_CHAMFER round the outline of both profile faces;
   - a LIP_LEAD chamfer on the lip's inner bottom edge and a LEDGE_R round
     on the ledge's front edge, so the box rim finds the slot;
   - EXTRUDE 69 mm (7 x 10 - 1), so holders sit side by side on the
@@ -70,10 +71,13 @@ FLOOR_T = 3.0  # under the pocket
 BACK_T = 8.0  # back plate carrying the NSAS accessory holes
 POCKET_R = 1.0  # pocket corner fillets
 NOTCH_R = 1.0  # base notch inner corners
-WEDGE_TIP_R = 0.5  # 10 deg tip at the bottom of the wedge
 LIP_ROOT_R = 0.8  # lip inner face to strip roof; < STRIP_H
 LIP_LEAD = 1.5  # 45 deg lead-in on the lip's inner bottom edge
 LEDGE_R = 1.0  # ledge front top edge
+# 45 deg chamfer round the outline of both profile faces (Z = 0 and
+# Z = EXTRUDE, bottom and top as printed): no elephant's foot on the
+# bed, and softer ends. Pocket and window outlines are left square.
+END_CHAMFER = 0.8  # < STRIP_H, the 1 mm strip at the slot mouth
 
 # NSAS accessory holes in the back face (X = RIGHT_X, against the panel).
 # They go in (-X) and rise 45 deg (+Y), through the BACK_T back plate:
@@ -349,9 +353,9 @@ def slot_in_holder_shape():
         face = face - bd.Polygon(*pts, align=None)
     body = bd.extrude(face, EXTRUDE).clean()
 
-    # Inner corners: base notch floor, wedge tip, pockets.
+    # Inner corners: base notch floor, pockets. (The wedge tip is a 170 deg
+    # corner of the slot: no fillet, it would block the end chamfer.)
     body = body.fillet(NOTCH_R, _z_edges_near(body, base[:2]))
-    body = body.fillet(WEDGE_TIP_R, _z_edges_near(body, wedge[:1]))
     for pts in pockets:
         body = body.fillet(POCKET_R, _z_edges_near(body, pts))
     # Lip root: lip inner face meets the strip roof.
@@ -360,6 +364,9 @@ def slot_in_holder_shape():
     lip = profile_points()[5]
     body = body.chamfer(LIP_LEAD, None, _z_edges_near(body, [lip]))
     body = body.fillet(LEDGE_R, _z_edges_near(body, [profile_points()[-1]]))
+    ends = body.faces().filter_by(bd.Axis.Z)
+    outline = [e for f in ends for e in f.outer_wire().edges()]
+    body = body.chamfer(END_CHAMFER, None, outline)
     for hole in _nsas_holes():
         body = body - hole
     for window in _windows() + _front_windows():
