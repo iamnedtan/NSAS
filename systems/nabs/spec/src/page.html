@@ -1,0 +1,304 @@
+<div class="sheet">
+<header class="tb">
+  <div class="name">
+    <span class="k">Specification</span>
+    <h1>Ned Angle Base System</h1>
+    <span class="sub">Hinged base plates with NSAS 45° sockets, for displays and storage. Builds on NSAS-SPEC v0.13.</span>
+  </div>
+  <div><span class="k">Document</span><span class="v">NABS-SPEC</span></div>
+  <div><span class="k">Revision</span><span class="v">v0.1 draft</span></div>
+  <div><span class="k">Date</span><span class="v">2026-10-23</span></div>
+  <div><span class="k">Units</span><span class="v">mm, degrees</span></div>
+  <div><span class="k">References</span><span class="v">NSAS-SPEC v0.13</span></div>
+  <div><span class="k">Process</span><span class="v">FDM</span></div>
+</header>
+
+<main>
+<section id="overview">
+  <h2><span class="n">壱</span>What it is <span class="ja">概要</span></h2>
+  <p>A modular base plate for displays and storage, first made for plastic models. Each base is a flat plate with two rows of 45° sockets in its top face. Slot-in parts (uprights, runner holders, adapters) stand in the sockets on plain square legs.</p>
+  <p>NABS takes the NSAS socket (5.00 square, 45°) and the NSAS pitches (10.00 columns, 18.536 rows) from the <a href="../../../spec/NSAS%20Spec%20Sheet.html">NSAS spec sheet</a>, v0.13. It does not take the NSAS key: NABS slot-ins have plain legs (section 7).</p>
+  <ul class="rules">
+    <li><b>Hinge edges:</b> both long edges carry interleaving fingers. Two bases pinned with a length of 1.75 mm filament lie flat side by side, or one folds up 90° to make a wall (vertical mode).</li>
+    <li><b>Sides:</b> the short edges have no fingers. Bases placed side to side are locked by a side joiner in the middle channel, and the socket rows carry on across the joint.</li>
+    <li><b>NSAS panels:</b> a stack angle adapter lets a base slot into an NSAS panel like an accessory.</li>
+  </ul>
+  <div class="flag"><b>Rules and as-modelled values</b>Values with no mark are design rules. Values marked <i>as modelled</i> are read off the Fusion model and are not yet design rules. The drawings are cut from the Fusion export, to scale per view.</div>
+</section>
+
+<section id="terms">
+  <h2><span class="n">弐</span>Orientation and terms <span class="ja">向きと用語</span></h2>
+  <div class="tblwrap"><table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td>Floor mode</td><td>The base lies flat, top face (socket mouths) up. All values are given in floor mode.</td></tr>
+    <tr><td>Vertical mode</td><td>The base folded 90° about its hinge, standing as a wall.</td></tr>
+    <tr><td>Column</td><td>One 10.00 slice of the base along its length: one socket per row, one channel hole, one finger per hinge edge.</td></tr>
+    <tr><td>Length, <i>L</i></td><td>Along the rows, side to side. <i>L</i> = <i>n</i> × 10.00 for <i>n</i> columns.</td></tr>
+    <tr><td>Across</td><td>At right angles to the rows, hinge edge to hinge edge. Given from body face A (0.000) toward edge B.</td></tr>
+    <tr><td>Sides</td><td>The two short edges, at the ends of the rows. No fingers.</td></tr>
+    <tr><td>Hinge edges</td><td>The two long edges, with fingers. <b>Edge A</b>: wide fingers (4.95). <b>Edge B</b>: narrow fingers (4.75). Every socket descends toward edge B.</td></tr>
+    <tr><td>Body face</td><td>The flat face of the plate at a hinge edge, from which the fingers stick out.</td></tr>
+    <tr><td>Height</td><td>From the bottom face (0.0).</td></tr>
+    <tr><td>⊥, ∥, cross-section, C–C</td><td>As NSAS: perpendicular to the face, along the 45° slope, across the 45° axis, centre to centre.</td></tr>
+  </table></div>
+</section>
+
+<section id="base">
+  <h2><span class="n">参</span>Base plate <span class="ja">ベースプレート</span></h2>
+  <div class="pair wide">
+    <figure>
+      <div class="dwgwrap">{{FIG_A}}</div>
+      <figcaption><b>View A.</b> Section across the base through one socket column (column 1, through an edge-A finger). Hatched material. The edge-B fingers lie between the edge-A fingers, so they are not in this cut.</figcaption>
+    </figure>
+  </div>
+  <div class="tblwrap" style="margin-top:16px"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Thickness</td><td class="num"><strong>10.0</strong></td><td></td></tr>
+    <tr><td>Body across</td><td class="num"><strong>64.142</strong></td><td>body face A → body face B; 37.071 + 27.071</td></tr>
+    <tr><td>Overall across</td><td class="num">84.142</td><td>fingers 10.0 past each body face</td></tr>
+    <tr><td>Length</td><td class="num"><strong><i>n</i> × 10.0</strong></td><td><i>n</i> = columns, a parameter in the Fusion model</td></tr>
+    <tr><td>Reference model</td><td class="num"><i>n</i> = 10, 100 × 84.142 × 10</td><td></td></tr>
+    <tr><td>Top edges</td><td class="num">1.0 × 45°</td><td>on the body faces; <i>as modelled</i></td></tr>
+  </table></div>
+  <ul class="rules" style="margin-top:12px">
+    <li><b>Columns are a parameter.</b> Every feature that repeats per column (sockets, triangle marks, channel holes, hinge fingers) follows <i>n</i>. Top pockets and underside hollows split by the rule in section 5.</li>
+  </ul>
+</section>
+
+<section id="sockets">
+  <h2><span class="n">肆</span>Sockets and rows <span class="ja">ソケットと列</span></h2>
+  <div class="pair wide">
+    <figure>
+      <div class="dwgwrap">{{FIG_B}}</div>
+      <figcaption><b>View B.</b> Plan from above, <i>n</i> = 10, rows running left to right, edge A at the top. Socket mouths and channel holes solid, pockets and the middle channel grey, triangle marks outlined.</figcaption>
+    </figure>
+  </div>
+  <h3>Socket</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Cross-section</td><td class="num"><strong>5.00 × 5.00</strong></td><td>as NSAS</td></tr>
+    <tr><td>Angle</td><td class="num"><strong>45°</strong>, descending toward edge B</td><td>as NSAS</td></tr>
+    <tr><td>Mouth across, on the top face</td><td class="num">7.071</td><td>5 × √2</td></tr>
+    <tr><td>Depth</td><td class="num"><strong>through</strong> the 10.0 plate <span class="why">(14.14 ∥)</span></td><td>NSAS sockets are blind. NABS keeps them through: no floor to print, debris falls out.</td></tr>
+    <tr><td>Mouth lead-in</td><td>≈ 0.7 × 45° on the side edges; 22.5° bevel, 1.0 wide, on the edge-B lip</td><td><i>as modelled</i>; not drawn</td></tr>
+  </table></div>
+  <h3>Columns</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Column pitch</td><td class="num"><strong>10.00</strong></td><td>as NSAS</td></tr>
+    <tr><td>First socket centre from the side</td><td class="num"><strong>5.0</strong></td><td>side margin 2.50, the NSAS tileable margin: bases side to side keep the 10.00 pitch</td></tr>
+    <tr><td>Wall between sockets</td><td class="num">5.00</td><td></td></tr>
+  </table></div>
+  <h3>Rows</h3>
+  <p>Each base has two rows. They are NSAS rows <i>k</i> and <i>k</i> + 2: two row pitches apart, with no row between them.</p>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Row 1 mouth, across</td><td class="num">10.000 → 17.071</td><td></td></tr>
+    <tr><td>Row 2 mouth, across</td><td class="num">47.071 → 54.142</td><td></td></tr>
+    <tr><td>Row pitch</td><td class="num"><strong>37.071</strong></td><td>2 × 18.536, the NSAS row pitch</td></tr>
+    <tr><td>Between the mouths</td><td class="num"><strong>30.000</strong></td><td>2 × 18.536 − 7.071: the original NSAS 30 mm rule (section 10)</td></tr>
+    <tr><td>Base pitch across, pinned flat</td><td class="num">74.142</td><td>2 × 37.071: rows carry on at 37.071 across the hinge</td></tr>
+  </table></div>
+  <h3>Triangle marks</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Shape</td><td class="num">equilateral, 4.0 side, 0.6 deep</td><td>cut into the top face</td></tr>
+    <tr><td>Direction</td><td>points toward edge B</td><td>the way the sockets descend</td></tr>
+    <tr><td>Along</td><td><b>between every pair of adjacent sockets</b></td><td><i>n</i> − 1 per row; design rule</td></tr>
+    <tr><td>Across</td><td class="num">row 1: 4.000 → 7.464; row 2: 43.571 → 47.035</td><td><i>as modelled</i></td></tr>
+  </table></div>
+  <p style="margin-top:10px">The marks show which way the sockets slope, and they are decoration.</p>
+</section>
+
+<section id="channel">
+  <h2><span class="n">伍</span>Channel, pockets and hollows <span class="ja">中央溝と肉抜き</span></h2>
+  <h3>Middle channel</h3>
+  <p>Runs the full length between the two rows. It takes the side joiner, the stack angle adapter and the M3 screws.</p>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Across</td><td class="num">33.071 → 41.071 <span class="why">(8.0 wide)</span></td><td></td></tr>
+    <tr><td>Floor</td><td class="num"><strong>5.0</strong> thick</td><td>channel 5.0 deep</td></tr>
+    <tr><td>Top edges</td><td class="num">1.5 × 45°</td><td>from 8.5 to the top face</td></tr>
+    <tr><td>Holes</td><td class="num">8.0 × 5.0, through the floor</td><td>one per column, on the socket columns; 5.0 webs between</td></tr>
+  </table></div>
+  <h3>Top pockets: split rule</h3>
+  <p>One lightening pocket runs beside each row: on row 1 between the row and the channel, on row 2 between the row and body face B. Their walls follow the 45° slope; inner corners 1.0 round. Profile <i>as modelled</i>.</p>
+  <ul class="rules">
+    <li><b>Pockets per row = ⌈<i>n</i> / 5⌉:</b> one pocket for up to 5 columns, a new pocket for each further 5 columns or part of 5.</li>
+    <li>All pockets in a row are the same length, with a <b>4.0</b> rib between them and a <b>2.5</b> end margin at each side.</li>
+    <li>Pocket length = (<i>L</i> − 5.0 − 4.0 × (<i>k</i> − 1)) / <i>k</i>, for <i>k</i> pockets.</li>
+  </ul>
+  <div class="tblwrap"><table>
+    <tr><th>Columns <i>n</i></th><th>Pockets per row</th><th>Pocket length</th></tr>
+    <tr><td class="num">4</td><td class="num">1</td><td class="num">35.0</td></tr>
+    <tr><td class="num">7</td><td class="num">2</td><td class="num">30.5 <span class="why">(3.5 columns each)</span></td></tr>
+    <tr><td class="num">10</td><td class="num">2</td><td class="num">45.5</td></tr>
+    <tr><td class="num">12</td><td class="num">3</td><td class="num">35.67 <span class="why">(about 4 columns each)</span></td></tr>
+  </table></div>
+  <h3>Underside hollows</h3>
+  <p>Each row has a hollow open to the bottom face, on the edge-A side of the socket tunnel: 2.0 roof, 2.0 wall to the socket, parallel to the slope (View A). They split with the top pockets (2.0 rib at <i>n</i> = 10). Small 1 × 1 relief grooves run along the bottom face. All <i>as modelled</i>.</p>
+</section>
+
+<section id="hinge">
+  <h2><span class="n">陸</span>Hinge and sides <span class="ja">ヒンジと側面</span></h2>
+  <div class="pair">
+    <figure>
+      <div class="dwgwrap">{{FIG_C}}</div>
+      <figcaption><b>View C.</b> Two bases pinned flat, plan cut at 7.5, above the pin. Pin hole dashed.</figcaption>
+    </figure>
+    <figure>
+      <div class="dwgwrap">{{FIG_C2}}</div>
+      <figcaption><b>View C2.</b> Section through an edge-A finger, with the Ø1.75 filament pin (shaded) in its Ø2.5 hole.</figcaption>
+    </figure>
+  </div>
+  <div class="tblwrap" style="margin-top:16px"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Finger length</td><td class="num">10.0 past the body face</td><td>both edges</td></tr>
+    <tr><td>Edge A fingers</td><td class="num"><strong>4.95</strong> wide, at 0 → 4.95 in each column</td><td>from the side</td></tr>
+    <tr><td>Edge B fingers</td><td class="num"><strong>4.75</strong> wide, at 5.15 → 9.90 in each column</td><td></td></tr>
+    <tr><td>Finger clearance</td><td class="num">0.20 and 0.25</td><td>between interleaved fingers</td></tr>
+    <tr><td>Pin hole</td><td class="num"><strong>Ø2.5</strong>, full length, 5.0 high</td><td>mid-thickness</td></tr>
+    <tr><td>Pin hole, across</td><td class="num">mid-finger: 5.0 from the tip and from the body face</td><td>both edges; the holes line up when edge-A fingers of one base sit in the edge-B gaps of the next</td></tr>
+    <tr><td>Pin</td><td class="num"><strong>1.75 filament</strong></td><td>0.75 diametral clearance: turns freely</td></tr>
+    <tr><td>Finger chamfers</td><td class="num">1.0 × 45°</td><td>edge A: top and bottom tip edges; edge B: top tip edge; <i>as modelled</i></td></tr>
+  </table></div>
+  <ul class="rules" style="margin-top:12px">
+    <li><b>Flat:</b> two bases pinned side by side, at a 74.142 base pitch. The rows continue across the hinge at 37.071.</li>
+    <li><b>Folded (vertical mode):</b> one base turned 90° about the pin stands as a wall, sockets facing inward (View D2). With side walls this makes the floor-and-wall corners of a display garage.</li>
+    <li><b>Sides:</b> flat, no fingers. Bases side to side keep the 10.00 column pitch (2.5 + 2.5 margins). A side joiner in the channel bridges the joint (View E).</li>
+  </ul>
+</section>
+
+<section id="parts">
+  <h2><span class="n">漆</span>Parts <span class="ja">部品</span></h2>
+  <p>All slot-in legs are plain: no stop plate, split prongs or taper. The body of the part rests on the base's top face and sets the depth.</p>
+  <h3>Slot-in leg</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Section</td><td class="num"><strong>4.6 × 4.6</strong></td><td>standard; 0.2 / side clearance in the 5.00 socket</td></tr>
+    <tr><td>Section, loose fit</td><td class="num">4.4 × 4.4</td><td>0.3 / side; tight printers or quicker swapping</td></tr>
+    <tr><td>Angle</td><td class="num">45°, centred in the socket</td><td></td></tr>
+    <tr><td>Depth</td><td class="num"><strong>9.5</strong> ⊥ below the top face</td><td>ends 0.5 above the bottom face</td></tr>
+    <tr><td>Tip</td><td>flat, parallel to the top face</td><td></td></tr>
+    <tr><td>Spacing between rows</td><td class="num">37.071</td><td>one leg per row</td></tr>
+  </table></div>
+  <h3>Standard slot in</h3>
+  <div class="pair">
+    <figure>
+      <div class="dwgwrap">{{FIG_D1}}</div>
+      <figcaption><b>View D1.</b> Standard slot in (shaded) seated in a base, section through column 2.</figcaption>
+    </figure>
+    <div>
+      <p>A template: the reference shape to build other slot-in parts from.</p>
+      <div class="tblwrap"><table>
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Body</td><td class="num">64.142 × 4.6 × 9.0 above the top face</td></tr>
+        <tr><td>Ends</td><td>flush with the body faces</td></tr>
+        <tr><td>Underside relief</td><td class="num">20.0 × 4.0, across 22.071 → 42.071 <span class="why">(<i>as modelled</i>)</span></td></tr>
+        <tr><td>Legs</td><td class="num">2, one per row, 4.6</td></tr>
+      </table></div>
+    </div>
+  </div>
+  <h3>Runner slot in</h3>
+  <div class="pair">
+    <figure>
+      <div class="dwgwrap">{{FIG_D2}}</div>
+      <figcaption><b>View D2.</b> Runner slot in (shaded) in a floor base and a wall base folded up on the hinge, section through column 1.</figcaption>
+    </figure>
+    <div>
+      <p>Holds a gunpla runner: lay the runner along the arm, then tape it or cable-tie it round the arm. With legs in a floor base and a wall base, it also holds the two bases at 90°.</p>
+      <div class="tblwrap"><table>
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Shape</td><td class="num">L: floor arm + wall arm, each 73.642, 4.6 thick</td></tr>
+        <tr><td>Arm height</td><td class="num">8.0 at the edges, 6.7 at the groove</td></tr>
+        <tr><td>Runner groove</td><td class="num">90° V, ≈ 1.6 deep <span class="why">(<i>as modelled</i>)</span></td></tr>
+        <tr><td>Legs</td><td class="num">2 down, 2 sideways, 37.071 apart</td></tr>
+        <tr><td>Leg fit</td><td class="num"><strong>4.6</strong> standard; 4.4 loose-fit variant</td></tr>
+      </table></div>
+    </div>
+  </div>
+  <h3>Side joiner</h3>
+  <div class="pair">
+    <figure>
+      <div class="dwgwrap">{{FIG_E}}</div>
+      <figcaption><b>View E.</b> Side joiner (shaded) across the side joint of two bases, section along the middle channel.</figcaption>
+    </figure>
+    <div class="tblwrap"><table>
+      <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+      <tr><td>Plug</td><td class="num">7.9 × 14.6 × 3.5</td><td>on the channel floor, top 1.5 below the top face; 0.1 clearance across the channel</td></tr>
+      <tr><td>Legs</td><td class="num">2 × (7.9 × 4.6 × 5.0), 10.0 C–C</td><td>straight down into the channel holes, flush with the bottom</td></tr>
+      <tr><td>Use</td><td>last channel hole of one base + first hole of the next</td><td>locks bases side to side</td></tr>
+    </table></div>
+  </div>
+  <h3>Stack angle adapter</h3>
+  <div class="pair">
+    <figure>
+      <div class="dwgwrap">{{FIG_F}}</div>
+      <figcaption><b>View F.</b> Stack angle adapter (shaded) hanging a base on an NSAS panel (panel schematic: 11.0 socket on a 1.0 skin). Panel face vertical, edge B down.</figcaption>
+    </figure>
+    <div>
+      <p>Lets a base slot into an NSAS panel like an accessory. The base's bottom face rests on the panel face with edge B down. Its own sockets then slope down into the base, so parts in them gravity-lock as on NSAS.</p>
+      <div class="tblwrap"><table>
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>Plug</td><td class="num">as the side joiner, 7.9 × 14.6; 2.0 × 45° on its lower edge-B edge</td></tr>
+        <tr><td>Legs</td><td class="num">2 × 4.6 square, 10.00 C–C <span class="why">(NSAS column pitch)</span></td></tr>
+        <tr><td>Leg below the base</td><td class="num">45°, toward edge B, 9.5 ⊥</td></tr>
+      </table></div>
+    </div>
+  </div>
+  <h3>Base, M3 mount variant</h3>
+  <p>Screws a base to a desk, shelf or board. The screw goes in from above, through the channel.</p>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Pad</td><td class="num">15.0 long, full channel width, top at 7.0</td><td>2.0 above the channel floor; covers one channel hole</td></tr>
+    <tr><td>Hole</td><td class="num">Ø3.0 through, Ø6.0 × 2.8 counterbore</td><td>from the pad top</td></tr>
+    <tr><td>Count and position</td><td><b>one per top pocket</b>, centred on its length</td><td>design rule; <i>n</i> = 10: 2 holes, 25 from each side</td></tr>
+  </table></div>
+</section>
+
+<section id="garage">
+  <h2><span class="n">捌</span>Display garage <span class="ja">ディスプレイガレージ</span> <span class="optional">roadmap</span></h2>
+  <p>Not yet designed. Planned layouts, built from bases and slot-ins:</p>
+  <ul class="rules">
+    <li><b>Floor and back wall:</b> a base with a second base folded up on its hinge.</li>
+    <li><b>Side walls:</b> more folded bases, giving a box-like garage.</li>
+    <li><b>Stacked levels:</b> garages on garages.</li>
+    <li><b>Wall-hung:</b> garages hung on an NSAS panel with stack angle adapters.</li>
+  </ul>
+</section>
+
+<section id="files">
+  <h2><span class="n">玖</span>Files and open points <span class="ja">ファイルと未決事項</span></h2>
+  <div class="tblwrap"><table>
+    <tr><th>File (<code>parts/</code>, .step and .stl)</th><th>Part</th></tr>
+    <tr><td><code>NABS base</code></td><td>Base, <i>n</i> = 10</td></tr>
+    <tr><td><code>NABS base - M3 mount</code></td><td>Base with M3 mount</td></tr>
+    <tr><td><code>NABS standard slot in</code></td><td>Standard slot in (template)</td></tr>
+    <tr><td><code>NABS runner slot in</code></td><td>Runner slot in, 4.6 legs</td></tr>
+    <tr><td><code>NABS runner slot in - loose fit</code></td><td>Runner slot in, 4.4 legs</td></tr>
+    <tr><td><code>NABS side joiner</code></td><td>Side joiner</td></tr>
+    <tr><td><code>NABS stack angle adapter</code></td><td>Stack angle adapter</td></tr>
+  </table></div>
+  <p style="margin-top:12px">The Fusion model is the source. The files were split from its export, one part each, moved so that the bounding box starts at the origin. Fusion's "base piece in vertical mode" is the base turned, so it has no file of its own.</p>
+  <h3>Open points</h3>
+  <ol class="open">
+    <li>Print orientation and supports for each part.</li>
+    <li>Turn the as-modelled profiles (pockets, hollows, relief grooves, mouth lead-in) into design rules.</li>
+  </ol>
+</section>
+
+<section id="history">
+  <h2><span class="n">拾</span>History and revisions <span class="ja">沿革と改訂履歴</span></h2>
+  <ul class="rules">
+    <li><b>2026-01-31, the first NSAS part.</b> Ned was remodelling a plastic modelling trolley and wanted a quick way to reconfigure and move items around, like a pegboard. For it he designed this base in Fusion (file "angleslot system"): the first part to use the 45° socket, with the slot ins, joiner, adapter and M3 variant.</li>
+    <li><b>The 30 mm rule.</b> The base's two rows were set 30 mm apart between the mouths. This became the NSAS row rule. On NSAS wall panels 30 mm between rows proved too far, so two sets of rows were interleaved, giving the 18.536 row pitch. NABS keeps the original spacing: its rows are NSAS rows <i>k</i> and <i>k</i> + 2.</li>
+    <li><b>NSAS grows from it.</b> Later in the same project NSAS grew its own way: wall panels, the key with its stop and split-prong legs, blind sockets, grooves, tileable margins. The base kept its January form.</li>
+    <li><b>2026-10-23.</b> Fusion model exported and split into parts; system named NABS; spec written.</li>
+  </ul>
+  <div class="tblwrap"><table class="rev">
+    <tr><th>Rev</th><th>Change</th></tr>
+    <tr><td>v0.1</td><td>First draft, measured from the Fusion export with the designer's answers. Design rules: parametric column count, pocket split ⌈<i>n</i>/5⌉, triangle marks between adjacent sockets, one M3 hole per pocket, 4.6 standard leg, through sockets kept.</td></tr>
+  </table></div>
+</section>
+</main>
+</div>

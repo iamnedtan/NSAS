@@ -43,6 +43,7 @@ Accessory sets built on NSAS, one folder per hobby or use. More systems, such as
 |---|---|
 | [modelling-gunpla](systems/modelling-gunpla/) | Nipper holder, sanding block |
 | [tools](systems/tools/) | Mini coffee cup holder (Starbucks, Luckin) |
+| [nabs](systems/nabs/) | NABS, Ned Angle Base System: base plates, slot-ins, joiners. Own spec |
 
 ## <img src="assets/readme/n05.svg" height="40" align="absmiddle" alt="5"> Printing <sub>印刷</sub>
 
@@ -60,7 +61,7 @@ New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\skills\nsas" -Target
 
 ## <img src="assets/readme/n07.svg" height="40" align="absmiddle" alt="7"> History <sub>沿革</sub>
 
-Ned ([iamnedtan](https://github.com/iamnedtan)) invented NSAS in 2026 as part of a project to remodel a plastic modelling trolley. The aim is a quick way to reconfigure and move items around, similar to a pegboard system.
+Ned ([iamnedtan](https://github.com/iamnedtan)) invented NSAS in 2026 as part of a project to remodel a plastic modelling trolley. The aim is a quick way to reconfigure and move items around, similar to a pegboard system. The first part to use the socket was a base plate designed on 2026-01-31, now [NABS](systems/nabs/); the 30 mm row rule comes from it.
 
 The design work was first done alongside [RunnerCollector](https://github.com/iamnedtan/RunnerCollector), the first project to use NSAS. On 2026-10-21 the NSAS files moved to this repo with their git history, so the early commits here carry RunnerCollector commit messages. RunnerCollector keeps its own NSAS-based parts (the boxes and the socket broach that repairs early box prints). The nipper holder and the sanding block were copied from it into [systems/modelling-gunpla](systems/modelling-gunpla/).
 
