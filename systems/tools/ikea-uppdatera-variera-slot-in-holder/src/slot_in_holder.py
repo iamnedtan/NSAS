@@ -83,6 +83,7 @@ OFFSET_W = 8.0  # cut from the back face, for the NABS base piece
 # The overhang's underside sits OFFSET_CLEAR over the top of the NABS base
 # (its edge-A hinge fingers) when the keys join them: see offset_top().
 KEY_STOP = 3.0  # thick-stop NSAS key: stop plate thickness, and recess depth
+FLAT_KEY_STOP = 1.0  # flat variant: standard NSAS key stop, recess depth
 NABS_ROW1_MOUTH = 10.0 + 2.5 * math.sqrt(2)  # row 1 mouth centre from body face A
 NABS_FINGER = 10.0  # hinge fingers past body face A
 OFFSET_CLEAR = 0.5  # gap between the overhang and the top of the base
@@ -434,14 +435,14 @@ def base_face_x():
     return RIGHT_X - OFFSET_W
 
 
-def _stop_recesses():
-    """Offset variant: a KEY_STOP deep pocket in the offset face round
-    each hole mouth, the stop plate's shape plus STOP_CLEAR: in the
-    profile a parallelogram along the hole axis, 2 x STOP_HALF tall.
-    Printed profile-down its roof (+Z) would be a flat 3 mm overhang, so
-    it slopes up at 45 deg from the recess floor to the face instead."""
-    x0 = base_face_x()
-    x1 = x0 - KEY_STOP  # recess floor
+def _stop_recesses(x0, depth):
+    """A `depth` deep pocket in the mounting face at X = x0 round each hole
+    mouth, for the key's stop plate, so the holder sits flush: the stop's
+    shape plus STOP_CLEAR, in the profile a parallelogram along the hole
+    axis, 2 x STOP_HALF tall. Printed profile-down its roof (+Z) would be
+    a flat overhang, so it slopes up at 45 deg from the recess floor to
+    the face instead."""
+    x1 = x0 - depth  # recess floor
     hz = STOP_W / 2 + STOP_CLEAR
     hy = STOP_HALF + STOP_CLEAR
     out = []
@@ -561,7 +562,8 @@ def offset_points():
 
 
 # Variants:
-#   flat    mounts straight on an NSAS panel: main pocket, windows into it.
+#   flat    mounts straight on an NSAS panel with standard keys: main
+#           pocket, windows into it, 1 mm stop recesses in the back face.
 #   offset  to mount over a NABS base piece (work in progress): the main
 #           pocket is split round the hole tunnels, with windows into it; the
 #           NSAS holes run on through the wall into the slot; an
@@ -615,7 +617,10 @@ def slot_in_holder_shape(variant="flat"):
     for hole in _nsas_holes(through=opts["offset"]):
         body = body - hole
     if opts["offset"]:
-        for cut in _stop_recesses() + _offset_windows():
+        for cut in _stop_recesses(base_face_x(), KEY_STOP) + _offset_windows():
+            body = body - cut
+    else:
+        for cut in _stop_recesses(RIGHT_X, FLAT_KEY_STOP):
             body = body - cut
     if opts["main_pocket"]:
         for window in _windows() + _front_windows():

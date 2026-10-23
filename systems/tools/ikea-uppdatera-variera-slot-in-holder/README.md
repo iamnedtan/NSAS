@@ -2,7 +2,7 @@
 
 Work in progress. Holds an IKEA UPPDATERA or VARIERA 24 × 17 cm box (10 cm tall): the box's back wall leans on the holder, its bottom edge on the ledge and its rim up in the slot behind the lip. A test print of the first version fits.
 
-Mounting: the flat back face (130.5 × 69 mm) goes against the NSAS panel, with four standard keys in its two rows of holes. It fits current panels and older plates with sockets every second row. Print it with the profile flat on the bed, as tested; no supports are needed.
+Mounting: the flat back face (130.5 × 69 mm) goes against the NSAS panel, with four standard keys in its two rows of holes. The key stops sit in 1 mm recesses in the back face, so the holder sits flush on the panel. It fits current panels and older plates with sockets every second row. Print it with the profile flat on the bed, as tested; no supports are needed.
 
 A side profile from a Fusion sketch, extruded 69 mm. Only the largest region of the sketch is solid; the smaller enclosed regions are notches cut through the full width.
 
@@ -31,6 +31,7 @@ NSAS accessory holes, in the back face:
 
 - 4 holes: 2 columns 40 mm apart (centred), 2 rows with mouth centres Y = 67.39 and 30.32. They are rows 3 and 5 of a row grid one row pitch (18.536 mm) apart from the top (row 1 at Y = 104.46, 10 mm under the top face), so 37.07 mm (two pitches) apart.
 - Two pitches apart, the rows meet sockets on current panels (socket on every row) and on older plates (socket every second row).
+- Round each hole mouth, the back face has a 1 mm deep recess (`FLAT_KEY_STOP`) for the standard key's stop plate: 4.6 wide and 12 tall, centred on the hole axis, ends at 45° parallel to the hole, plus 0.5 mm all round (`STOP_CLEAR`). The 5.8 mm accessory leg then runs from 44 to 38.2, inside the 8 mm back plate. The recess roof (+Z as printed) slopes at 45° like the offset variant's.
 - The base is 12.5 mm deep instead of the sketch's 10 mm, so the bottom row keeps 2.2 mm of material under it.
 - Each hole is 5 mm square, rises 45° going in, and goes 8 mm deep, through the back plate. Behind it, it opens into a pocket; where no pocket is behind (the top 1 mm of the top row), it ends flat, 2 mm under the top face.
 - Printed profile-down (Z = 0 on the bed), each hole is a tunnel bridged on top. The key's tapered faces meet the hole walls that print vertically.
