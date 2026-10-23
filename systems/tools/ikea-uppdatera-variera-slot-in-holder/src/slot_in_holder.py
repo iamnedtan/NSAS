@@ -16,8 +16,7 @@ Shape, front (-X) to back (+X):
 Optimised from the tested print:
   - two pockets through the body, one behind the wall and wedge and one
     in the top block over the slot, leaving SHELL walls, a FLOOR_T floor
-    and a BACK_T back plate (kept solid for the NSAS accessory holes
-    still to come);
+    and a BACK_T back plate that the NSAS accessory holes pass through;
   - fillets on the inner corners of the base notch, the wedge tip, the
     lip root and the pocket;
   - a LIP_LEAD chamfer on the lip's inner bottom edge and a LEDGE_R round
@@ -26,10 +25,10 @@ Optimised from the tested print:
     NSAS 10 mm column pitch.
 
 Mounting: the back face (X = RIGHT_X) goes against the NSAS panel, Y up.
-NSAS accessory holes in it, 2 columns 40 mm apart and 4 rows two row
-pitches (37.07 mm) apart, so it fits current panels and older plates
-with sockets every second row. Key the top and bottom rows: the box
-hangs in front, so its weight pulls the top of the holder off the panel.
+NSAS accessory holes in it, 2 columns 40 mm apart and 7 rows one row
+pitch apart; rows 1, 3, 5, 7 fit current panels and older plates with
+sockets every second row. Key the top and bottom rows: the box hangs in
+front, so its weight pulls the top of the holder off the panel.
 Print with the profile on the bed.
 
 Coordinates: profile in XY with the sketch origin at (0, 0), extruded
@@ -47,7 +46,7 @@ EXTRUDE = 69.0  # 7 x 10 - 1, NSAS column pitch
 # Dimensioned in the sketch.
 WALL_X0 = 20.0  # foot of the leaning wall, on Y = 0
 LEDGE_W = 15.0  # front ledge, ending at the wall foot
-BASE_H = 10.5  # base below Y = 0; sketch 10, +0.5 for 2 mm under the 4th NSAS row
+BASE_H = 12.5  # base below Y = 0; sketch 10, +2.5 for 2 mm under the 4th NSAS row
 WALL_ANGLE = 5.0  # wall lean from vertical (95 deg to the ledge)
 SLOT_TOP = 102.0  # top of the wall
 SLOT_GAP = 3.0  # lip inner face to wall top, horizontal
@@ -68,7 +67,7 @@ LEFT_X = WALL_X0 - LEDGE_W
 # Optimisation.
 SHELL = 3.0  # wall left between the pocket and the slot / wedge faces
 FLOOR_T = 3.0  # under the pocket
-BACK_T = 10.0  # solid back plate, reserved for the NSAS accessory holes
+BACK_T = 8.0  # back plate carrying the NSAS accessory holes
 POCKET_R = 1.0  # pocket corner fillets
 NOTCH_R = 1.0  # base notch inner corners
 WEDGE_TIP_R = 0.5  # 10 deg tip at the bottom of the wedge
@@ -77,25 +76,44 @@ LIP_LEAD = 1.5  # 45 deg lead-in on the lip's inner bottom edge
 LEDGE_R = 1.0  # ledge front top edge
 
 # NSAS accessory holes in the back face (X = RIGHT_X, against the panel).
-# Blind, they go in (-X) and rise 45 deg (+Y); flat floor parallel to the
-# back face. Square 5 mm across the axis, one pair of faces normal to Z,
-# so printed profile-down the hole is a tunnel with a flat 5 mm bridge.
+# They go in (-X) and rise 45 deg (+Y), through the BACK_T back plate:
+# open into the pockets, with a flat end parallel to the back face where
+# no pocket is behind. Square 5 mm across the axis, one pair of faces
+# normal to Z, so printed profile-down the hole is a bridged tunnel.
 NSAS_HOLE = 5.0
-NSAS_DEPTH = 6.0  # perpendicular to the back face
+NSAS_DEPTH = BACK_T  # perpendicular to the back face; key leg needs 6
 NSAS_FACE_H = NSAS_HOLE * math.sqrt(2)  # 7.07 tall on the face
-NSAS_TOP_SKIN = 8.0  # top face to top of the upper mouth (depth + 2)
+NSAS_TOP_SKIN = NSAS_DEPTH + 2  # top face to top of the upper mouth
 NSAS_ROW_PITCH = 15 + 2.5 * math.sqrt(2)  # 18.536
-# Rows NSAS_ROW_STEP pitches apart from the top down. Every second row
-# fits both current panels (sockets on every row) and older plates
-# (sockets every second row).
-NSAS_ROWS = 4
-NSAS_ROW_STEP = 2
+# Rows NSAS_ROW_STEP pitches apart from the top down. Rows 1, 3, 5, 7
+# (every second row) fit both current panels (sockets on every row) and
+# older plates (sockets every second row); rows 2, 4, 6 are extra, kept
+# for the test print and may be dropped (NSAS_ROWS = 4, NSAS_ROW_STEP = 2).
+NSAS_ROWS = 7
+NSAS_ROW_STEP = 1
 # Printed profile-down (Z = 0 on the bed), each hole's +Z face is a 5 mm
 # bridge. A gable over it, NSAS_ROOF_ANGLE from flat on both sides, gives
 # room for an ABS bridge that sags. It sits on a face against a flat side
 # of the key, which has 0.2 mm clearance, so the press fit is unchanged.
 NSAS_ROOF_ANGLE = 30.0
 NSAS_COL_PITCH = 10.0
+
+# Windows through the back plate into the main pocket, in the band
+# between the two hole columns. Printed profile-down, Z is up: each
+# window has a flat bottom (low Z), straight sides and a 45 deg pointed
+# top, so it needs no bridge. Spread along Y, at least WINDOW_RIB apart.
+WINDOW_W = 12.0  # along Y
+WINDOW_RIB = 6.0  # minimum back-plate rib between windows
+# Each window column is split along Z into WINDOW_SETS windows with a
+# WINDOW_RIB band between them: bands in XY planes that stiffen the
+# walls in the profile plane. (A web across the pocket would do more,
+# but printed profile-down it would be a floor over open air.)
+WINDOW_SETS = 2
+# Same windows through the leaning wall (the face the box rests on) into
+# the main pocket, square to the wall, spread up the wall between the
+# ledge and the wedge. FRONT_WINDOW_MARGIN of solid wall is left at each
+# end (Z = 0 and Z = EXTRUDE).
+FRONT_WINDOW_MARGIN = 8.0
 NSAS_COL_STEPS = 2  # columns this many pitches either side of centre
 
 
@@ -230,6 +248,88 @@ def _nsas_holes():
     return holes
 
 
+def _window_set(a, b, z0, z1):
+    """WINDOW_SETS windows from a to b across, stacked from z0 to z1
+    along Z with WINDOW_RIB between: flat bottom, 45 deg pointed top."""
+    w = b - a
+    h = (z1 - z0 - (WINDOW_SETS - 1) * WINDOW_RIB) / WINDOW_SETS
+    assert h > w / 2 + 3, "window too short for its pointed top"
+    out = []
+    for k in range(WINDOW_SETS):
+        lo = z0 + k * (h + WINDOW_RIB)
+        hi = lo + h
+        out.append([(a, lo), (b, lo), (b, hi - w / 2), ((a + b) / 2, hi), (a, hi - w / 2)])
+    return out
+
+
+def window_outlines():
+    """Window outlines as (Y, Z) points on the back face."""
+    h = NSAS_HOLE / 2
+    rise = h * math.tan(math.radians(NSAS_ROOF_ANGLE))
+    zs = sorted({z for _, z in nsas_hole_centres()})
+    z0 = zs[0] + h + rise + SHELL  # above the lower column's gable
+    z1 = zs[1] - h - SHELL  # below the upper column's flat side
+    # Y span where the main pocket is behind the back plate, clear of its
+    # corner fillets and of the slanted top where it narrows.
+    pk = pocket_points()
+    y_lo, y_hi = pk[1][1] + SHELL / 2, pk[2][1] - SHELL
+    n = int((y_hi - y_lo + WINDOW_RIB) // (WINDOW_W + WINDOW_RIB))
+    pitch = (y_hi - y_lo - WINDOW_W) / (n - 1)
+    out = []
+    for i in range(n):
+        y = y_lo + WINDOW_W / 2 + i * pitch
+        out += _window_set(y - WINDOW_W / 2, y + WINDOW_W / 2, z0, z1)
+    return out
+
+
+def _windows():
+    x0 = RIGHT_X - BACK_T - 0.5  # into the pocket
+    plane = bd.Plane.YZ.offset(x0)
+    return [
+        bd.extrude(plane * bd.Polygon(*pts, align=None), BACK_T + 1.0)
+        for pts in window_outlines()
+    ]
+
+
+def _wall_plane():
+    """Plane on the leaning wall face: origin at its foot, local x up the
+    wall, local y = +Z, normal into the body."""
+    a = math.radians(WALL_ANGLE)
+    return bd.Plane(
+        origin=(WALL_X0, 0, 0),
+        x_dir=(math.sin(a), math.cos(a), 0),
+        z_dir=(math.cos(a), -math.sin(a), 0),
+    )
+
+
+def front_window_outlines():
+    """Window outlines as (s, Z) on the wall face, s measured up the wall
+    from its foot."""
+    a = math.radians(WALL_ANGLE)
+    # Up the wall: clear of the base notch below, and below the wedge tip
+    # and the pocket's kink above, SHELL from each.
+    wedge_tip = notch_polygons()[2][0][1]
+    y_kink = pocket_points()[3][1]
+    s_lo = SHELL / math.cos(a)
+    s_hi = (min(wedge_tip, y_kink) - SHELL) / math.cos(a)
+    n = int((s_hi - s_lo + WINDOW_RIB) // (WINDOW_W + WINDOW_RIB))
+    pitch = (s_hi - s_lo - WINDOW_W) / (n - 1)
+    z0, z1 = FRONT_WINDOW_MARGIN, EXTRUDE - FRONT_WINDOW_MARGIN
+    out = []
+    for i in range(n):
+        s = s_lo + WINDOW_W / 2 + i * pitch
+        out += _window_set(s - WINDOW_W / 2, s + WINDOW_W / 2, z0, z1)
+    return out
+
+
+def _front_windows():
+    plane = _wall_plane().offset(-1.0)  # start outside the face
+    return [
+        bd.extrude(plane * bd.Polygon(*pts, align=None), SHELL + 2.0)
+        for pts in front_window_outlines()
+    ]
+
+
 def _z_edges_near(body, points, tol=0.05):
     """Edges parallel to Z whose XY passes through any of `points`."""
     found = []
@@ -262,6 +362,8 @@ def slot_in_holder_shape():
     body = body.fillet(LEDGE_R, _z_edges_near(body, [profile_points()[-1]]))
     for hole in _nsas_holes():
         body = body - hole
+    for window in _windows() + _front_windows():
+        body = body - window
     return body.clean()
 
 
