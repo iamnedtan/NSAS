@@ -94,6 +94,11 @@ STOP_W = 4.6
 STOP_HALF = 6.0
 STOP_CLEAR = 0.5  # recess outline clearance, each side
 OFFSET_R = 1.0  # inner corner under the overhang
+SLEEVE = 2.0  # wall kept round each hole tunnel by the offset pockets
+RECESS_SKIN = 2.0  # wall kept behind the stop recesses by the offset pockets
+POCKET_MIN_AREA = 60.0  # smaller offset pocket slivers are left solid
+WINDOW_MARGIN = 2.0  # offset windows: in from the pocket edges
+WINDOW_IN = 1.0  # offset windows: past the wall into the pocket
 HOLE_EXIT = 0.5  # through holes end this far past the break-out
 
 # NSAS accessory holes in the back face (X = RIGHT_X, against the panel).
@@ -195,8 +200,9 @@ def notch_polygons():
     return [base, strip, wedge]
 
 
-def pocket_points():
-    """Lightening pocket behind the wall and wedge, SHELL from both."""
+def pocket_points(x_back=None):
+    """Lightening pocket behind the wall and wedge, SHELL from both, back
+    to x_back (default: the BACK_T back plate)."""
     t5 = math.tan(math.radians(WALL_ANGLE))
     a15 = math.radians(WALL_ANGLE + WEDGE_ANGLE)
     t15 = math.tan(a15)
@@ -210,7 +216,8 @@ def pocket_points():
         return x0w + y * t5
 
     y_kink = (x0w - x0e) / (t15 - t5)  # the two offset lines cross
-    x_back = RIGHT_X - BACK_T
+    if x_back is None:
+        x_back = RIGHT_X - BACK_T
     y_top = (x_back - x0e) / t15  # wedge offset meets the back plate
     y_bot = -BASE_H + FLOOR_T
     assert y_bot < y_kink < y_top < SLOT_TOP
@@ -220,6 +227,25 @@ def pocket_points():
         (x_back, y_top),
         (front_wall(y_kink), y_kink),
     ]
+
+
+def offset_pocket_regions():
+    """Offset variant: the main pocket, back to KEY_STOP + RECESS_SKIN
+    behind the offset face (clear of the stop recesses), less a SLEEVE band
+    round each hole row's 45 deg tunnel, so the key legs keep full hole
+    walls. Returns the remaining regions as faces."""
+    pocket = bd.Polygon(
+        *pocket_points(base_face_x() - KEY_STOP - RECESS_SKIN), align=None
+    )
+    w = (NSAS_HOLE / 2 + SLEEVE) * math.sqrt(2)  # band half-width in x + y
+    for y in sorted({y for y, _ in nsas_hole_centres()}):
+        c = RIGHT_X + y  # hole axis: x + y = c
+        band = bd.Polygon(
+            (-50, c - w + 50), (100, c - w - 100),
+            (100, c + w - 100), (-50, c + w + 50), align=None,
+        )
+        pocket = pocket - band
+    return [f for f in pocket.faces() if f.area >= POCKET_MIN_AREA]
 
 
 def upper_pocket_points():
@@ -307,14 +333,16 @@ def _nsas_holes(through=False):
     return holes
 
 
-def _window_set(a, b, z0, z1):
-    """WINDOW_SETS windows from a to b across, stacked from z0 to z1
-    along Z with WINDOW_RIB between: flat bottom, 45 deg pointed top."""
+def _window_set(a, b, z0, z1, sets=None):
+    """`sets` (default WINDOW_SETS) windows from a to b across, stacked
+    from z0 to z1 along Z with WINDOW_RIB between: flat bottom, 45 deg
+    pointed top."""
+    sets = WINDOW_SETS if sets is None else sets
     w = b - a
-    h = (z1 - z0 - (WINDOW_SETS - 1) * WINDOW_RIB) / WINDOW_SETS
+    h = (z1 - z0 - (sets - 1) * WINDOW_RIB) / sets
     assert h > w / 2 + 3, "window too short for its pointed top"
     out = []
-    for k in range(WINDOW_SETS):
+    for k in range(sets):
         lo = z0 + k * (h + WINDOW_RIB)
         hi = lo + h
         out.append([(a, lo), (b, lo), (b, hi - w / 2), ((a + b) / 2, hi), (a, hi - w / 2)])
@@ -409,7 +437,9 @@ def base_face_x():
 def _stop_recesses():
     """Offset variant: a KEY_STOP deep pocket in the offset face round
     each hole mouth, the stop plate's shape plus STOP_CLEAR: in the
-    profile a parallelogram along the hole axis, 2 x STOP_HALF tall."""
+    profile a parallelogram along the hole axis, 2 x STOP_HALF tall.
+    Printed profile-down its roof (+Z) would be a flat 3 mm overhang, so
+    it slopes up at 45 deg from the recess floor to the face instead."""
     x0 = base_face_x()
     x1 = x0 - KEY_STOP  # recess floor
     hz = STOP_W / 2 + STOP_CLEAR
@@ -427,8 +457,87 @@ def _stop_recesses():
             (xo, axis(xo) + hy),
             (x1, axis(x1) + hy),
         ]
+        top = z + hz + (xo - x1)  # roof height at xo
         face = bd.Polygon(*pts, align=None).moved(bd.Location((0, 0, z - hz)))
-        out.append(bd.extrude(face, 2 * hz, dir=(0, 0, 1)))
+        recess = bd.extrude(face, top - (z - hz), dir=(0, 0, 1))
+        # Cut off everything above the roof plane z = z + hz + (x - x1).
+        roof = bd.Polygon(
+            (x1 - 10, z + hz - 10), (xo + 10, top + 10),
+            (xo + 10, top + 50), (x1 - 10, top + 50), align=None,
+        )
+        above = bd.extrude(
+            bd.Plane.XZ * roof, 100, both=True
+        ).moved(bd.Location((0, axis(x1), 0)))
+        out.append(recess - above)
+    return out
+
+
+def _span_windows(spans, z0, z1):
+    """Pointed-top windows along each (lo, hi) span, WINDOW_W wide and
+    WINDOW_RIB apart, or one narrower window in a short span."""
+    out = []
+    for lo, hi in spans:
+        length = hi - lo
+        if length < 5.0:
+            continue
+        n = max(1, int((length + WINDOW_RIB) // (WINDOW_W + WINDOW_RIB)))
+        w = min(WINDOW_W, length)
+        pitch = (length - w) / (n - 1) if n > 1 else 0
+        for i in range(n):
+            a = lo + i * pitch if n > 1 else lo + (length - w) / 2
+            out += _window_set(a, a + w, z0, z1, sets=1)
+    return out
+
+
+def _offset_window_band():
+    """Z band between the hole columns, SHELL clear of the stop recesses
+    (with their sloped roofs) and the hole gables."""
+    zs = sorted({z for _, z in nsas_hole_centres()})
+    hz = STOP_W / 2 + STOP_CLEAR
+    return zs[0] + hz + KEY_STOP + SHELL, zs[1] - hz - SHELL
+
+
+def offset_window_spans():
+    """Y spans of the offset pockets on the offset face side (at the
+    pocket back, X = xb) and on the leaning wall side, WINDOW_MARGIN in from
+    the pocket edges; the windows run WINDOW_IN past the pocket wall."""
+    t5 = math.tan(math.radians(WALL_ANGLE))
+    w = (NSAS_HOLE / 2 + SLEEVE) * math.sqrt(2)
+    c_lo, c_hi = sorted(RIGHT_X + y for y in {y for y, _ in nsas_hole_centres()})
+    m, d = WINDOW_MARGIN, WINDOW_IN
+    pk = pocket_points(base_face_x() - KEY_STOP - RECESS_SKIN)
+    xb, y_bot, y_top, y_kink = pk[1][0], pk[0][1], pk[2][1], pk[3][1]
+    back = [
+        (y_bot + m, c_lo - w - xb - m),
+        (c_lo + w - (xb - d) + m, min(c_hi - w - xb, y_top) - m),
+    ]
+    x0w = WALL_X0 + SHELL / math.cos(math.radians(WALL_ANGLE))  # pocket front
+    k = 1 + t5
+    front = [
+        (y_bot + m, (c_lo - w - x0w - d - m) / k),
+        ((c_lo + w + SHELL - x0w + m) / k, min((c_hi - w - x0w - d - m) / k, y_kink - m)),
+    ]
+    return back, front
+
+
+def _offset_windows():
+    z0, z1 = _offset_window_band()
+    back, front = offset_window_spans()
+    xb = base_face_x() - KEY_STOP - RECESS_SKIN
+    plane = bd.Plane.YZ.offset(xb - WINDOW_IN)
+    depth = base_face_x() + 1.0 - (xb - WINDOW_IN)
+    out = [
+        bd.extrude(plane * bd.Polygon(*pts, align=None), depth)
+        for pts in _span_windows(back, z0, z1)
+    ]
+    # Front: on the wall plane, s up the wall = y / cos(WALL_ANGLE).
+    c = math.cos(math.radians(WALL_ANGLE))
+    s_spans = [(lo / c, hi / c) for lo, hi in front]
+    wall = _wall_plane().offset(-1.0)
+    out += [
+        bd.extrude(wall * bd.Polygon(*pts, align=None), 1.0 + SHELL + WINDOW_IN)
+        for pts in _span_windows(s_spans, z0, z1)
+    ]
     return out
 
 
@@ -454,14 +563,14 @@ def offset_points():
 # Variants:
 #   flat    mounts straight on an NSAS panel: main pocket, windows into it.
 #   offset  to mount over a NABS base piece (work in progress): the main
-#           pocket is filled solid, so there are no windows into it; the
+#           pocket is split round the hole tunnels, with windows into it; the
 #           NSAS holes run on through the wall into the slot; an
 #           OFFSET_W rectangle is cut from the back, from the bottom up
 #           to offset_top(), so the overhang above sits just over the base;
 #           the key stops sit in recesses, so the holder is flush on the base.
 VARIANTS = {
     "flat": dict(main_pocket=True, offset=False),
-    "offset": dict(main_pocket=False, offset=True),
+    "offset": dict(main_pocket=False, offset=True),  # own pockets
 }
 
 
@@ -472,11 +581,15 @@ def slot_in_holder_shape(variant="flat"):
     pockets = [upper_pocket_points()]
     if opts["main_pocket"]:
         pockets.insert(0, pocket_points())
+    elif opts["offset"]:
+        pockets = offset_pocket_regions() + pockets
     cuts = [base, strip, wedge] + pockets
     if opts["offset"]:
         cuts.append(offset_points())
-    for pts in cuts:
-        face = face - bd.Polygon(*pts, align=None)
+    for cut in cuts:
+        if not isinstance(cut, bd.Face):
+            cut = bd.Polygon(*cut, align=None)
+        face = face - cut
     body = bd.extrude(face, EXTRUDE).clean()
     if opts["offset"]:
         # Inner corner where the offset meets the overhang above it.
@@ -487,6 +600,8 @@ def slot_in_holder_shape(variant="flat"):
     # corner of the slot: no fillet, it would block the end chamfer.)
     body = body.fillet(NOTCH_R, _z_edges_near(body, base[:2]))
     for pts in pockets:
+        if isinstance(pts, bd.Face):
+            pts = [(v.X, v.Y) for v in pts.vertices()]
         body = body.fillet(POCKET_R, _z_edges_near(body, pts))
     # Lip root: lip inner face meets the strip roof.
     body = body.fillet(LIP_ROOT_R, _z_edges_near(body, strip[3:]))
@@ -500,8 +615,8 @@ def slot_in_holder_shape(variant="flat"):
     for hole in _nsas_holes(through=opts["offset"]):
         body = body - hole
     if opts["offset"]:
-        for recess in _stop_recesses():
-            body = body - recess
+        for cut in _stop_recesses() + _offset_windows():
+            body = body - cut
     if opts["main_pocket"]:
         for window in _windows() + _front_windows():
             body = body - window
