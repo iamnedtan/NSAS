@@ -100,6 +100,7 @@ RECESS_SKIN = 2.0  # wall kept behind the stop recesses by the offset pockets
 POCKET_MIN_AREA = 60.0  # smaller offset pocket slivers are left solid
 WINDOW_MARGIN = 2.0  # offset windows: in from the pocket edges
 WINDOW_IN = 1.0  # offset windows: past the wall into the pocket
+CORE_ROOF = 3.0  # offset core: 45 deg roof taper before the flat top
 HOLE_EXIT = 0.5  # through holes end this far past the break-out
 
 # NSAS accessory holes in the back face (X = RIGHT_X, against the panel).
@@ -521,6 +522,24 @@ def offset_window_spans():
     return back, front
 
 
+def _offset_core():
+    """Offset variant: core out the band between the hole columns (no
+    holes or recesses there) from SHELL behind the leaning wall and wedge
+    to RECESS_SKIN under the offset face. Printed profile-down, Z is up:
+    flat floor, and the roof tapers in at 45 deg for CORE_ROOF before the
+    flat top, so the bridge left is short."""
+    z0, z1 = _offset_window_band()
+    face = bd.Polygon(
+        *pocket_points(base_face_x() - RECESS_SKIN), align=None
+    )
+    up = (0, 0, 1)
+    body = bd.extrude(face.moved(bd.Location((0, 0, z0))), z1 - z0 - CORE_ROOF, dir=up)
+    roof = bd.extrude(
+        face.moved(bd.Location((0, 0, z1 - CORE_ROOF))), CORE_ROOF, dir=up, taper=45
+    )
+    return body + roof
+
+
 def _offset_windows():
     z0, z1 = _offset_window_band()
     back, front = offset_window_spans()
@@ -617,7 +636,8 @@ def slot_in_holder_shape(variant="flat"):
     for hole in _nsas_holes(through=opts["offset"]):
         body = body - hole
     if opts["offset"]:
-        for cut in _stop_recesses(base_face_x(), KEY_STOP) + _offset_windows():
+        cuts3d = _stop_recesses(base_face_x(), KEY_STOP) + _offset_windows()
+        for cut in cuts3d + [_offset_core()]:
             body = body - cut
     else:
         for cut in _stop_recesses(RIGHT_X, FLAT_KEY_STOP):
